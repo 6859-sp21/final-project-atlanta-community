@@ -118,7 +118,7 @@ d3.csv("./data/filtered_data.csv", function(data) {
 
   var mousemove = function(d) {
     tooltip
-      .html("The <b>" + d.name + "</b> community described as " + d.top_words)
+      .html("The <b>" + d.name + "</b> community described with the following topic words: " + d.topic_words)
       .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
       .style("top", (d3.mouse(this)[1]) + "px")
   }
@@ -138,8 +138,8 @@ d3.csv("./data/filtered_data.csv", function(data) {
     .data(data.filter(function(d,i){return i<500})) // the .filter part is just to keep a few dots on the chart, not all of them
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return x(d.count); } )
-      .attr("cy", function (d) { return y(d.negs_shift); } )
+      .attr("cx", function (d) { return x(d.community_size); } )
+      .attr("cy", function (d) { return y(d.lexical_change); } )
       .attr("r", 7)
       .style("fill", "#69b3a2")
       .style("opacity", 0.3)
