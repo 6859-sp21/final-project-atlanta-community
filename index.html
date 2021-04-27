@@ -11,8 +11,8 @@
 </head>
 
 <body>
-<h1>Exploring patterns of language variation: A case study in Atlanta online communities</h1>
-
+<h2>Exploring patterns of language variation on social media: A case study in Atlanta online communities</h2>
+<h3>Investigate how language variaion relates to social factors</h3>
 
 <div class="grid-container">
 
@@ -59,7 +59,7 @@ var svg = d3.select("#scatterplot")
           "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("./data/cluster_info_random_sample0_significance.csv", function(data) {
+d3.csv("./data/filtered_data.csv", function(data) {
 
     // List of groups (here I have one group per column)
     var social_factors = ["community_size", "female_gender_ratio", "language_shift",]
@@ -98,7 +98,7 @@ d3.csv("./data/cluster_info_random_sample0_significance.csv", function(data) {
 
   // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
   // Its opacity is set to 0: we don't see it by default.
-  var tooltip = d3.select("#my_dataviz")
+  var tooltip = d3.select("#scatterplot")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
@@ -135,7 +135,7 @@ d3.csv("./data/cluster_info_random_sample0_significance.csv", function(data) {
   svg.append('g')
     .selectAll("dot")
     // .data()
-    .data(data.filter(function(d,i){return i<50})) // the .filter part is just to keep a few dots on the chart, not all of them
+    .data(data.filter(function(d,i){return i<500})) // the .filter part is just to keep a few dots on the chart, not all of them
     .enter()
     .append("circle")
       .attr("cx", function (d) { return x(d.count); } )
