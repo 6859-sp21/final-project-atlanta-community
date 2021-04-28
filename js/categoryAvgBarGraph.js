@@ -12,9 +12,9 @@ var x2 = d3.scaleBand()
 var y = d3.scaleLinear() 
     .range([height,0]); 
 
-var xAxis = d3.axisBottom(xRange);
+var xAxis = d3.axisBottom();
 
-var yAxis = d3.axisLeft(yRange);
+var yAxis = d3.axisLeft();
 
 var color = d3.scale.category10();
 
