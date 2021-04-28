@@ -26,5 +26,5 @@ function updateS(type) { // type is for different trigger scenarios
 
 }
 
-updateS("init");
 updateScatterPlot("community_size", "lexical_change");
+// updateS("init");
