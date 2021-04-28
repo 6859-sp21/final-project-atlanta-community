@@ -3,7 +3,7 @@ var margin = {top: 10, right: 10, bottom: 100, left: 60};
 var width = 800 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
-var x = d3.scale.ordinal()
+var x = d3.scaleOrdinal()
     .rangeRoundBands([0,width],1);
 
 var x2 = d3.scale.ordinal()
