@@ -16,7 +16,7 @@ var xAxis = d3.axisBottom();
 
 var yAxis = d3.axisLeft();
 
-var color = d3.schemeCategory10();
+var color = d3.schemeCategory10;
 
 var tooltip = d3.select("body").append("div")   
         .attr("class", "tooltip")               
