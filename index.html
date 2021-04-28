@@ -4,6 +4,7 @@
 <head>
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
  <!--styles-->
  <link rel="stylesheet" href="css/styles.css"> </head>
@@ -19,8 +20,23 @@
     <div class="grid-child">
       <!-- <div class="green">Float Column 1</div> -->
       <!-- Initialize a select button -->
-      <select id="selectButton"></select>
-      <select id="selectButton2"></select>
+      <div>
+        <label for="factors">Choose two factors:</label>
+        <select id="selectButton" class="selectorsC"></select>
+        <select id="selectButton2" class="selectorsC"></select>
+      </div>
+
+      <div>
+        <label for="categories">Choose a category:</label>
+        <select id="selectButton3" class="selectorsC">
+            <option value="sports">sports</option>
+            <option value="politics">politics</option>
+            <option value="education">education</option>
+            <option value="atlanta_city">atlanta_city</option>
+            <option value="entertainment">entertainment</option>
+        </select>
+      </div>
+
       <!-- Create a div where the graph will take place -->
       <div id="scatterplot"></div>
       </div>
@@ -28,19 +44,18 @@
     <div class="grid-child">
       <!-- <div class="blue">Float Column 2</div> -->
         <div id="tweets">
-        <label for="cars">Choose a Twitter account:</label>
-        <select name="cars" id="cars">
-            <option value="volvo">POTUS</option>
-            <option value="saab">rihanna</option>
-            <option value="mercedes">TheEllenShow</option>
-            <option value="audi">AtlantaFalcons</option>
+        <label for="twitterhandles">Choose a Twitter account:</label>
+        <select name="twitterhandles" id="twitterhandle">
+            <option value="POTUS">POTUS</option>
+            <option value="rihanna">rihanna</option>
+            <option value="TheEllenShow">TheEllenShow</option>
+            <option value="AtlantaFalcons">AtlantaFalcons</option>
           </select>
         <a class="twitter-timeline" href="https://twitter.com/POTUS?ref_src=twsrc%5Etfw">Tweets by POTUS</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
     </div>
     
   </div>
-
 
 
 <script src="./js/scatterplot.js"></script>
