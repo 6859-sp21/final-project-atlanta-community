@@ -26,9 +26,8 @@ var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")               
         .style("opacity", 0);
 
-d3.csv("category_avg.csv", ready);
-
-function ready(error, data) {
+//d3.csv("category_avg.csv", ready);
+d3.csv("./data/category_avg.csv", function(error, data) {
     if (error) throw error;
 
     data.forEach(function(d) {
