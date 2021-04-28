@@ -22,7 +22,7 @@ var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")               
         .style("opacity", 0);
 
-function showBarGraph(){
+function showBarGraph(fakeParam){
     console.log("hhiiiiii");
     //d3.csv("category_avg.csv", ready);
     d3.csv("./data/category_avg.csv", function(error, data) {
