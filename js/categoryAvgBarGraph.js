@@ -114,5 +114,5 @@ function showBarGraph(){
             .html("Average = $" + average);
 
 
-    }
+    })
 };
