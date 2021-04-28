@@ -16,9 +16,17 @@ function updateS(type) { // type is for different trigger scenarios
     // get current comparison set and year value
     let partA = $('#selectButton').find(":selected").text(),
         partB = $('#selectButton2').find(":selected").text()
-    console.log(partA);
-    console.log(partB);
-    
+    console.log("partA", partA);
+    console.log("partB", partB);
+
+    if ((partA.length > 0) && (partA !== partB)) { 
+        updateScatterPlot(partA, partB);
+    } else {
+        document.getElementById("warning").innerHTML = "[Please make sure that you are comparing different factors!]";
+    }
+
+    console.log("data: " + partA + "-" + partB);
+
     // // check if "All year" is on, if not grab current slider year
     // if (allyearvalue == "false") {
     //     year = $('#yearRange').val();

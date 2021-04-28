@@ -3,27 +3,37 @@ var margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 800 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
-var svg = d3.select("#scatterplot")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
 
 function updateScatterPlot(factor1, factor2) {
+
+    // remove 
+    if (d3.select('#scatterplot').size() > 0) {
+        d3.select('#scatterplot').selectAll('svg').remove();
+        d3.select('#scatterplot').selectAll('myOptions').remove();
+        d3.select('#scatterplot').selectAll('div').remove();
+    }
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#scatterplot")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
 
     //Read the data
     d3.csv("./data/filtered_data.csv", function(data) {
 
+        console.log("data max", d3.max(data, (d) => parseFloat(d['community_size'])))
+
         // List of groups (here I have one group per column)
-        var social_factors = ['community_size', 'name', 'lexical_change', 'ideology_lexical_change', 
+        var social_factors = ['community_size', 'lexical_change', 'ideology_lexical_change', 
                                 'male_ratio',
                                 'friends_count_mean', 'friends_count_median',
                                 'follower_count_mean', 'follower_count_median',
-                                'tweet_count_mean', 'tweet_count_median', 'tweet_count_rank',
-                                'topic_words', 'top_follows']
+                                'tweet_count_mean', 'tweet_count_median', 'tweet_count_rank']
 
         // add the options to the button
         d3.select("#selectButton")
@@ -46,7 +56,7 @@ function updateScatterPlot(factor1, factor2) {
 
     // Add X axis
     var x = d3.scaleLinear()
-        .domain([0, 4000])
+        .domain([0, d3.max(data, (d) => parseFloat(d[factor1]))])
         .range([ 0, width ]);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -54,7 +64,7 @@ function updateScatterPlot(factor1, factor2) {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([0, 0.2])
+        .domain([0, d3.max(data, (d) => parseFloat(d[factor2]))])
         .range([ height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -98,7 +108,7 @@ function updateScatterPlot(factor1, factor2) {
     svg.append('g')
         .selectAll("dot")
         // .data()
-        .data(data.filter(function(d,i){return i<500})) // the .filter part is just to keep a few dots on the chart, not all of them
+        .data(data.filter(function(d,i){return i<1500})) // the .filter part is just to keep a few dots on the chart, not all of them
         .enter()
         .append("circle")
         .attr("cx", function (d) { return x(d[factor1]); } )
@@ -115,4 +125,4 @@ function updateScatterPlot(factor1, factor2) {
 
 };
 
-updateScatterPlot("community_size", "lexical_change");
+// updateScatterPlot("community_size", "lexical_change");
