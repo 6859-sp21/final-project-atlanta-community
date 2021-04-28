@@ -9,8 +9,9 @@ function updateScatterPlot(factor1, factor2) {
     // remove 
     if (d3.select('#scatterplot').size() > 0) {
         d3.select('#scatterplot').selectAll('svg').remove();
-        d3.select('#scatterplot').selectAll('myOptions').remove();
         d3.select('#scatterplot').selectAll('div').remove();
+        d3.select('#selectButton').selectAll('option').remove();
+        d3.select('#selectButton2').selectAll('option').remove();
     }
 
     // append the svg object to the body of the page
@@ -107,7 +108,6 @@ function updateScatterPlot(factor1, factor2) {
     // Add dots
     svg.append('g')
         .selectAll("dot")
-        // .data()
         .data(data.filter(function(d,i){return i<1500})) // the .filter part is just to keep a few dots on the chart, not all of them
         .enter()
         .append("circle")
