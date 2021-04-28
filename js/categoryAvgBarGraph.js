@@ -3,22 +3,18 @@ var margin = {top: 10, right: 10, bottom: 100, left: 60};
 var width = 800 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
-var x = d3.scaleOrdinal()
-    .rangeRoundBands([0,width],1);
+var x = d3.scaleBand()
+    .rangeRound([0,width],1);
 
-var x2 = d3.scale.ordinal()
-    .rangeRoundBands([0,width],0);
+var x2 = d3.scaleBand()
+    .rangeRound([0,width],0);
 
-var y = d3.scale.linear() 
+var y = d3.scaleLinear() 
     .range([height,0]); 
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+var xAxis = d3.axisBottom(xRange);
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+var yAxis = d3.axisLeft(yRange);
 
 var color = d3.scale.category10();
 
