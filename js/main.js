@@ -19,11 +19,12 @@ function updateS(type) { // type is for different trigger scenarios
     console.log("partA", partA);
     console.log("partB", partB);
 
-    if ((partA.length > 0) && (partA !== partB)) { 
-        updateScatterPlot(partA, partB);
-    } else {
-        document.getElementById("warning").innerHTML = "[Please make sure that you are comparing different factors!]";
-    }
+    // if ((partA.length > 0) && (partA !== partB)) { 
+        
+    // } else {
+    //     document.getElementById("warning").innerHTML = "[Please make sure that you are comparing different factors!]";
+    // }
+    updateScatterPlot(partA, partB);
 
     console.log("data: " + partA + "-" + partB);
 
