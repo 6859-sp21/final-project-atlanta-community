@@ -102,7 +102,7 @@ function draw_tree() {
 
 
     //d3.csv("category_avg.csv", ready);
-    d3.csv("https://raw.githubusercontent.com/CakeMoon/6.859/main/category_avg.csv").then((data) => {
+    d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/category_avg.csv").then((data) => {
 
         data.forEach(function(d) {
             d.alc = +d.avg_lex_change;
@@ -201,7 +201,7 @@ function draw_bar() {
     
     
         //Read the data
-        d3.csv("https://raw.githubusercontent.com/CakeMoon/6.859/main/filtered_data.csv").then((data) => {
+        d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data.csv").then((data) => {
     
             console.log("data max", d3.max(data, (d) => parseFloat(d['community_size'])))
     
