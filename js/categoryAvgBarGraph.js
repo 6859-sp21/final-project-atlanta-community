@@ -1,10 +1,11 @@
-var margin = {top: 10, right: 10, bottom: 100, left: 60};
+var margin = {top: 20, right: 20, bottom: 70, left: 40};
 
-var width = 800 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+var width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 var x = d3.scaleBand()
-    .rangeRound([0,width],1);
+    .padding(0.85)
+    .rangeRound([0,width]);
 
 var x2 = d3.scaleBand()
     .rangeRound([0,width],0);
@@ -12,15 +13,21 @@ var x2 = d3.scaleBand()
 var y = d3.scaleLinear() 
     .range([height,0]); 
 
-var xAxis = d3.axisBottom();
-
-var yAxis = d3.axisLeft();
+//var xAxis = d3.axisBottom();
+//
+//var yAxis = d3.axisLeft();
 
 var color = d3.schemeCategory10;
 
-var tooltip = d3.select("body").append("div")   
+var tooltip = d3.select("#categoryAvgBarGraph").append("div")   
         .attr("class", "tooltip")               
         .style("opacity", 0);
+
+var svg = d3.select("#categoryAvgBarGraph").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 function showBarGraph(fakeParam){
     console.log("hhiiiiii");
@@ -34,30 +41,26 @@ function showBarGraph(fakeParam){
 
         console.log("data", data);
       
-        var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
     
         x.domain(data.map(function(d) { return d.category; }));
-        y.domain([0, d3.max(data, function(d) { return d.alc; })]);
-        x2.domain(data.map(function(d) { return d.category; }));
+        y.domain([0, 0.05 + d3.max(data, function(d) { return d.alc; })]);
+        //x2.domain(data.map(function(d) { return d.category; }));
 
         svg.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + height + ")")
-            .call(xAxis)
+            .call(d3.axisBottom(x))
             .selectAll("text")
-            .attr("y", 0)
+            .attr("y", 23)
             .attr("x", 9)
-            .attr("dy", "-0.2em")
+            .attr("dy", "-2em")
             .attr("transform", "rotate(90)")
             .style("text-anchor", "start");
 
         svg.append("g")
             .attr("class", "axis axis--y")
-            .call(yAxis)
+            .call(d3.axisLeft(y))
             .append("text")
             //.attr("transform", "rotate(-90)")
             .attr("y", 6)
@@ -94,7 +97,7 @@ function showBarGraph(fakeParam){
         var average = sum/data.length;
 
         var line = d3.svg.line()
-            .x(function(d, i) { return x2(d.category) + i; })
+            .x(function(d, i) { return x(d.category) + i; })
             .y(function(d, i) { return y(average); }); 
 
         svg.append("path")
