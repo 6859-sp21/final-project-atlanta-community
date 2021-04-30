@@ -249,16 +249,34 @@
         </section>
 
         <section class="step">
-            <div id="tweets">
-                <label for="twitterhandles">Choose a Twitter account:</label>
-                <select name="twitterhandles" id="twitterhandle">
-                    <option value="POTUS">POTUS</option>
-                    <option value="rihanna">rihanna</option>
-                    <option value="TheEllenShow">TheEllenShow</option>
-                    <option value="AtlantaFalcons">AtlantaFalcons</option>
-                  </select>
-                <a class="twitter-timeline" href="https://twitter.com/POTUS?ref_src=twsrc%5Etfw">Tweets by POTUS</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </div>
+           <div id="tweets">
+        <label for="twitterhandles">Choose a Twitter account:</label>
+        <select name="twitterhandles" class="twitter-timeline" id="twitterhandles" onchange="updateTwitterShown()">
+            <option value="POTUS">POTUS</option>
+            <option value="rihanna">rihanna</option>
+            <option value="TheEllenShow">TheEllenShow</option>
+            <option value="AtlantaFalcons">AtlantaFalcons</option>
+          </select>
+        
+          <div id="rhianna_twitter">
+            <a class="twitter-timeline"
+              id="twitter_shown_rhianna" href="https://twitter.com/rihanna">Tweets by Rhianna</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <div id="potus_twitter">
+            <a class="twitter-timeline"
+            id="twitter_shown_potus" href="https://twitter.com/POTUS?ref_src=twsrc%5Etfw">Tweets by POTUS</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <div id="ellen_twitter">
+            <a class="twitter-timeline"
+              id="twitter_shown_ellen" href="https://twitter.com/TheEllenShow">Tweets by Ellen DeGeneres</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <div id="atlantafalcons_twitter">
+            <a class="twitter-timeline"
+              id="twitter_shown_atlantafalcons" href="https://twitter.com/AtlantaFalcons">Tweets by Ellen DeGeneres</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          
+        </div>
+
         </section>
     </div>
     <div id="vis">
