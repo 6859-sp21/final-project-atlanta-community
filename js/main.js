@@ -25,12 +25,12 @@ function updateS(type) { // type is for different trigger scenarios
     console.log("data: " + partA + "-" + partB);
 
 }
-
-updateScatterPlot("community_size", "lexical_change");
-showBarGraph();
 document.getElementById("potus_twitter").hidden = false;
 document.getElementById("rhianna_twitter").hidden = true;
 document.getElementById("ellen_twitter").hidden = true;
 document.getElementById("atlantafalcons_twitter").hidden = true;
+updateScatterPlot("community_size", "lexical_change");
+showBarGraph();
+
 console.log("done");
 // updateS("init");
