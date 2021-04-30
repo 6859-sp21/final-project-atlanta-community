@@ -26,7 +26,7 @@ function updateS(type) { // type is for different trigger scenarios
 
 }
 
-updateScatterPlot("community_size", "lexical_change");
+//updateScatterPlot("community_size", "lexical_change");
 showBarGraph();
 document.getElementById("potus_twitter").hidden = false;
 document.getElementById("rhianna_twitter").hidden = true;
