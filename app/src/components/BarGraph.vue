@@ -106,7 +106,7 @@ export default {
           .on("click", function(event, d) {
             console.log(event);
             const data = that.clusters.filter(e => e.category == d.category)
-            that.showCheckbox(data)
+            that.showCheckbox({"category" : d.category, "options" : data})
             console.log(data);
           })
           .on("mouseover", function(event, d) {

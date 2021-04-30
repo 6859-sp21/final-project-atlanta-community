@@ -1,8 +1,8 @@
 <template>
     <div id="checkbox">
-      <h3>
-      
-      </h3>
+      <h5>
+        Clusters in Category {{ category.toUpperCase() }}
+      </h5>
       <b-form-group>
         <b-form-radio-group
           id="checkbox-group"
@@ -19,7 +19,7 @@ import { eventBus } from "../main";
 
 export default {
   name: "Checkbox",
-  props: ['options'],
+  props: ['options', 'category'],
   data() {
     return {
       selected: null

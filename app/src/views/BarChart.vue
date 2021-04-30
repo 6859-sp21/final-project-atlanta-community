@@ -6,7 +6,7 @@
 
     <div id="right" ref="right">
       <BarGraph :clusters="clusters"/>
-      <Checkbox :options="options"/>
+      <Checkbox :options="options" :category="category"/>
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@ export default {
       clusters: [],
       options: [],
       followingList: [],
+      category: "",
     }
   },
 
@@ -59,7 +60,8 @@ export default {
 
   methods: {
     showCheckbox(data) {
-      this.options = data;
+      this.options = data.options;
+      this.category = data.category;
     },
 
     showTwitters(community) {
