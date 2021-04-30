@@ -32,4 +32,5 @@ document.getElementById("potus_twitter").hidden = false;
 document.getElementById("rhianna_twitter").hidden = true;
 document.getElementById("ellen_twitter").hidden = true;
 document.getElementById("atlantafalcons_twitter").hidden = true;
+console.log("done");
 // updateS("init");
