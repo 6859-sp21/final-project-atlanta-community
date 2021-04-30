@@ -146,18 +146,21 @@ function draw_tree() {
             .attr("width", 10)
             .attr("height", function(d) { return height - y(d.alc); })
             .style("fill", "#ccc")
-            .on("mouseover", function(d) {
-                d3.select(this).style("fill", function(d) { return color(d.category); })
-                tooltip.text(d.category + " " + d.alc)
-                .style("opacity", 0.8)
-                        .style("left", (d3.event.pageX)+0 + "px") 
-                        .style("top", (d3.event.pageY)-0 + "px");
-            })
-            .on("mouseout", function(d) {
-                tooltip.style("opacity", 0);
-                d3.select(this).style("fill", "#ccc");
-
-            });
+            .on("mouseover", function(event, d) {
+                console.log("over");
+                tooltip.transition()
+                  .duration(200)
+                  .style("opacity", .9);
+                tooltip.html(d.category + " " + d.alc)
+                  .style("left", (event.pageX) + "px") 
+                  .style("top", (event.pageY) + "px");
+              })
+              .on("mouseout", function() {
+                console.log("out");
+                tooltip.transition()
+                  .duration(500)
+                  .style("opacity", 0);
+              })
 
     
         var sum = d3.sum(data, function(d) { return d.alc; }); 
