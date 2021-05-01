@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 800 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+// let margin = {top: 10, right: 30, bottom: 30, left: 60},
+//     width = 800 - margin.left - margin.right,
+//     height = 300 - margin.top - margin.bottom;
 
 
 function updateScatterPlot(factor1, factor2) {
@@ -16,17 +16,18 @@ function updateScatterPlot(factor1, factor2) {
 
     // append the svg object to the body of the page
     var svg = d3.select("#scatterplot")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
 
 
     //Read the data
-    d3.csv("./data/filtered_data.csv", function(data) {
+    d3.csv("./data/filtered_data_category.csv").then(function(data) {
 
+        console.log(data.length);
         console.log("data max", d3.max(data, (d) => parseFloat(d['community_size'])))
 
         // List of groups (here I have one group per column)
@@ -85,20 +86,20 @@ function updateScatterPlot(factor1, factor2) {
 
     // A function that change this tooltip when the user hover a point.
     // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
-    var mouseover = function(d) {
+    var mouseover = function(event, d) {
         tooltip
         .style("opacity", 1)
     }
 
-    var mousemove = function(d) {
+    var mousemove = function(event, d) {
         tooltip
-        .html("The <b>" + d.name + "</b> community described with the following topic words: " + d.topic_words)
-        .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-        .style("top", (d3.mouse(this)[1]) + "px")
+        .html("The <b>" + d.cluster_name + "</b> community described with the following topic words: " + d.topic_words)
+        .style("left", (d3.pointer(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+        .style("top", (d3.pointer(this)[1]) + "px")
     }
 
     // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
-    var mouseleave = function(d) {
+    var mouseleave = function(event, d) {
         tooltip
         .transition()
         .duration(200)
