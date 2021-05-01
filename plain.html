@@ -6,6 +6,7 @@
 <!-- <script src="https://d3js.org/d3.v4.js"></script> -->
 <script src="https://d3js.org/d3.v6.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
 
  <!--styles-->
  <link rel="stylesheet" href="css/styles.css"> </head>
@@ -47,8 +48,11 @@
      
      <!-- this is where the bar graph will go -->
       <div id="categoryAvgBarGraph"></div>
-      </div>
+    </div>
      
+    <div class="grid-child">
+      <div id="wordcloudplot"></div>
+    </div>
     
     <!-- <div class="grid-child">
         <div id="tweets">
@@ -65,7 +69,7 @@
     
   </div>
 
-
+<script src="./js/wordcloud.js"></script>
 <script src="./js/scatterplot.js"></script>
 <script src="./js/categoryAvgBarGraph.js"></script>
 <script src="./js/twitter.js"></script>

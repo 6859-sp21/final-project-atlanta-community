@@ -15,7 +15,7 @@ function updateScatterPlot(factor1, factor2) {
     }
 
     // append the svg object to the body of the page
-    var svg = d3.select("#scatterplot")
+    let svg = d3.select("#scatterplot")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -27,8 +27,8 @@ function updateScatterPlot(factor1, factor2) {
     //Read the data
     d3.csv("./data/filtered_data_category.csv").then(function(data) {
 
-        console.log(data.length);
-        console.log("data max", d3.max(data, (d) => parseFloat(d['community_size'])))
+        // console.log(data.length);
+        // console.log("data max", d3.max(data, (d) => parseFloat(d['community_size'])))
 
         // List of groups (here I have one group per column)
         var social_factors = ['community_size', 'lexical_change', 'ideology_lexical_change', 
@@ -38,7 +38,7 @@ function updateScatterPlot(factor1, factor2) {
                                 'tweet_count_mean', 'tweet_count_median', 'tweet_count_rank']
 
         // add the options to the button
-        d3.select("#selectButton")
+        var left_buttons = d3.select("#selectButton")
             .selectAll('myOptions')
             .data(social_factors)
             .enter()
@@ -47,7 +47,7 @@ function updateScatterPlot(factor1, factor2) {
             .attr("value", function (d) { return d; }) // corresponding value returned by the button
             .property("selected", function(d){ return d === factor1; })
 
-        d3.select("#selectButton2")
+        var right_button = d3.select("#selectButton2")
             .selectAll('myOptions')
             .data(social_factors)
             .enter()
@@ -114,16 +114,21 @@ function updateScatterPlot(factor1, factor2) {
         .append("circle")
         .attr("cx", function (d) { return x(d[factor1]); } )
         .attr("cy", function (d) { return y(d[factor2]); } )
-        .attr("r", 4)
+        .attr("r", 5)
         .style("fill", "#69b3a2")
         .style("opacity", 0.3)
         .style("stroke", "white")
         .on("mouseover", mouseover )
         .on("mousemove", mousemove )
         .on("mouseleave", mouseleave )
-
+        .on("click", updateWordcloud)
     })
 
+    // svg.on("click", function(e) {
+        
+    //     // updateWordcloud()
+    // })
+    return svg.node();
 };
 
 // updateScatterPlot("community_size", "lexical_change");
