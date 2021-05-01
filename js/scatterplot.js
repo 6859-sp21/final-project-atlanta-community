@@ -4,7 +4,9 @@
 //     height = 300 - margin.top - margin.bottom;
 
 
-function updateScatterPlot(factor1, factor2) {
+function updateScatterPlot(factor1, factor2, category) {
+
+    console.log(factor1, factor2, category);
 
     // remove 
     if (d3.select('#scatterplot').size() > 0) {
@@ -21,11 +23,17 @@ function updateScatterPlot(factor1, factor2) {
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+                "translate(" + 80 + "," + margin.top + ")");
 
 
     //Read the data
     d3.csv("./data/filtered_data_category.csv").then(function(data) {
+
+        if (category != "all") {
+            data = data.filter((d) => d.category == category);
+            console.log(data);
+        }
+
 
         // console.log(data.length);
         // console.log("data max", d3.max(data, (d) => parseFloat(d['community_size'])))
@@ -63,6 +71,14 @@ function updateScatterPlot(factor1, factor2) {
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
+    
+    // text label for the x axis
+    svg.append("text")             
+        .attr("transform",
+                "translate(" + (width/2) + " ," + 
+                            (height + margin.top + 20) + ")")
+        .style("text-anchor", "middle")
+        .text(factor1);
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -70,6 +86,15 @@ function updateScatterPlot(factor1, factor2) {
         .range([ height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
+
+    // text label for the y axis
+    svg.append("text")
+        .attr("transform", "rotate(-90) translate(0, -20)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text(factor2); 
 
     // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
     // Its opacity is set to 0: we don't see it by default.
@@ -115,7 +140,7 @@ function updateScatterPlot(factor1, factor2) {
         .attr("cx", function (d) { return x(d[factor1]); } )
         .attr("cy", function (d) { return y(d[factor2]); } )
         .attr("r", 5)
-        .style("fill", "#69b3a2")
+        .style("fill", "#e25609")
         .style("opacity", 0.3)
         .style("stroke", "white")
         .on("mouseover", mouseover )
@@ -124,10 +149,6 @@ function updateScatterPlot(factor1, factor2) {
         .on("click", updateWordcloud)
     })
 
-    // svg.on("click", function(e) {
-        
-    //     // updateWordcloud()
-    // })
     return svg.node();
 };
 

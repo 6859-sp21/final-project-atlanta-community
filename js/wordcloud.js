@@ -33,7 +33,7 @@ function updateWordcloud(event, d) {
     .size([width, height])
     .words(myWords.map(function(d) { return {text: d}; }))
     .padding(10)
-    .fontSize(60)
+    .fontSize(30)
     .on("end", draw);
     layout.start();
 
