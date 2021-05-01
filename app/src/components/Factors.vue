@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h5>
-      Investigate how language variation relates to social factors
-    </h5>
     <b-form-group id="input-group-1" label="Choose two factors:" label-for="m-2">
       <b-form-select @change="selectFactors" v-model="factor1" :options="factors"></b-form-select>
       <b-form-select @change="selectFactors" v-model="factor2" :options="factors"></b-form-select>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h5>
+    <h2>
       Ranking Communities
-    </h5>
-   <b-form-group>
+    </h2>
+   <b-form-group  label="Sort the communities by:">
       <b-form-radio-group
         id="btn-radios-3"
         v-model="selected"
@@ -16,6 +16,10 @@
         @change="selectRanking(selected)"
       ></b-form-radio-group>
     </b-form-group>
+    <h4>
+      Zoom in/out and move
+      👉
+    </h4>
   </div>
 </template>
 
@@ -45,5 +49,10 @@ export default {
 <style scoped>
 .button-radio {
   width: 100%;
+}
+
+h2 {
+  font-weight: bold;
+  padding-bottom: 1em;
 }
 </style>

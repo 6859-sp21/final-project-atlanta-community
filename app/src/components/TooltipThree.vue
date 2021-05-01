@@ -14,8 +14,4 @@ export default {
 }
 </script>
 <style scoped>
-#tooltip-3 {
-
-  opacity: 0;
-}
 </style>

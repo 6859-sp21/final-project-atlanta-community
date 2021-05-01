@@ -2,10 +2,21 @@
   <div class="page">
     <div id="left">
         <Factors/>
-        <TooltipThree :clusterName="clusterName" :topicWords="topicWords"/>
+        <transition name="fade">
+        <div v-if="showingHint">
+          <h4>
+            Hover on a dot to see the topic words of the community
+            👉
+          </h4>
+        </div>
+        <TooltipThree v-else :clusterName="clusterName" :topicWords="topicWords"/>
+        </transition>
     </div>
 
     <div id="right" ref="right">
+        <h2>
+          Investigate how language variation relates to social factors
+        </h2>
       <ScatterGraph/>
     </div>
   </div>
@@ -16,7 +27,7 @@ import ScatterGraph from "../components/ScatterGraph.vue";
 import Factors from '../components/Factors.vue';
 import TooltipThree from '../components/TooltipThree.vue';
 import { eventBus } from "../main";
-import * as d3 from "d3";
+// import * as d3 from "d3";
 
 export default {
   name: "BarChart",
@@ -30,7 +41,8 @@ export default {
   data() {
     return {
       clusterName: "",
-      topicWords: []
+      topicWords: [],
+      showingHint: true,
     }
   },
 
@@ -50,18 +62,20 @@ export default {
       console.log("show");
       this.clusterName = newClusterName;
       this.topicWords = newTopicWords;
-      d3.selectAll("#tooltip-3")
-        .transition()
-        .duration(500)
-        .style("opacity", "1");
+      this.showingHint = false;
+      // d3.selectAll("#tooltip-3")
+      //   .transition()
+      //   .duration(500)
+      //   .style("opacity", "1");
     },
 
     hideTooltip() {
+      this.showingHint = true;
       console.log("hide");
-      d3.selectAll("#tooltip-3")
-        .transition()
-        .duration(500)
-        .style("opacity", "0");
+      // d3.selectAll("#tooltip-3")
+      //   .transition()
+      //   .duration(500)
+      //   .style("opacity", "0");
     }
   }
 }
@@ -79,16 +93,31 @@ export default {
 
 #left {
   height: 100%;
-  width: 20%;
-  padding: 1em;
+  width: 30%;
+  padding: 5em;
+  padding-top: 15em;
 }
 
 #right {
   height: 100%;
-  width: 80%;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: all 1s ease-out;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
 </style>

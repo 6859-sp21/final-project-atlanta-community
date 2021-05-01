@@ -112,13 +112,13 @@ export default {
 
 #left {
   height: 100%;
-  width: 20%;
-  padding: 1em;
+  width: 30%;
+  padding: 5em;
 }
 
 #right {
   height: 100%;
-  width: 80%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,7 +138,7 @@ export default {
 
 #hint-2 {
   position: relative;
-  top: 72%;
+  top: 66%;
 }
 
 .fade-enter-active {
