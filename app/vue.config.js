@@ -1,9 +1,5 @@
 module.exports = {
-    devServer: {
-      proxy: {
-        "/api": {
-          target: "http://localhost:3000/"
-        },
-      }
-    }
-  }
+  publicPath: process.env.NODE_ENV === 'production'
+      ? '/final-project-atlanta-community/'
+      : '/'
+}
