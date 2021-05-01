@@ -114,8 +114,8 @@ export default {
             that.tipData.category = d.category;
             that.tipData.alc = d.alc;
             d3.selectAll(".tooltip")
-              .style("left", (event.pageX - 100) + "px") 
-              .style("top", (event.pageY - 200) + "px")
+              .style("left", (event.clientX) + "px") 
+              .style("top", (event.clientY - 100) + "px")
               .transition()
               .duration(500)
               .style("opacity", "1");
