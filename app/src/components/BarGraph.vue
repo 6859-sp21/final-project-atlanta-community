@@ -1,20 +1,20 @@
 <template>
   <div id="chart" ref="chart">
-    <Tooltip :data="tipData" :visible="tipVisible"/>
+    <TooltipOne :data="tipData" :visible="tipVisible"/>
     <div id="svg-container" ref="svg-container"/>
   </div>
 </template>
 
 <script>
 import * as d3 from "d3";
-import Tooltip from "../components/Tooltip.vue";
+import TooltipOne from "../components/TooltipOne.vue";
 import { eventBus } from "../main";
 
 export default {
   name: "BarGraph",
 
   components: {
-    Tooltip
+    TooltipOne
   },
 
   props: ['clusters'],
@@ -113,7 +113,7 @@ export default {
             console.log("over");
             that.tipData.category = d.category;
             that.tipData.alc = d.alc;
-            d3.selectAll(".tooltip")
+            d3.selectAll("#tooltip-1")
               .style("left", (event.clientX) + "px") 
               .style("top", (event.clientY - 100) + "px")
               .transition()
@@ -122,7 +122,7 @@ export default {
           })
           .on("mouseout", function() {
             console.log("out");
-             d3.selectAll(".tooltip")
+             d3.selectAll("#tooltip-1")
               .transition()
               .duration(500)
               .style("opacity", "0");

@@ -148,12 +148,8 @@ export default {
   methods: {
     updateBars(data, selected) {
       // First update the y-axis domain to match data
-      console.log(data)
       this.x.domain([0, d3.max(data, d => d.value)]);
       this.xAxis.transition().duration(1000).call(d3.axisBottom(this.x))
-
-      console.log("updateBars!!!!")
-      console.log(data.map(d => d.cluster_name))
 
       this.y.domain(data.map(d => d.cluster_name));
       this.yAxis.transition().duration(1000).call(d3.axisLeft(this.y));

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <Intro v-scrollanimation/>
+    <Intro/>
 
     <BarChart v-scrollanimation/>
+    <Spacing/>
 
     <SizeChart v-scrollanimation/>
+    <Spacing/>
+
+    <ScatterChart v-scrollanimation/>
+    <Thanks/>
   </div>
 </template>
 
@@ -12,12 +17,18 @@
 import Intro from './Intro.vue';
 import BarChart from './BarChart.vue';
 import SizeChart from './SizeChart';
+import ScatterChart from './ScatterChart';
+import Spacing from '../components/Spacing';
+import Thanks from './Thanks';
 
 export default {
   components: { 
     Intro,
     BarChart,
-    SizeChart
+    SizeChart,
+    ScatterChart,
+    Spacing,
+    Thanks
   },
 
   name: "MainPage",

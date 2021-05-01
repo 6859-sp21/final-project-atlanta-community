@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip">
+  <div class="tooltip" id="tooltip-1">
     <b-card v-bind:title="data.category">
       <b-card-text>
         {{ data.alc }}
@@ -9,12 +9,12 @@
 </template>
 <script>
 export default {
-    name: "Tooltip",
+    name: "TooltipOne",
     props: ['data', 'visible'],
 }
 </script>
 <style scoped>
-.tooltip {
+#tooltip-1 {
   opacity: 0;
 }
 </style>

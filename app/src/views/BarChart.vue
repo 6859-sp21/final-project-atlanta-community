@@ -75,7 +75,6 @@ export default {
       data.forEach(function(d) {
         that.clusters.push({ text: d.cluster_name, value: d.cluster_name, category: d.category });
       });
-      console.log(this.clusters)
     })
   },
 
@@ -89,7 +88,6 @@ export default {
     },
 
     showTwitters(community) {
-      console.log(community);
       d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
          const selectedData = data.find(d => d.cluster_name == community);
          this.followingList = selectedData.top_follows.split(",");
