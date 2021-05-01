@@ -1,10 +1,8 @@
 <template>
   <div>
-    <b-card>
-      <b-link v-bind:href="'https://twitter.com/'+ following">
-        @{{ following }}
-      </b-link>
-    </b-card>
+    <b-link v-bind:href="'https://twitter.com/'+ following">
+      @{{ following }}
+    </b-link>
   </div>
 </template>
 <script>

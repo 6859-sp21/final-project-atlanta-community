@@ -1,8 +1,8 @@
 <template>
   <div id="following-list" v-if="followingList.length > 0">
-    <h3>
+    <h5>
       Top Follows of Selected Community
-    </h3>
+    </h5>
     <div  id="follows">
       <TwitterPreview
         v-for="following in followingList"

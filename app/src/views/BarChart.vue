@@ -1,12 +1,30 @@
 <template>
   <div class="page">
     <div id="left">
-      <Twitters :followingList="followingList"/>
+      <transition name="move">
+      <Twitters v-if="showingTwitters" :followingList="followingList"/>
+      </transition>
+      <transition name="move">
+      <div v-if="showingHint2" id="hint-2">
+        <h4>
+          Check a community to see the top follows 👉
+        </h4>
+      </div>
+      </transition>
     </div>
 
     <div id="right" ref="right">
       <BarGraph :clusters="clusters"/>
-      <Checkbox :options="options" :category="category"/>
+      <div id="right-bottom">
+      <transition name="fade">
+        <Checkbox v-if="showingCheckbox" :options="options" :category="category"/>
+        <div v-else id="hint-1">
+          <h4>
+            Click the bar to show communities under the category ☝️
+          </h4>
+        </div>
+      </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +52,9 @@ export default {
       options: [],
       followingList: [],
       category: "",
+      showingCheckbox: false,
+      showingTwitters: false,
+      showingHint2: false,
     }
   },
 
@@ -62,6 +83,9 @@ export default {
     showCheckbox(data) {
       this.options = data.options;
       this.category = data.category;
+      this.showingCheckbox = true;
+      this.showingHint2 = true;
+      this.followingList = [];
     },
 
     showTwitters(community) {
@@ -71,6 +95,8 @@ export default {
          this.followingList = selectedData.top_follows.split(",");
       })
       console.log(this.followingList);
+      this.showingTwitters = true;
+      this.showingHint2 = false;
     }
   }
 }
@@ -99,5 +125,44 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#right-bottom {
+  height: 30%;
+  width: 90%;
+  padding-top: 2em;
+}
+
+#hint-1 {
+  display: flex;
+  align-items: flex-start;
+}
+
+#hint-2 {
+  position: relative;
+  top: 72%;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: all 1s ease-out;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
+}
+
+.move-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: all 1s ease-out;
+}
+
+.move-enter,
+.move-leave-active {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 1s ease-out;
 }
 </style>

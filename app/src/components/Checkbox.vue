@@ -35,10 +35,5 @@ export default {
 </script>
 
 <style scoped>
-#checkbox {
-  height: 20%;
-  width: 80%;
-  padding: 1em;
-  /* visibility: hidden; */
-}
+
 </style>

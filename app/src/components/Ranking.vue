@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h3>
+    <h5>
       Ranking Communities
-    </h3>
+    </h5>
    <b-form-group>
       <b-form-radio-group
         id="btn-radios-3"
@@ -11,6 +11,8 @@
         name="radio-btn-stacked"
         buttons
         stacked
+        class="button-radio"
+        button-variant="outline-secondary"
         @change="selectRanking(selected)"
       ></b-form-radio-group>
     </b-form-group>
@@ -41,7 +43,7 @@ export default {
 }
 </script>
 <style scoped>
-#btn {
+.button-radio {
   width: 100%;
 }
 </style>

@@ -39,7 +39,7 @@ export default {
   },
 
   mounted() {
-    this.margin = {top: 20, right: 10, bottom: 20, left: 60};
+    this.margin = {top: 20, right: 10, bottom: 20, left: 80};
 
     this.width = this.$refs.chart1.clientWidth - this.margin.left - this.margin.right;
     this.height = this.$refs.chart1.clientHeight - this.margin.top - this.margin.bottom;
@@ -56,7 +56,7 @@ export default {
             if (selected.includes(d.cluster_name)) {
                 return '#FF930E';
             }
-            return '#1F77B4';
+            return '#ccc';
         }
 
     this.svg = d3.select("#chart-1").append("svg")
@@ -69,14 +69,14 @@ export default {
     this.svg.append("clipPath")
       .attr("id", 'my-clip-path')
       .append("rect")
-        .attr("x", -100)
+        .attr("x", -500)
         .attr("y", this.margin.top)
-        .attr("width", this.width + 100 + this.margin.left + this.margin.right)
+        .attr("width", this.width + 500 + this.margin.left + this.margin.right)
         .attr("height", this.height - this.margin.top - this.margin.bottom)
     
     this.svg.append('rect')
       .attr('class', 'zoom-panel')
-      .attr("x", -100)
+      .attr("x", -500)
       .attr("y", this.margin.top)
       .attr('width', this.width)
       .attr('height', this.height)
@@ -203,6 +203,6 @@ export default {
 <style scoped>
 #chart-1 {
   height: 100%;
-  width: 80%;
+  width: 90%;
 }
 </style>
