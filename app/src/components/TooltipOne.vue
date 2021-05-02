@@ -16,5 +16,8 @@ export default {
 <style scoped>
 #tooltip-1 {
   opacity: 0;
+  pointer-events: none; 
+  /* height: 0px;
+  width: 0px; */
 }
 </style>

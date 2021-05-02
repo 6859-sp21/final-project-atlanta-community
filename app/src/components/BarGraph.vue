@@ -118,14 +118,18 @@ export default {
               .style("top", (event.clientY - 100) + "px")
               .transition()
               .duration(500)
-              .style("opacity", "1");
+              .style("opacity", "1")
+              // .style("height", "auto")
+              // .style("width", "auto");
           })
           .on("mouseout", function() {
             console.log("out");
              d3.selectAll("#tooltip-1")
               .transition()
               .duration(500)
-              .style("opacity", "0");
+              .style("opacity", "0")
+              // .style("height", "0px")
+              // .style("width", "0px");
           })
 
 
