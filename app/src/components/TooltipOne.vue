@@ -17,6 +17,7 @@ export default {
 #tooltip-1 {
   opacity: 0;
   pointer-events: none; 
+  /* Reference: https://stackoverflow.com/questions/3680429/click-through-div-to-underlying-elements */
   /* height: 0px;
   width: 0px; */
 }

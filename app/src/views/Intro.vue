@@ -11,10 +11,8 @@
     <div id="content">
       <div id="text-block" v-scrollanimation>
         <p>
-        Atlanta is a city characterized by a diverse population. Surprisingly, The Black Lives Matter movement revealed the fact that people from different communities interpret language differently (any fact to claim this? Some evidence on this difference in perception?). 
-
-        The popularity of Black Lives Matter has rapidly shifted over time. Whereas public opinion on Black Lives Matter was net negative in 2018, it grew increasingly popular through 2019 and 2020.[16] A June 2020 Pew Research Center poll found that 67% of adult Americans expressed some support for the Black Lives Matter movement.[17] A later poll conducted in September 2020 showed that support among American adults had dropped to 55%, with notable declines among whites and Hispanics, while support remained widespread among black adults.[18] 
-        (https://en.wikipedia.org/wiki/Black_Lives_Matter)
+        Our team will explore how different communities in Atlanta perceive language in different ways. To do this, we’ll be using a dataset of 149 local communities with information about their online behavior on Twitter.  Information at the twitter account level allowed us to create summary statistics at the community level such as  community size,  average number of followers, friends and tweets and understand what are the top follows and topic words in each community. Following a specific methodology, deviations from the normal language can be measured and these deviations are called lexical variation. 
+        Our main goal is that the user can understand lexical variation in social media across Atlanta’s communities and have a guide for current local trends online. Examples of potential users  are journalists, politicians and society as a whole.
         </p>
       </div> 
       <div id="image-block" v-scrollanimation>

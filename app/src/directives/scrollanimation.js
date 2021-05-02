@@ -15,3 +15,5 @@ export default {
     animatedScrollObserver.observe(el);
   }
 }
+
+// Reference: https://www.youtube.com/watch?v=NVgNUXsXn-s
