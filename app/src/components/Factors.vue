@@ -57,4 +57,10 @@ export default {
 }
 </script>
 <style scoped>
+div {
+  max-height: 40%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
 </style>
