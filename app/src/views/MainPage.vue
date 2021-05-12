@@ -1,6 +1,10 @@
 <template>
   <div>
     <Intro/>
+    <Spacing/>
+
+    <CircleGraph v-scrollanimation/>
+    <Spacing/>
 
     <BarChart v-scrollanimation/>
     <Spacing/>
@@ -20,6 +24,7 @@ import SizeChart from './SizeChart';
 import ScatterChart from './ScatterChart';
 import Spacing from '../components/Spacing';
 import Thanks from './Thanks';
+import CircleGraph from '../components/CircleGraph';
 
 export default {
   components: { 
@@ -28,7 +33,8 @@ export default {
     SizeChart,
     ScatterChart,
     Spacing,
-    Thanks
+    Thanks,
+    CircleGraph
   },
 
   name: "MainPage",
