@@ -1,6 +1,6 @@
 <template>
   <div class="spacing">
-    <h5>⬇️ cotinue...</h5>
+    <h5>⬇️ continue...</h5>
   </div>
 </template>
 

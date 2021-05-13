@@ -6,7 +6,9 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import ScrollAnimation from './directives/scrollanimation';
+import VueSocialSharing from 'vue-social-sharing'
 
+Vue.use(VueSocialSharing);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueCookie);

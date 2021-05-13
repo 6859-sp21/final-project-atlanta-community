@@ -2,6 +2,9 @@
   <div>
     <Intro/>
 
+    <CirclePacking v-scrollanimation/>
+    <Spacing/>
+
     <BarChart v-scrollanimation/>
     <Spacing/>
 
@@ -20,6 +23,7 @@ import SizeChart from './views/SizeChart';
 import ScatterChart from './views/ScatterChart';
 import Spacing from './components/Spacing';
 import Thanks from './views/Thanks';
+import CirclePacking from './views/CirclePacking';
 
 export default {
   components: { 
@@ -28,7 +32,8 @@ export default {
     SizeChart,
     ScatterChart,
     Spacing,
-    Thanks
+    Thanks,
+    CirclePacking
   },
 
   name: "MainPage",

@@ -32,7 +32,7 @@ var svg = d3.select("#categoryAvgBarGraph").append("svg")
 function showBarGraph(fakeParam){
     console.log("hhiiiiii");
     //d3.csv("category_avg.csv", ready);
-    d3.csv("./data/category_avg.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/category_avg.csv", function(error, data) {
         if (error) throw error;
 
         data.forEach(function(d) {

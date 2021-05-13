@@ -10,7 +10,25 @@
         <b-link href="https://github.com/6859-sp21/final-project-atlanta-community">go to our github page</b-link>
       </div> 
       <div id="thanks-image-block" v-scrollanimation>
-        <b-img id="thanks-logo" center :src="require('../assets/logo.png')" alt="Center image"></b-img>
+        <b-button 
+          label-for="input-1" 
+          class="button-share"
+          variant="link"
+        >        
+          <ShareNetwork
+            network="twitter"
+            url="https://6859-sp21.github.io/final-project-atlanta-community/"
+            title="A visualization on tweets in Atlanta"
+          >
+          <b-icon 
+            icon="twitter" 
+            font-scale="3"
+          ></b-icon>
+          <span style="margin: 0.5em">Share on twitter</span>
+          </ShareNetwork>
+        </b-button>
+        <b-img>
+        </b-img>
       </div>
     </div>
   </div>
@@ -55,7 +73,13 @@ export default {
 #thanks-image-block {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   padding-bottom: 100px;
+}
+
+.share-network-twitter {
+  display: flex;
+  align-items: center;
 }
 
 #thanks-logo {

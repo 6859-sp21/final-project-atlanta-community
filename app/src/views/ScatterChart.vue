@@ -61,7 +61,7 @@ export default {
     showTooltip(newClusterName, newTopicWords) {
       console.log("show");
       this.clusterName = newClusterName;
-      this.topicWords = newTopicWords;
+      this.topicWords = newTopicWords.split(",").map(x => {return {text: x, value: 1}});
       this.showingHint = false;
       // d3.selectAll("#tooltip-3")
       //   .transition()
