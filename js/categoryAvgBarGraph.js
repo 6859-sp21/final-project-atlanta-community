@@ -32,17 +32,15 @@ var svg = d3.select("#categoryAvgBarGraph").append("svg")
 function showBarGraph(fakeParam){
     console.log("hhiiiiii");
     //d3.csv("category_avg.csv", ready);
-    d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/category_avg.csv", function(error, data) {
-        if (error) throw error;
+    d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/category_avg.csv").then((data) => {
 
         data.forEach(function(d) {
-            d.alc = +d.avg_lex_change;
+            d.alc = parseFloat(d.avg_lexical_change);
         });
 
         console.log("data", data);
       
 
-    
         x.domain(data.map(function(d) { return d.category; }));
         y.domain([0, 0.05 + d3.max(data, function(d) { return d.alc; })]);
         //x2.domain(data.map(function(d) { return d.category; }));
@@ -79,14 +77,14 @@ function showBarGraph(fakeParam){
             .attr("width", 10)
             .attr("height", function(d) { return height - y(d.alc); })
             .style("fill", "#ccc")
-            .on("mouseover", function(d) {
-                d3.select(this).style("fill", function(d) { return color(d.category); })
+            .on("mouseover", function(event, d) {
+                d3.select(this).style("fill", "Black")
                 tooltip.text(d.category + " " + d.alc)
                 .style("opacity", 0.8)
-                        .style("left", (d3.event.pageX)+0 + "px") 
-                        .style("top", (d3.event.pageY)-0 + "px");
+                        .style("left", (event.pageX)+0 + "px") 
+                        .style("top", (event.pageY)-0 + "px");
             })
-            .on("mouseout", function(d) {
+            .on("mouseout", function(event, d) {
                 tooltip.style("opacity", 0);
                 d3.select(this).style("fill", "#ccc");
 
@@ -96,14 +94,10 @@ function showBarGraph(fakeParam){
         var sum = d3.sum(data, function(d) { return d.alc; }); 
         var average = sum/data.length;
 
-        var line = d3.svg.line()
-            .x(function(d, i) { return x(d.category) + i; })
-            .y(function(d, i) { return y(average); }); 
-
         svg.append("path")
-            .datum(data)
-            .attr("class", "mean")
-            .attr("d", line);
+          .attr("class", "mean")
+          .attr('d', d3.line()([[0, y(average)], [width, y(average)]]))
+          .attr('stroke', 'black')
 
         svg.append("text")
             .attr("transform", "translate(" + (width+3) + "," + y(average) + ")")

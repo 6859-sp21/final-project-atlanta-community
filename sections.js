@@ -166,14 +166,10 @@ function draw_tree() {
         var sum = d3.sum(data, function(d) { return d.alc; }); 
         var average = sum/data.length;
 
-        var line = d3.svg.line()
-            .x(function(d, i) { return x(d.category) + i; })
-            .y(function(d, i) { return y(average); }); 
-
         svg.append("path")
-            .datum(data)
-            .attr("class", "mean")
-            .attr("d", line);
+          .attr("class", "mean")
+          .attr('d', d3.line()([[0, y(average)], [width, y(average)]]))
+          .attr('stroke', 'black')
 
         svg.append("text")
             .attr("transform", "translate(" + (width+3) + "," + y(average) + ")")

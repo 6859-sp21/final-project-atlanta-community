@@ -26,7 +26,7 @@ function updateS(type) { // type is for different trigger scenarios
 // document.getElementById("ellen_twitter").hidden = true;
 // document.getElementById("atlantafalcons_twitter").hidden = true;
 updateScatterPlot("community_size", "lexical_change", "all");
-// showBarGraph();
+showBarGraph();
 
 console.log("done");
 // updateS("init");
