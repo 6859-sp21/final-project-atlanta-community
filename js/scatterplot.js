@@ -27,7 +27,7 @@ function updateScatterPlot(factor1, factor2, category) {
 
 
     //Read the data
-    d3.csv("./data/filtered_data_category.csv").then(function(data) {
+    d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then(function(data) {
 
         if (category != "all") {
             data = data.filter((d) => d.category == category);
