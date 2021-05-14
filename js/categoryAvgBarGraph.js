@@ -50,7 +50,7 @@ function showBarGraph(fakeParam){
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
             .selectAll("text")
-            .attr("y", 23)
+            .attr("y", 65)
             .attr("x", 9)
             .attr("dy", "-2em")
             .attr("transform", "rotate(90)")
