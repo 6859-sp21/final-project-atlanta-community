@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Load d3.js -->
+<!-- <script src="https://d3js.org/d3.v4.js"></script> -->
+<script src="https://d3js.org/d3.v6.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+
+ <!--styles-->
+ <link rel="stylesheet" href="css/styles.css"> </head>
+
+
+<body>
+<h2>Exploring patterns of language variation on social media: A case study in Atlanta online communities</h2>
+<h3>Investigate how language variation relates to social factors</h3>
+
+<div class="grid-container">
+
+    <div class="grid-child">
+      <!-- <div class="green">Float Column 1</div> -->
+      <!-- Initialize a select button -->
+      <div>
+        <label for="factors">Choose two factors:</label>
+        <select id="selectButton" class="selectorsC"></select>
+        <select id="selectButton2" class="selectorsC"></select>
+        <!-- <span id="warning"></span> -->
+      </div>
+
+      <div>
+        <label for="categories">Choose a category:</label>
+        <select id="selectButton3" class="selectorsC">
+            <option value="all">all</option>
+            <option value="atlanta">atlanta</option>
+            <option value="beauty">beauty</option>
+            <option value="education">education</option>
+            <option value="entertainment">entertainment</option>
+            <option value="health">health</option>
+            <option value="other">other</option>
+            <option value="politics">politics</option>
+            <option value="religion">religion</option>
+            <option value="social_justice">social justice</option>
+            <option value="sports">sports</option>
+        </select>
+      </div>
+
+      <!-- Create a div where the graph will take place -->
+      <div id="scatterplot"></div>
+     
+     <!-- this is where the bar graph will go -->
+      <div id="categoryAvgBarGraph"></div>
+    </div>
+     
+    <div class="grid-child">
+      <div id="wordcloudplot"></div>
+    </div>
+    
+    <!-- <div class="grid-child">
+        <div id="tweets">
+        <label for="twitterhandles">Choose a Twitter account:</label>
+        <select name="twitterhandles" id="twitterhandle">
+            <option value="POTUS">POTUS</option>
+            <option value="rihanna">rihanna</option>
+            <option value="TheEllenShow">TheEllenShow</option>
+            <option value="AtlantaFalcons">AtlantaFalcons</option>
+          </select>
+        <a class="twitter-timeline" href="https://twitter.com/POTUS?ref_src=twsrc%5Etfw">Tweets by POTUS</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+    </div> -->
+    
+  </div>
+
+<script src="./js/wordcloud.js"></script>
+<script src="./js/scatterplot.js"></script>
+<script src="./js/categoryAvgBarGraph.js"></script>
+<script src="./js/twitter.js"></script>
+<script src="./js/main.js"></script>
+
+
+</body>
+
+</html>
