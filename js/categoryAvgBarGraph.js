@@ -75,7 +75,7 @@ function showBarGraph(fakeParam){
             .attr("class", "bar")
             .attr("x", function(d) { return x(d.category); })
             .attr("y", function(d) { return y(d.alc); })
-            .attr("width", 10)
+            .attr("width", 70)
             .attr("height", function(d) { return height - y(d.alc); })
             .style("fill", "#ccc")
             .on("mouseover", function(event, d) {
