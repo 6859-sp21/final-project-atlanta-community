@@ -105,7 +105,7 @@ function showBarGraph(fakeParam){
             .attr("dy", "1em")
             .attr("text-anchor", "end")
             .style("fill", "red")
-            .html("Average = $" + average);
+            .html("Average: " + average);
 
 
     })
