@@ -53,7 +53,7 @@ function showBarGraph(fakeParam){
             .attr("y", 65)
             .attr("x", -25)
             .attr("dy", "-2em")
-            .attr("transform", "rotate(90)")
+            .attr("transform", "rotate(0)")
             .style("text-anchor", "start");
 
         svg.append("g")
