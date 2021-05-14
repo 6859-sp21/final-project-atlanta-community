@@ -77,7 +77,7 @@ function showBarGraph(fakeParam){
             .attr("y", function(d) { return y(d.alc); })
             .attr("width", 70)
             .attr("height", function(d) { return height - y(d.alc); })
-            .style("fill", "#ccc")
+            .style("fill", "#25b0b0")
             .on("mouseover", function(event, d) {
                 d3.select(this).style("fill", "25b0b0")
                 tooltip.text(d.category + " " + d.alc)
