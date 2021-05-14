@@ -39,8 +39,12 @@ export default {
     this.width = this.$refs.chart2.clientWidth;
     this.height = this.$refs.chart2.clientHeight;
 
+    console.log(this.width, this.height);
+
     this.width = Math.min(this.width, this.height);
     this.height = this.width;
+
+    console.log(this.width, this.height);
 
     this.color = d3.scaleLinear()
       .domain([0, 5])
@@ -48,10 +52,12 @@ export default {
       .interpolate(d3.interpolateHcl)
 
     const that = this;
+    console.log(that.width, that.height);
 
     this.svg = d3.select("#chart-2").append("svg")
+      .attr("width", this.width)
+      .attr("height", this.height)
       .attr("viewBox", `-${that.width / 2} -${that.height / 2} ${that.width} ${that.height}`)
-      .style("display", "block")
       .style("background", that.color(0))
       .style("cursor", "pointer")
       .on("click", (event) => that.zoom(event, that.root));
