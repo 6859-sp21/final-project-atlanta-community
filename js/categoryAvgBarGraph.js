@@ -51,7 +51,7 @@ function showBarGraph(fakeParam){
             .call(d3.axisBottom(x))
             .selectAll("text")
             .attr("y", 65)
-            .attr("x", 9)
+            .attr("x", -25)
             .attr("dy", "-2em")
             .attr("transform", "rotate(90)")
             .style("text-anchor", "start");
