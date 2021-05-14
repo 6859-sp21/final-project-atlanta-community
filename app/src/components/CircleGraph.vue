@@ -85,18 +85,33 @@ export default {
     },
 
     update(selected) {
+      const groupMap = new Map();
       const categoryMap = new Map();
+      
       this.storedData.forEach(d => {
-        if (!categoryMap.get(d.category)) {
-          categoryMap.set(d.category, [{name: d.cluster_name, value: parseInt(d[selected], 10)}])
+        if (!groupMap.get(d.cluster_group)) {
+          groupMap.set(d.cluster_group, [{name: d.cluster_name, value: parseInt(d[selected], 10)}])
         } else {
-          categoryMap.get(d.category).push({name: d.cluster_name, value: parseInt(d[selected], 10)});
+          groupMap.get(d.cluster_group).push({name: d.cluster_name, value: parseInt(d[selected], 10)});
+        }
+        if (!categoryMap.get(d.category)) {
+          const group = new Set();
+          group.add(d.cluster_group)
+          categoryMap.set(d.category, group)
+        } else {
+          categoryMap.get(d.category).add(d.cluster_group);
         }
       });
+
       const categories = [];
       categoryMap.forEach((value, key) => {
-        categories.push({name: key, children: value});
+        const groups = []
+        value.forEach(group => {
+          groups.push({name: group, children: groupMap.get(group)});
+        });
+        categories.push({name: key, children: groups});
       });
+
       const newData = {name: "Atlanta", children: categories};
       console.log(newData);
 
