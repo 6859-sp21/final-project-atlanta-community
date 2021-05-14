@@ -1,6 +1,6 @@
 var margin = {top: 20, right: 20, bottom: 70, left: 40};
 
-var width = 960 - margin.left - margin.right,
+var width = 550 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scaleBand()
