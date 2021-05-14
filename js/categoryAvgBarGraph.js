@@ -87,7 +87,7 @@ function showBarGraph(fakeParam){
             })
             .on("mouseout", function(event, d) {
                 tooltip.style("opacity", 0);
-                d3.select(this).style("fill", "#ccc");
+                d3.select(this).style("fill", "#25b0b0");
 
             });
 
