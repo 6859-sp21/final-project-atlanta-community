@@ -4,7 +4,7 @@ var width = 550 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 var x = d3.scaleBand()
-    .padding(0.85)
+    .padding(0.45)
     .rangeRound([0,width]);
 
 var x2 = d3.scaleBand()
