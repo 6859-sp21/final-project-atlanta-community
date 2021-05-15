@@ -36,7 +36,7 @@
 
   return svg.node();
 
-  data = FileAttachment("flare-2@2.json").json()
+  data = FileAttachment("tree-map-data@2.json").json()
 
   treemap = data => d3.treemap()
     .tile(tile)
