@@ -64,7 +64,7 @@ export default {
     showBarGraph(){
       d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/category_avg.csv").then((data) => {
         data.forEach(function(d) {
-            d.alc = +d.avg_lex_change;
+            d.alc = +d.avg_lexical_change;
         });
         console.log("data", data);
           

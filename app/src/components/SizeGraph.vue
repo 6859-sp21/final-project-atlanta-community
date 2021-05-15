@@ -185,7 +185,7 @@ export default {
 
     reorder(selected) {
       d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
-        data.forEach(d => d.value = parseInt(d[selected], 10));
+        data.forEach(d => d.value = parseFloat(d[selected]));
         data.sort((a, b) => a.value - b.value);
         data.forEach((d, i) => d.Rank = i + 1);
         selected = [];

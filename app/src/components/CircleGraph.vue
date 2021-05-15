@@ -90,9 +90,9 @@ export default {
       
       this.storedData.forEach(d => {
         if (!groupMap.get(d.cluster_group)) {
-          groupMap.set(d.cluster_group, [{name: d.cluster_name, value: parseInt(d[selected], 10)}])
+          groupMap.set(d.cluster_group, [{name: d.cluster_name, value: parseFloat(d[selected])}])
         } else {
-          groupMap.get(d.cluster_group).push({name: d.cluster_name, value: parseInt(d[selected], 10)});
+          groupMap.get(d.cluster_group).push({name: d.cluster_name, value: parseFloat(d[selected])});
         }
         if (!categoryMap.get(d.category)) {
           const group = new Set();

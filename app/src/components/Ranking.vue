@@ -35,14 +35,31 @@ export default {
         { text: 'community size', value: 'community_size' },
         { text: 'average friends count', value: 'friends_count_mean' },
         { text: 'average follower count', value: 'follower_count_mean' },
-        { text: 'average tweet count', value: 'tweet_count_mean' }
+        { text: 'average tweet count', value: 'tweet_count_mean' },
+        { text: 'lexical change', value: 'lexical_change' },
+        { text: 'ideology lexical change', value: 'ideology_lexical_change' },
+        { text: 'male ratio', value: 'male_ratio' },
       ]
     }
   },
+
+  created: function() {
+    eventBus.$on("select-ranking", this.changeButton);
+  },
+
+  
+  beforeDestroy: function() {
+    eventBus.$off("select-ranking", this.changeButton);
+  },
+
   methods: {
     selectRanking: function() {
       eventBus.$emit('select-ranking', this.selected);
     },
+
+    changeButton: function(newSelected) {
+      this.selected = newSelected;
+    }
   }
 }
 </script>

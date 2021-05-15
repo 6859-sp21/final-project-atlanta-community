@@ -1,0 +1,134 @@
+<template>
+  <div>
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="0"
+      controls
+      indicators
+      background="#ababab"
+      img-width="1024"
+      img-height="480"
+      style="text-shadow: 1px 1px 2px #333;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+
+      <b-carousel-slide
+        id="page-1"
+        img-blank
+      >
+        <div id="content-1">
+          <h1>Exploring patterns of language variation on social media</h1>
+          <h2>A case study in Atlanta online communities</h2>
+          <p>Team: Yuebin Dong, Jiang Hang, Amanda Horne, Diego Lestani
+          </p>
+          <b-button to="/viz" variant="primary">Go to Our App</b-button>
+        </div>
+      </b-carousel-slide>
+
+      <b-carousel-slide
+        id="page-2"
+        img-blank
+      >
+        <h1>Abstract</h1>
+        <p>
+        Our team will explore how different communities in Atlanta perceive language in different ways. To do this, we’ll be using a dataset of 149 local communities with information about their online behavior on Twitter.  Information at the twitter account level allowed us to create summary statistics at the community level such as  community size,  average number of followers, friends and tweets and understand what are the top follows and topic words in each community. Following a specific methodology, deviations from the normal language can be measured and these deviations are called semantic change. 
+        Our main goal is that the user can understand the semantic change in social media across Atlanta’s communities and have a guide for current local trends online. Examples of potential users  are journalists, politicians and society as a whole.
+        </p>
+      </b-carousel-slide>
+
+      <b-carousel-slide
+        id="page-3"
+        img-blank
+      >
+        <h1>Our Video</h1>
+      </b-carousel-slide>
+
+      <b-carousel-slide
+        id="page-4"
+        img-blank
+      >
+        <h1>Our Paper</h1>
+      </b-carousel-slide>
+
+      <b-carousel-slide 
+        id="page-5"
+        img-blank>
+        <h1>Instructions</h1>
+      </b-carousel-slide>
+    </b-carousel>
+
+    <p class="mt-4">
+      Slide #: {{ slide }}<br>
+      Sliding: {{ sliding }}
+    </p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        slide: 0,
+        sliding: null
+      }
+    },
+    methods: {
+      onSlideStart() {
+        this.sliding = true
+      },
+      onSlideEnd() {
+        this.sliding = false
+      }
+    }
+  }
+</script>
+
+<style scoped>
+h1 {
+  text-align: left;
+}
+
+h2 {
+  text-align: left;
+}
+
+p {
+  text-align: left;
+}
+
+#carousel-1 {
+  height: 100vh;
+}
+
+#page-1 {
+  height: 100vh;
+}
+
+#content-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#page-2 {
+  height: 100vh;
+}
+
+#page-3 {
+  height: 100vh;
+}
+
+#page-4 {
+  height: 100vh;
+}
+
+#page-5 {
+  height: 100vh;
+}
+
+.carousel-caption {
+  top: 0;
+}
+</style>
