@@ -4,6 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+    // https://stackoverflow.com/questions/48521177/404-when-reloading-a-vue-website-published-to-github-pages
+    mode : 'hash',
     base: '/final-project-atlanta-community/',
     routes: [
         {
