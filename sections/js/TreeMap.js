@@ -35,3 +35,5 @@
       .text(d => d);
 
   return svg.node();
+
+  data = FileAttachment("flare-2@2.json").json()
