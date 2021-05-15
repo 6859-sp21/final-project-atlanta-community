@@ -6,20 +6,18 @@ set -e
 # build
 npm run build
 
-# navigate into the build output directory
-cd dist
+# copy app to /docs
+cp dist/* ../docs -r
 
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
-
-git init
-git add -A
+cd ..
+git add docs/
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:6859-sp21/6859-sp21.git master:gh-pages
+git push
+# -f git@github.com:6859-sp21/6859-sp21.git master:gh-pages
 
-cd -
+cd app

@@ -21,3 +21,5 @@ export default new Router({
 
     ]
 })
+
+// Reference: https://github.com/guizoxxv/vue-cli-deploy

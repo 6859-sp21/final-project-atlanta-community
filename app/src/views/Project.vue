@@ -23,7 +23,8 @@
           <h2>A case study in Atlanta online communities</h2>
           <p>Team: Yuebin Dong, Jiang Hang, Amanda Horne, Diego Lestani
           </p>
-          <b-button to="/viz" variant="primary">Go to Our App</b-button>
+          <b-button class="button-blue" href="/final-project-atlanta-community/viz" variant="primary">Go to Our App</b-button>
+          <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community" variant="primary">Go to Our Github</b-button>
         </div>
       </b-carousel-slide>
 
@@ -56,6 +57,19 @@
         id="page-5"
         img-blank>
         <h1>Instructions</h1>
+        <h5>Run Locally</h5>
+        <ol>
+          <li>Clone the clone the repository to local</li>
+          <li><code>$cd</code> into folder <code>root/app</code></li>
+          <li>run <code>$npm install</code> to install all dependices</li>
+          <li>run <code>$npm serve</code> to preview locally at <code>http://localhost:8080/</code></li>
+        </ol> 
+        <h5>Deploy to Github</h5>
+        <ol>
+          <li><code>$cd</code> into folder <code>root/app</code></li>
+          <li>run <code>$chmod +x ./deploy.sh</code> to make the deployment script executable</li>
+          <li>run <code>$./deploy.sh</code> to deploy to Github Pages</li>
+        </ol> 
       </b-carousel-slide>
     </b-carousel>
 
@@ -94,7 +108,15 @@ h2 {
   text-align: left;
 }
 
+h5 {
+  text-align: left;
+}
+
 p {
+  text-align: left;
+}
+
+ol {
   text-align: left;
 }
 
@@ -130,5 +152,9 @@ p {
 
 .carousel-caption {
   top: 0;
+}
+
+.button-blue {
+  margin-bottom: 1em;
 }
 </style>
