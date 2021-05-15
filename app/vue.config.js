@@ -1,3 +1,6 @@
 module.exports = {
-  publicPath: '/final-project-atlanta-community/'
+  runtimeCompiler: true,
+  publicPath: process.env.NODE_ENV === 'production'
+      ? '/final-project-atlanta-community/'
+      : '/'
 }
