@@ -37,3 +37,20 @@
   return svg.node();
 
   data = FileAttachment("flare-2@2.json").json()
+
+  treemap = data => d3.treemap()
+    .tile(tile)
+    .size([width, height])
+    .padding(1)
+    .round(true)
+  (d3.hierarchy(data)
+      .sum(d => d.value)
+      .sort((a, b) => b.value - a.value))
+
+width = 954
+height = 954
+
+format = d3.format(",d")
+
+color = d3.scaleOrdinal(d3.schemeCategory10)
+
