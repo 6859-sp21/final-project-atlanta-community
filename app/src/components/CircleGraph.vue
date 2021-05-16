@@ -7,6 +7,7 @@
 <script>
 import * as d3 from "d3";
 import { eventBus } from "../main";
+// https://bl.ocks.org/feifang/664c0f16adfcb4dea31b923f74e897a0
 
 export default {
   name: "CircleGraph",
@@ -39,6 +40,7 @@ export default {
     this.width = this.$refs.chart2.clientWidth;
     this.height = this.$refs.chart2.clientHeight;
 
+    console.log("!!!!");
     console.log(this.width, this.height);
 
     this.width = Math.min(this.width, this.height);
@@ -69,30 +71,31 @@ export default {
       .attr("text-anchor", "middle");
     
     d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
-      this.storedData = data;
-      this.update("community_size");
-    });
-  },
-
-  methods: {
-    pack(data) {
-      const p = d3.pack()
-              .size([this.width, this.height])
-              .padding(3)
-      return p(d3.hierarchy(data)
-              .sum(d => d.value)
-              .sort((a, b) => b.value - a.value))
-    },
-
-    update(selected) {
       const groupMap = new Map();
       const categoryMap = new Map();
       
-      this.storedData.forEach(d => {
+      data.forEach(d => {
         if (!groupMap.get(d.cluster_group)) {
-          groupMap.set(d.cluster_group, [{name: d.cluster_name, value: parseFloat(d[selected])}])
+          groupMap.set(d.cluster_group, 
+          [{name: d.cluster_name, 
+            community_size: parseFloat(d.community_size),
+            lexical_change: parseFloat(d.lexical_change),
+            ideology_lexical_change: parseFloat(d.ideology_lexical_change),
+            male_ratio: parseFloat(d.male_ratio),
+            friends_count_mean: parseFloat(d.friends_count_mean),
+            follower_count_mean: parseFloat(d.follower_count_mean),
+            tweet_count_mean: parseFloat(d.tweet_count_mean),
+            }])
         } else {
-          groupMap.get(d.cluster_group).push({name: d.cluster_name, value: parseFloat(d[selected])});
+          groupMap.get(d.cluster_group).push({name: d.cluster_name, 
+            community_size: parseFloat(d.community_size),
+            lexical_change: parseFloat(d.lexical_change),
+            ideology_lexical_change: parseFloat(d.ideology_lexical_change),
+            male_ratio: parseFloat(d.male_ratio),
+            friends_count_mean: parseFloat(d.friends_count_mean),
+            follower_count_mean: parseFloat(d.follower_count_mean),
+            tweet_count_mean: parseFloat(d.tweet_count_mean),
+            });
         }
         if (!categoryMap.get(d.category)) {
           const group = new Set();
@@ -103,6 +106,11 @@ export default {
         }
       });
 
+      // community_size	lexical_change	ideology_lexical_change	male_ratio	friends_count_mean	
+      // friends_count_median	follower_count_mean	follower_count_median	tweet_count_mean	tweet_count_median	
+      // tweet_count_rank	gender	age	is_org	betweenness	closeness	cluster_id	category	cluster_group	cluster_name	topic_words	top_follows
+
+
       const categories = [];
       categoryMap.forEach((value, key) => {
         const groups = []
@@ -112,24 +120,44 @@ export default {
         categories.push({name: key, children: groups});
       });
 
-      const newData = {name: "Atlanta", children: categories};
-      console.log(newData);
+      this.storedData = {name: "Atlanta", children: categories};
+      console.log(this.storedData);
+      this.root =  d3.hierarchy(this.storedData)
+        .sum(d => d["community_size"])
+        .sort((a, b) => b.value - a.value)
 
-      this.root = this.pack(newData);
+      this.node = this.svg.append("g")
+        .selectAll("circle")
+        .data(that.root.descendants().slice(1))
+        .join("circle")
+          .attr("fill", d => d.children ? that.color(d.depth) : "white")
+          .attr("pointer-events", d => !d.children ? "none" : null)
+          .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
+          .on("mouseout", function() { d3.select(this).attr("stroke", null); })
+          .on("click", (event, d) => that.focus !== d && (that.zoom(event, d), event.stopPropagation()));
+
+      this.update("community_size");
+    });
+  },
+
+  methods: {
+    pack(selected) {
+      const p = d3.pack()
+              .size([this.width, this.height])
+              .padding(3)
+      return p(this.root
+                .sum(d => d[selected])
+                .sort((a, b) => b.value - a.value))
+    },
+
+    update(selected) {
+      // https://bl.ocks.org/HarryStevens/4fba7a62b0ff302ef49768198d4c54c6
+      this.root = this.pack(selected);
       this.focus = this.root;
 
-      // https://bl.ocks.org/HarryStevens/4fba7a62b0ff302ef49768198d4c54c6
-
-      if (this.node) {
-        this.node.remove();
-      }
-
-      if (this.label) {
-        this.label.remove();
-      }
 
       const that = this;
-      this.node = this.svg.append("g")
+      this.node
         .selectAll("circle")
         .data(that.root.descendants().slice(1))
         .join("circle")

@@ -1,0 +1,271 @@
+<html>
+  <head>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v6.js"></script>
+  </head>
+  <body>
+    <div id="chart" style="width:520px;height:420px;">
+      <!-- This is where we will put our chart. -->
+    </div>
+    <style>
+      .selected {
+        opacity: 1 !important;
+        stroke: black;
+        stroke-width: 1px;
+      }
+    </style>
+
+    <script>
+      // https://stackoverflow.com/questions/46015240/d3-using-zoom-and-brush-on-a-bar-chart
+      // Load data from a URL. You can also have the json file downloaded.
+      // See https://github.com/d3/d3/blob/master/API.md#fetches-d3-fetch for more options.
+      d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
+        data.forEach(d => d.value = parseFloat(d["community_size"]));
+        data.sort((a, b) => a.value - b.value);
+        data.forEach((d, i) => d.Rank = i + 1);
+        console.log(data);
+
+      var margin = {
+        top: 50,
+        right: 20,
+        bottom: 90,
+        left: 50
+      },
+      
+      margin2 = {
+        top: 530,
+        right: 20,
+        bottom: 30,
+        left: 50
+      },
+      width = 1000 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom,
+      height2 = 600 - margin2.top - margin2.bottom;
+
+    var x = d3.scaleBand()
+      .domain(data.map(function(d) {
+        return d.cluster_name
+      }))
+      .range([0, width]);
+
+    var x2 = d3.scaleBand()
+      .domain(data.map(function(d) {
+        return d.cluster_name
+      }))
+      .range([0, width]);
+
+    var y = d3.scaleLinear()
+      .domain([0, d3.max(data, function(d) {
+        return d.value
+      })])
+      .range([height, 0]);
+
+    var y2 = d3.scaleLinear()
+      .domain([0, d3.max(data, function(d) {
+        return d.value
+      })])
+      .range([height2, 0]);
+
+    var brush = d3.brushX()
+      .extent([
+        [0, 0],
+        [width, height2]
+      ])
+      .on("brush", brushed);
+
+    var zoom = d3.zoom()
+      .scaleExtent([1, Infinity])
+      .translateExtent([
+        [0, 0],
+        [width, height]
+      ])
+      .extent([
+        [0, 0],
+        [width, height]
+      ])
+      .on("zoom", zoomed);
+
+    var svg = d3.select("#chart")
+      // .data(data)
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom);
+
+    // .append("g")
+    // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    svg.append("defs").append("clipPath")
+      .attr("id", "clip")
+      .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+
+    var focus = svg.append("g")
+      .attr("class", "focus")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var context = svg.append("g")
+      .attr("class", "context")
+      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+    var xAxis = d3.axisBottom(x);
+    var xAxis2 = d3.axisBottom(x2);
+
+    focus.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+    // Add the Y Axis
+    focus.append("g")
+      .attr("class", "axis")
+      .call(d3.axisLeft(y)
+        .ticks(7));
+
+    var tooltip = d3.select("#info")
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden");
+
+    svg.append("rect")
+      .attr("class", "zoom")
+      .attr("width", width)
+      .attr("height", height)
+      .attr('opacity', 0)
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(zoom);
+
+    var focus_group = focus.append("g");
+    focus_group.attr("clip-path", "url(#clip)");
+
+    var rects = focus_group.selectAll('rect')
+      .data(data);
+
+    //********* Bar Chart 1 ****************
+    var newRects1 = rects.enter();
+
+    newRects1.append('rect')
+      .attr('class', 'bar mainBars')
+      .attr('x', function(d, i) {
+        return x(d.cluster_name) + x.bandwidth()/2;
+      })
+      .attr('y', function(d, i) {
+        return y(d.value);
+      })
+      .attr('height', function(d, i) {
+        return height - y(d.value)
+      })
+      .attr('opacity', 0.85)
+      .attr('width', 10)
+      .style('fill', 'lightblue')
+
+    var focus_group = context.append("g");
+    focus_group.attr("clip-path", "url(#clip)");
+
+    var brushRects = focus_group.selectAll('rect')
+      .data(data);
+
+    //********* Brush Bar Chart ****************
+    var brushRects1 = brushRects.enter();
+
+    brushRects1.append('rect')
+      .attr('class', 'bar mainBars')
+      .attr('x', function(d, i) {
+        return x2(d.cluster_name);
+      })
+      .attr('y', function(d, i) {
+        return y2(d.value);
+      })
+      .attr('height', function(d, i) {
+        return height2 - y2(d.value)
+      })
+      .attr('opacity', 0.85)
+      .attr('width', 10)
+      .attr("transform", "translate(" + 4 + ",0)")
+      .style('fill', 'red')
+      .style('stroke', 'gray');
+
+    //append brush xAxis2
+    context.append("g")
+      .attr("class", "axis x-axis")
+      .attr("transform", "translate(0," + height2 + ")")
+      .call(xAxis2);
+
+    context.append("g")
+      .attr("class", "brush")
+      .call(brush)
+      .call(brush.move, x.range());
+
+    //create brush function redraw scatterplot with selection
+    function brushed(event) {
+      if (event.sourceEvent && event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+
+      // get bounds of selection
+      var s = event.selection,
+          nD = [];
+
+      x2.domain().forEach((d)=>{
+        var pos = x2(d) + x2.bandwidth()/2;
+        console.log(d, pos);
+        if (pos > s[0] && pos < s[1]){
+          nD.push(d);
+        }
+      });
+
+      console.log(nD);
+      
+      x.domain(nD);
+      
+      focus.selectAll(".mainBars")
+        .style("opacity", function(d){
+          return x.domain().indexOf(d.cluster_name) === -1 ? 0 : 100;
+        })
+        .attr("x", function(d) {
+          return x(d.cluster_name)+ x.bandwidth()/2 - 5;
+        })
+        .attr("y", function(d) {
+          return y(d.value);
+        })
+        .attr('height', function(d, i) {
+          return height - y(d.value)
+        })
+        .attr('opacity', 0.85)
+        .attr('width', 10);
+
+      
+      focus.select(".x.axis").call(xAxis);
+
+    }
+
+    function zoomed() {
+      /*
+      if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+      var t = d3.event.transform;
+      
+      x.domain(t.rescaleX(x2).domain());
+      focus.selectAll(".mainBars")
+        .attr("x", function(d) {
+          return x(d.cluster_name) + x.bandwidth()/2;
+        })
+        .attr("y", function(d) {
+          return y(d.value);
+        })
+        .attr('height', function(d, i) {
+          return height - y(d.value)
+        })
+        .attr('opacity', 0.85)
+        .attr('width', 10);
+      focus.select(".x-axis").call(xAxis);
+      context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
+      */
+    }
+
+      })
+        
+      </script>
+  </body>
+
+  <!-- This adapted from Arvind's observable from lecture. https://observablehq.com/d/4c93c3a516d35624 -->
+  <!-- Great D3 intro resource: https://observablehq.com/@d3/learn-d3?collection=@d3/learn-d3 -->
+</html>

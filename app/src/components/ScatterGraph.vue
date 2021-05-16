@@ -42,36 +42,34 @@ export default {
   },
 
   mounted() {
-    this.margin = {top: 20, right: 10, bottom: 20, left: 80};
+    this.margin = {top: 20, right: 10, bottom: 50, left: 70};
 
-    this.width = this.$refs.chart3.clientWidth - this.margin.left - this.margin.right;
-    this.height = this.$refs.chart3.clientHeight - this.margin.top - this.margin.bottom;
+    this.width = this.$refs.chart3.clientWidth;
+    this.height = this.$refs.chart3.clientHeight;
 
     this.x = d3.scaleLinear()
-        .range([ 0, this.width ]);
+        .range([this.margin.left, this.width -this.margin.right]);
 
     this.y = d3.scaleLinear()
-        .range([ this.height - 50, 0]);
+        .range([this.height - this.margin.bottom, this.margin.top]);
 
     this.svg = d3.select("#chart-3").append("svg")
-      .attr("width", this.width + this.margin.left + this.margin.right)
-      .attr("height", this.height + this.margin.top + this.margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+      .attr("width", this.width)
+      .attr("height", this.height)
 
     const that = this
 
     //6. Drawing our x-axis
     this.xAxis = this.svg.append('g')
                     .attr("class", "x-axis")
-                    .attr("transform", "translate(0," + (that.height - 50) + ")")
+                    .attr("transform", `translate(0, ${that.height - that.margin.bottom})`)
                     .call(d3.axisBottom(that.x))
 
-    this.xText = this.svg.append('text')
-      .attr('x', (this.width + this.margin.left) / 2)
-      .attr('y', this.height - 5)
+    this.xText = this.xAxis.append('text')
       .attr('text-anchor', 'middle')
       .attr('font-family', 'Helvetica Neue, Arial')
+      .attr('x', (this.width - this.margin.right) / 2)
+      .attr('y', 40)
       .attr('font-weight', 700)
       .attr('font-size', 20)
       .attr("fill", 'black')
@@ -80,13 +78,14 @@ export default {
     //7. Drawing our y-axis
     this.yAxis = this.svg.append('g')
       .attr("class", "y-axis")
+      .attr("transform", `translate(${that.margin.left}, 0)`)
       .call(d3.axisLeft(that.y));
 
-    this.yText = this.svg.append('text')
+    this.yText = this.yAxis.append('text')
       .attr('transform', "rotate(-90)")
-      .attr('x', -((this.height - this.margin.bottom) / 2) - 50)
-      .attr('y', -50)
       .attr('text-anchor', 'middle')
+      .attr('x', -((this.height - this.margin.bottom) / 2) - 50)
+      .attr('y', -40)
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
@@ -98,7 +97,14 @@ export default {
       console.log(this.storedData);
       this.updateScatterPlot("community_size", "lexical_change", "all")
     });
-
+    
+    this.svg.append('rect')
+      .attr('class', 'zoom-panel')
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", this.width)
+        .attr("height", this.height)
+      .style("opacity", 0.2);
   },
 
   methods: {

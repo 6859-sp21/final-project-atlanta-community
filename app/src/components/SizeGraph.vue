@@ -16,16 +16,23 @@ export default {
   data() {
     return {
       margin: null,
+      margin2: null,
       width: null,
+      width2: null,
       height: null,
       x: null,
       y: null,
-      color: null,
+      x2: null,
+      y2: null,
       svg: null,
       xAxis: null,
       yAxis: null,
       xScale: null,
       yScale: null,
+      brush: null,
+      brushArea: null,
+      content: null,
+      focus: null
     }
   },
 
@@ -39,7 +46,9 @@ export default {
   },
 
   mounted() {
-    this.margin = {top: 20, right: 10, bottom: 20, left: 80};
+    this.margin = {top: 20, right: 10, bottom: 20, left: 120};
+    this.margin2 = {top: 20, right: 5, bottom: 20, left: 5};
+    this.width2 = 30;
 
     this.width = this.$refs.chart1.clientWidth - this.margin.left - this.margin.right;
     this.height = this.$refs.chart1.clientHeight - this.margin.top - this.margin.bottom;
@@ -51,50 +60,88 @@ export default {
     this.y = d3.scaleBand()
             .range([this.height - this.margin.bottom, this.margin.top])
             .padding(0.1);
+    
+    this.x2 = d3.scaleLinear()
+            .range([this.margin2.left, this.width2 - this.margin2.right])
+            .nice();
 
-    this.color = function (d, selected) {
-            if (selected.includes(d.cluster_name)) {
-                return '#FF930E';
-            }
-            return '#ccc';
-        }
+    this.y2 = d3.scaleBand()
+            .range([this.height - this.margin.bottom, this.margin.top])
+            .padding(0.1);
 
-    this.svg = d3.select("#chart-1").append("svg")
+    this.svg = d3.select("#chart-1")
+      .append("svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom)
+
+    this.content = this.svg
+      .append("g")
+      .attr("transform", "translate(" + this.margin2.left + "," + this.margin.top + ")");
+
+    this.focus = this.svg
       .append("g")
       .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
+    const that = this
+
+    // https://observablehq.com/@d3/focus-context
+    // https://bl.ocks.org/SevenChan07/495cd567e0ede0deeb14bb3599dce685
+    this.brush = d3.brushY()
+    .extent([[0, this.margin.top], [this.width2, this.height - this.margin.bottom]])
+    .on("brush", brushed);
+
+    function brushed(event) {
+      const selection = event.selection;
+      if (selection) {
+        // get bounds of selection
+        const  nD = [];
+        that.y2.domain().forEach((d)=>{
+          var pos = that.y2(d) + that.y2.bandwidth()/2;
+          if (pos > selection[0] && pos < selection[1]){
+            nD.push(d);
+          }
+        }); 
+
+        that.y.domain(nD);
+        that.svg.selectAll(".bar")
+          .attr('y', d => that.y(d.cluster_name))
+          .attr('height', that.y.bandwidth())
+        that.yAxis.call(that.yScale, that.y);
+      }
+    }
+
+    this.brushArea = this.content.append("g")
+        .attr("class", "brush")
+
     // Clippath for zooming
-    this.svg.append("clipPath")
+    this.focus.append("clipPath")
       .attr("id", 'my-clip-path')
       .append("rect")
-        .attr("x", -500)
-        .attr("y", this.margin.top)
-        .attr("width", this.width + 500 + this.margin.left + this.margin.right)
-        .attr("height", this.height - this.margin.top - this.margin.bottom)
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", this.chartWidth)
+        .attr("height", this.chartHeight)
     
     this.svg.append('rect')
       .attr('class', 'zoom-panel')
-      .attr("x", -500)
-      .attr("y", this.margin.top)
-      .attr('width', this.width)
-      .attr('height', this.height)
-      .style("opacity", 0);
+        .attr("x", this.margin.left)
+        .attr("y", this.margin.top)
+        .attr("width", this.width)
+        .attr("height", this.height - this.margin.top - this.margin.bottom)
+      .style("opacity", 1);
 
-    const that = this
     //6. Drawing our x-axis
     this.xScale = function(g) {
-        g.attr('transform', `translate(15, ${that.height - that.margin.bottom})`)
-        .call(d3.axisBottom(that.x))
-        .call(g => g.select(".domain").remove())
-      }
+      g.attr('transform', `translate(15, ${that.height - that.margin.bottom})`)
+      .call(d3.axisBottom(that.x))
+      .call(g => g.select(".domain").remove())
+    }
   
-    this.xAxis = this.svg.append('g')
+    this.xAxis = this.focus.append('g')
                     .attr("class", "x-axis")
                     .call(this.xScale)
 
-    this.svg.append('text')
+    this.focus.append('text')
       .attr('x', (this.width + this.margin.left) / 2)
       .attr('y', this.height - 5)
       .attr('text-anchor', 'middle')
@@ -110,12 +157,12 @@ export default {
       .call(d3.axisLeft(y).ticks(that.width / 80).tickSizeOuter(0))
     }
 
-    this.yAxis = this.svg.append('g')
+    this.yAxis = this.focus.append('g')
       .attr("class", "y-axis")
       .attr('clip-path','url(#my-clip-path)')
       .call(this.yScale, this.y)
 
-    this.svg.append('text')
+    this.focus.append('text')
       .attr('transform', "rotate(-90)")
       .attr('x', -((this.height - this.margin.bottom) / 2) - 50)
       .attr('y', 15)
@@ -128,25 +175,34 @@ export default {
 
     this.reorder("community_size");
 
-    const zoom = d3.zoom()
-      .scaleExtent([1, 32])
-      .extent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
-      .translateExtent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
-      .on("zoom", zoomed);
+    // const zoom = d3.zoom()
+    //   .scaleExtent([1, 32])
+    //   .extent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
+    //   .translateExtent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
+    //   .on("zoom", zoomed);
     
-    function zoomed(event) {
-      that.y.range([that.height - that.margin.bottom, that.margin.top].map(d => event.transform.applyY(d)));
-      that.svg.selectAll(".bar")
-        .attr('y', d => that.y(d.cluster_name))
-        .attr('height', that.y.bandwidth())
-      that.yAxis.call(that.yScale, that.y);
-    }
+    // function zoomed(event) {
+    //   that.y.range([that.height - that.margin.bottom, that.margin.top].map(d => event.transform.applyY(d)));
+    //   that.svg.selectAll(".bar")
+    //     .attr('y', d => that.y(d.cluster_name))
+    //     .attr('height', that.y.bandwidth())
+    //   that.yAxis.call(that.yScale, that.y);
+    // }
 
-    this.svg.call(zoom);
+    // this.focus.call(zoom);
+  },
+
+  computed: {
+    chartHeight () {
+      return this.$refs.chart1.clientHeight
+    },
+    chartWidth () {
+      return this.$refs.chart1.clientWidth
+    }
   },
 
   methods: {
-    updateBars(data, selected) {
+    updateBars(data) {
       // First update the y-axis domain to match data
       this.x.domain([0, d3.max(data, d => d.value)]);
       this.xAxis.transition().duration(1000).call(d3.axisBottom(this.x))
@@ -154,7 +210,10 @@ export default {
       this.y.domain(data.map(d => d.cluster_name));
       this.yAxis.transition().duration(1000).call(d3.axisLeft(this.y));
 
-      const bars = this.svg
+      this.x2.domain([0, d3.max(data, d => d.value)]);
+      this.y2.domain(data.map(d => d.cluster_name));
+
+      const bars = this.focus
           .selectAll(".bar")
           .data(data)
       
@@ -164,23 +223,54 @@ export default {
         .append("rect")
         .attr('clip-path','url(#my-clip-path)')
         .attr("class", "bar")
+        .attr("id", d => d.cluster_name)
         .attr('x', that.margin.left + 15)
         .attr('y', d => that.y(d.cluster_name))
-        .attr('width', d => that.x(d.value) - that.margin.left)
+        .attr('width', d => that.x(d.value))
         .attr('height', that.y.bandwidth())
-        .attr('fill', d => that.color(d, selected))
+        .attr('fill', "Lightblue")
 
       // Update old ones, already have x / width from before
       bars
         .transition().duration(250)
         .attr('x', that.margin.left + 15)
         .attr('y', d => that.y(d.cluster_name))
-        .attr('width', d => that.x(d.value) - that.margin.left)
+        .attr('width', d => that.x(d.value))
         .attr('height', that.y.bandwidth())
-        .attr('fill', d => that.color(d, selected))
+        .attr('fill', "Lightblue")
 
       // Remove old ones
       bars.exit().remove();
+
+      const bars2 = this.content
+        .selectAll(".bar2")
+        .data(data)
+
+      // Add bars for new data
+      bars2.enter()
+        .append("rect")
+        .attr("class", "bar2")
+        .attr('x', that.margin2.left)
+        .attr('y', d => that.y(d.cluster_name))
+        .attr('width', d => that.x2(d.value) - that.margin2.left)
+        .attr('height', that.y.bandwidth())
+        .attr('fill', "Black")
+
+      // Update old ones, already have x / width from before
+      bars2
+        .transition().duration(250)
+        .attr('x', that.margin2.left)
+        .attr('y', d => that.y(d.cluster_name))
+        .attr('width', d => that.x2(d.value) - that.margin2.left)
+        .attr('height', that.y.bandwidth())
+        .attr('fill', "Black")
+
+      // Remove old ones
+      bars2.exit().remove();
+
+      this.brushArea        
+        .call(that.brush)
+        .call(that.brush.move, [this.margin.top, this.height - this.margin.bottom]);
     },
 
     reorder(selected) {
@@ -189,7 +279,7 @@ export default {
         data.sort((a, b) => a.value - b.value);
         data.forEach((d, i) => d.Rank = i + 1);
         selected = [];
-        this.updateBars(data, selected);
+        this.updateBars(data);
       })
     }
   }
