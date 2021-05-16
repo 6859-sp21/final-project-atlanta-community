@@ -25,12 +25,11 @@ function updateScatterPlot(factor1, factor2, category) {
         .attr("transform",
                 "translate(" + 80 + "," + margin.top + ")");
 
-
     //Read the data
     d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then(function(data) {
 
         if (category != "all") {
-            data = data.filter((d) => d.category == category);
+            data = data.filter((d) => d['category'] == category);
             console.log(data);
         }
 
@@ -43,7 +42,9 @@ function updateScatterPlot(factor1, factor2, category) {
                                 'male_ratio',
                                 'friends_count_mean', 'friends_count_median',
                                 'follower_count_mean', 'follower_count_median',
-                                'tweet_count_mean', 'tweet_count_median', 'tweet_count_rank']
+                                'tweet_count_mean', 'tweet_count_median', 'tweet_count_rank',
+                                'gender','age','is_org','betweenness','closeness'
+                            ]
 
         // add the options to the button
         var left_buttons = d3.select("#selectButton")
@@ -86,6 +87,47 @@ function updateScatterPlot(factor1, factor2, category) {
         .range([ height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
+
+    // circle size scaler
+    var r = d3.scaleLinear()
+        .domain([0, d3.max(data, (d) => parseFloat(d['community_size']))])
+        .range([2, 20]);
+
+    // color scaler
+    const categories = ['atlanta', 'society', 'entertainment', 'sports']
+    const colors_list = ["#FFBF00", "#FF7F50", "#6495ED", "#808000"]
+    // const colors_list = ["#FFBF00", "#FF7F50", "#000000", "#808000", "#00FF00", "#6495ED", "#000080", "#800080", "#808080", "#FF0000"]
+    var color = d3.scaleOrdinal()
+        .domain(categories)
+        .range(colors_list)
+    
+    // Add one dot in the legend for each name.
+    svg.selectAll("mydots")
+    .data(categories)
+    .enter()
+    .append("circle")
+    .attr("cx", 100)
+    .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+    .attr("r", 7)
+    .style("fill", function(d){ return color(d)})
+    .attr("transform",
+                "translate(" + 250 + ", -70)")
+
+    // Add one dot in the legend for each name.
+    svg.selectAll("mylabels")
+    .data(categories)
+    .enter()
+    .append("text")
+    .attr("x", 120)
+    .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+    .style("fill", function(d){ return color(d)})
+    .text(function(d){ return d})
+    .attr("text-anchor", "left")
+    .style("alignment-baseline", "middle")
+    .attr("transform",
+                "translate(" + 250 + ", -70)")
+
+
 
     // text label for the y axis
     svg.append("text")
@@ -139,10 +181,12 @@ function updateScatterPlot(factor1, factor2, category) {
         .append("circle")
         .attr("cx", function (d) { return x(d[factor1]); } )
         .attr("cy", function (d) { return y(d[factor2]); } )
-        .attr("r", 5)
-        .style("fill", "#e25609")
+        .attr("r", function (d) { return r(d["community_size"]); })
+        .style("fill", function(d){ return color(d['category']) })
+        .attr("stroke", function(d){ return color(d['category']) })
         .style("opacity", 0.3)
-        .style("stroke", "white")
+        // .style("fill", "#e25609")
+        // .style("stroke", "white")
         .on("mouseover", mouseover )
         .on("mousemove", mousemove )
         .on("mouseleave", mouseleave )
