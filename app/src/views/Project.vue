@@ -25,6 +25,11 @@
           </p>
           <b-button class="button-blue" href="/final-project-atlanta-community/#/viz" variant="primary">Go to Our App</b-button>
           <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community" variant="primary">Go to Our Github</b-button>
+          <div class="screenshots">
+            <b-img class="screenshot" :src="require('../assets/Image1.png')"></b-img>
+            <b-img class="screenshot" :src="require('../assets/Image2.png')"></b-img>
+            <b-img class="screenshot" :src="require('../assets/Image3.png')"></b-img>
+          </div>
         </div>
       </b-carousel-slide>
 
@@ -143,6 +148,17 @@ ol {
   align-items: flex-start;
 }
 
+.screenshots {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.screenshot {
+  width: 30%;
+  height: auto;
+}
+
 #page-2 {
   height: 100vh;
 }
@@ -166,4 +182,5 @@ ol {
 #video {
   min-width: 65vw;
 }
+
 </style>
