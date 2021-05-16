@@ -128,7 +128,7 @@ export default {
         .attr("y", this.margin.top)
         .attr("width", this.width)
         .attr("height", this.height - this.margin.top - this.margin.bottom)
-      .style("opacity", 1);
+      .style("opacity", 0);
 
     //6. Drawing our x-axis
     this.xScale = function(g) {

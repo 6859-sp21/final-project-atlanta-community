@@ -126,15 +126,38 @@ export default {
         .sum(d => d["community_size"])
         .sort((a, b) => b.value - a.value)
 
+      console.log(that.root.descendants().slice(1));
+
       this.node = this.svg.append("g")
         .selectAll("circle")
         .data(that.root.descendants().slice(1))
         .join("circle")
           .attr("fill", d => d.children ? that.color(d.depth) : "white")
-          .attr("pointer-events", d => !d.children ? "none" : null)
+          // .attr("pointer-events", d => !d.children ? "none" : null)
           .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
           .on("mouseout", function() { d3.select(this).attr("stroke", null); })
-          .on("click", (event, d) => that.focus !== d && (that.zoom(event, d), event.stopPropagation()));
+          .on("click", (event, d) => {
+            console.log("!!!!!!");
+            console.log(d.data.name);
+            if (d.children) {
+              that.focus !== d && (that.zoom(event, d), event.stopPropagation());
+              eventBus.$emit('show-checkbox', data);
+            } else {
+              eventBus.$emit('select-community', d.data.name);
+            }
+            });
+
+    
+      this.label = this.svg.append("g")
+        .style("font", "10px sans-serif")
+        .attr("pointer-events", "none")
+        .attr("text-anchor", "middle")
+      .selectAll("text")
+      .data(that.root.descendants())
+      .join("text")
+        .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
+        .style("display", d => d.parent === that.root ? "inline" : "none")
+        .text(d => d.data.name);
 
       this.update("community_size");
     });
@@ -157,26 +180,25 @@ export default {
 
 
       const that = this;
-      this.node
-        .selectAll("circle")
-        .data(that.root.descendants().slice(1))
-        .join("circle")
-          .attr("fill", d => d.children ? that.color(d.depth) : "white")
-          .attr("pointer-events", d => !d.children ? "none" : null)
-          .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
-          .on("mouseout", function() { d3.select(this).attr("stroke", null); })
-          .on("click", (event, d) => that.focus !== d && (that.zoom(event, d), event.stopPropagation()));
-
-      this.label = this.svg.append("g")
-        .style("font", "10px sans-serif")
-        .attr("pointer-events", "none")
-        .attr("text-anchor", "middle")
-      .selectAll("text")
-      .data(that.root.descendants())
-      .join("text")
-        .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
-        .style("display", d => d.parent === that.root ? "inline" : "none")
-        .text(d => d.data.name);
+      // this.node
+      //   .selectAll("circle")
+      //   .join("circle")
+      //     .attr("fill", d => d.children ? that.color(d.depth) : "white")
+      //     .attr("pointer-events", d => !d.children ? "none" : null)
+      //     .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
+      //     .on("mouseout", function() { d3.select(this).attr("stroke", null); })
+      //     .on("click", (event, d) => that.focus !== d && (that.zoom(event, d), event.stopPropagation()));
+      this.node.selectAll("circle")
+          .transition()
+          .duration(300)
+          .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+          .attr("r", function(d) { return d.r; });
+      // this.label
+      //   .selectAll("text")
+      //   .join("text")
+      //     .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
+      //     .style("display", d => d.parent === that.root ? "inline" : "none")
+      //     .text(d => d.data.name);
 
       this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);
     },
