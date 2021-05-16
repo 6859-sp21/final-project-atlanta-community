@@ -1,5 +1,6 @@
 <template>
   <div id="chart-2" ref="chart2">
+    <b-breadcrumb :items="items"></b-breadcrumb>
     <div id="svg-container-2"/>
   </div>
 </template>
@@ -24,6 +25,12 @@ export default {
       label: null,
       storedData: null,
       node: null,
+      parents: null,
+      items: [
+        {
+          text: 'All',
+        },
+      ],
     }
   },
 
@@ -40,13 +47,8 @@ export default {
     this.width = this.$refs.chart2.clientWidth;
     this.height = this.$refs.chart2.clientHeight;
 
-    console.log("!!!!");
-    console.log(this.width, this.height);
-
     this.width = Math.min(this.width, this.height);
     this.height = this.width;
-
-    console.log(this.width, this.height);
 
     this.color = d3.scaleLinear()
       .domain([0, 5])
@@ -54,7 +56,6 @@ export default {
       .interpolate(d3.interpolateHcl)
 
     const that = this;
-    console.log(that.width, that.height);
 
     this.svg = d3.select("#chart-2").append("svg")
       .attr("width", this.width)
@@ -73,11 +74,26 @@ export default {
     d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
       const groupMap = new Map();
       const categoryMap = new Map();
+
+      this.parents = new Map();
       
       data.forEach(d => {
+        const followings = [];
+        d.top_follows.split(",").forEach(f =>{
+          followings.push({name: f, 
+                          community_size: parseFloat(d.community_size) / 25,
+                          lexical_change: parseFloat(d.lexical_change) / 25,
+                          ideology_lexical_change: parseFloat(d.ideology_lexical_change)  / 25,
+                          male_ratio: parseFloat(d.male_ratio)  / 25,
+                          friends_count_mean: parseFloat(d.friends_count_mean)  / 25,
+                          follower_count_mean: parseFloat(d.follower_count_mean)  / 25,
+                          tweet_count_mean: parseFloat(d.tweet_count_mean)  / 25,
+          });
+        });
         if (!groupMap.get(d.cluster_group)) {
           groupMap.set(d.cluster_group, 
           [{name: d.cluster_name, 
+            children: followings,
             community_size: parseFloat(d.community_size),
             lexical_change: parseFloat(d.lexical_change),
             ideology_lexical_change: parseFloat(d.ideology_lexical_change),
@@ -88,6 +104,7 @@ export default {
             }])
         } else {
           groupMap.get(d.cluster_group).push({name: d.cluster_name, 
+            children: followings,
             community_size: parseFloat(d.community_size),
             lexical_change: parseFloat(d.lexical_change),
             ideology_lexical_change: parseFloat(d.ideology_lexical_change),
@@ -104,12 +121,15 @@ export default {
         } else {
           categoryMap.get(d.category).add(d.cluster_group);
         }
+        this.parents.set(d.cluster_name, d.cluster_group);
+        this.parents.set(d.cluster_group, d.category);
+        this.parents.set(d.category, "All");
       });
 
       // community_size	lexical_change	ideology_lexical_change	male_ratio	friends_count_mean	
       // friends_count_median	follower_count_mean	follower_count_median	tweet_count_mean	tweet_count_median	
       // tweet_count_rank	gender	age	is_org	betweenness	closeness	cluster_id	category	cluster_group	cluster_name	topic_words	top_follows
-
+      this.parents.set("All", null);
 
       const categories = [];
       categoryMap.forEach((value, key) => {
@@ -117,35 +137,31 @@ export default {
         value.forEach(group => {
           groups.push({name: group, children: groupMap.get(group)});
         });
-        categories.push({name: key, children: groups});
+        categories.push({name: key, children: groups,});
       });
 
-      this.storedData = {name: "Atlanta", children: categories};
-      console.log(this.storedData);
+      this.storedData = {name: "All", children: categories};
       this.root =  d3.hierarchy(this.storedData)
         .sum(d => d["community_size"])
         .sort((a, b) => b.value - a.value)
 
-      console.log(that.root.descendants().slice(1));
 
       this.node = this.svg.append("g")
         .selectAll("circle")
         .data(that.root.descendants().slice(1))
         .join("circle")
           .attr("fill", d => d.children ? that.color(d.depth) : "white")
-          // .attr("pointer-events", d => !d.children ? "none" : null)
+          .attr("pointer-events", d => !d.children ? "none" : null)
           .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
           .on("mouseout", function() { d3.select(this).attr("stroke", null); })
           .on("click", (event, d) => {
-            console.log("!!!!!!");
-            console.log(d.data.name);
+            that.focus !== d && (that.zoom(event, d), event.stopPropagation());
             if (d.children) {
-              that.focus !== d && (that.zoom(event, d), event.stopPropagation());
               eventBus.$emit('show-checkbox', data);
-            } else {
+            } if (!d.children) {
               eventBus.$emit('select-community', d.data.name);
             }
-            });
+          });
 
     
       this.label = this.svg.append("g")
@@ -180,25 +196,11 @@ export default {
 
 
       const that = this;
-      // this.node
-      //   .selectAll("circle")
-      //   .join("circle")
-      //     .attr("fill", d => d.children ? that.color(d.depth) : "white")
-      //     .attr("pointer-events", d => !d.children ? "none" : null)
-      //     .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
-      //     .on("mouseout", function() { d3.select(this).attr("stroke", null); })
-      //     .on("click", (event, d) => that.focus !== d && (that.zoom(event, d), event.stopPropagation()));
       this.node.selectAll("circle")
           .transition()
           .duration(300)
           .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
           .attr("r", function(d) { return d.r; });
-      // this.label
-      //   .selectAll("text")
-      //   .join("text")
-      //     .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
-      //     .style("display", d => d.parent === that.root ? "inline" : "none")
-      //     .text(d => d.data.name);
 
       this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);
     },
@@ -215,12 +217,16 @@ export default {
 
     zoom(event, d) {
       this.focus = d;
+      console.log("------------------");
+      console.log("zooming");
+      console.log(d.data.name);
 
       const that = this;
 
       const transition = this.svg.transition()
           .duration(event.altKey ? 7500 : 750)
           .tween("zoom", d => {
+            console.log("zooming");
             console.log(d);
             const i = d3.interpolateZoom(that.view, [that.focus.x, that.focus.y, that.focus.r * 2]);
             return t => that.zoomTo(i(t));
@@ -232,8 +238,18 @@ export default {
           .style("fill-opacity", d => d.parent === that.focus ? 1 : 0)
           .on("start", function(d) { if (d.parent === that.focus) this.style.display = "inline"; })
           .on("end", function(d) { if (d.parent !== that.focus) this.style.display = "none"; });
+
+      this.findAncestors(d.data.name);
     },
 
+    findAncestors(e) {
+      const ancestors = [];
+      while (e) {
+        ancestors.unshift({text : e});
+        e = this.parents.get(e);
+      }
+      this.items = ancestors;
+    }
   }
 }
 </script>
@@ -242,5 +258,29 @@ export default {
 #chart-2 {
   height: 90%;
   width: 90%;
+}
+
+ul.breadcrumb-custom {
+  padding: 10px 16px;
+  list-style: none;
+}
+ul.breadcrumb-custom li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb-custom li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+.breadcrumb {
+ background: None;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  cursor: default;
 }
 </style>
