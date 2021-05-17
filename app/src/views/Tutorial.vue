@@ -59,4 +59,10 @@ p {
   opacity: 1;
   transform: translateY(0px);
 }
+
+.screenshot {
+   padding: 5em;
+   max-width: 75%;
+   height: auto;
+}
 </style>
