@@ -58,6 +58,11 @@ h2 {
   margin: 30px;
 }
 
+h3 {
+  text-align: left;
+  margin: 30px;
+}
+
 .before-enter {
   opacity: 0;
   transform: translateY(100px);
