@@ -7,8 +7,10 @@
     </div>
     <div id="thanks-content">
       <div class="thanks-text-block" v-scrollanimation>
-        <b-link href="/final-project-atlanta-community/#/">back to our project page</b-link>
-        <b-link href="https://github.com/6859-sp21/final-project-atlanta-community">go to our github page</b-link>
+        <p>This visualization is based on a research project in <a href="https://www.ccc.mit.edu/">MIT Center for Constructive Communication</a>, <a href="https://www.media.mit.edu/">MIT Media Lab</a></p>
+        <p>Developed by Yuebin Dong, Diego Lestani, Amanda Horne, Hang Jiang (Equal Contributions)</p>
+        <b-link href="/final-project-atlanta-community/#/">Project Page</b-link>
+        <b-link href="https://github.com/6859-sp21/final-project-atlanta-community">Github</b-link>
       </div> 
       <div id="thanks-image-block" v-scrollanimation>
         <b-button 
@@ -19,7 +21,7 @@
           <ShareNetwork
             network="twitter"
             url="https://6859-sp21.github.io/final-project-atlanta-community/"
-            title="A visualization on tweets in Atlanta"
+            title="Visualizing language variation in Atlanta on Twitter"
           >
           <b-icon 
             icon="twitter" 
