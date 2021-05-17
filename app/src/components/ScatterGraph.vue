@@ -96,7 +96,7 @@ export default {
     this.yText = this.yAxis.append('text')
       .attr('transform', "rotate(-90)")
       .attr('text-anchor', 'middle')
-      .attr('x', -((this.height - this.margin.bottom) / 2) - 50)
+      .attr('x', -((this.height - this.margin.bottom) / 2) - 10)
       .attr('y', -40)
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
