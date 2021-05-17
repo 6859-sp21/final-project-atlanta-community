@@ -4,7 +4,8 @@
       <hr>
       <p>
         What is Semantic Change? According to wikipedia, Semantic Change is a form of language change regarding the evolution of word usage.
-        ##### IMAGE GOES HERE ######
+        
+        <b-img class="screenshot" :src="require('../assets/Image5.png')"></b-img>
       </p>
       <span v-scrollanimation>╲╱</span>
     </div> 
