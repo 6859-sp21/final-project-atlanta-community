@@ -1,4 +1,4 @@
-# Atlanta Community
+# Exploring patterns of language variation on social media: A case study in Atlanta online communities
 
 ## Our Team
 Hang Jiang, Amanda Horne, Yuebin Dong, Diego Lestani
