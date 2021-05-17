@@ -3,7 +3,11 @@
     <div id="text-block" v-scrollanimation>
       <hr>
       <p>
-        What is Semantic Change? According to wikipedia, Semantic Change is a form of language change regarding the evolution of word usage. For example, if you take the word "Gay", that word's usage has drastically changed over the past century. Originally in the 1940s, "Gay" meant happy and joyful. But today, the word "Gay" is associated with the LGBTQIA+ community. Another example is the phrase "What's up?". The original meaning of that in English would've meant "what is located above me?", but today it's used as a casual way of starting conversation.
+        What is Semantic Change? According to wikipedia, Semantic Change is a form of language change regarding the evolution of word usage.
+      </p>
+      <p>
+        Example: Gay ----- Original: Happy/joyful,  Today: LGBTQIA+
+        Example?: "What's up?" ------ Original: What is located above me?,   Today: Conversation Starter
       </p>
       <span v-scrollanimation>╲╱</span>
     </div> 
