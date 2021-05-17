@@ -8,9 +8,9 @@
         <h2  v-scrollanimation>
           {{title2}}
         </h2>
-        <h3 v-scrollanimation>
+        <h5 v-scrollanimation>
           {{title3}}
-        </h3>
+        </h5>
       </div >
       <span v-scrollanimation>╲╱</span>
     </div>
