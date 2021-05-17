@@ -61,13 +61,13 @@ export default {
       .attr("width", this.width)
       .attr("height", this.height)
 
-    this.svg.append('rect')
-      .attr('class', 'zoom-panel')
-        .attr("x", this.margin.left)
-        .attr("y", this.margin.top)
-        .attr("width", this.width - this.margin.left - this.margin.right)
-        .attr("height", this.height - this.margin.top - this.margin.bottom)
-      .style("opacity", 1);
+    // this.svg.append('rect')
+    //   .attr('class', 'zoom-panel')
+    //     .attr("x", this.margin.left)
+    //     .attr("y", this.margin.top)
+    //     .attr("width", this.width - this.margin.left - this.margin.right)
+    //     .attr("height", this.height - this.margin.top - this.margin.bottom)
+    //   .style("opacity", 1);
 
     // color scaler
     const categories = ['atlanta', 'society', 'entertainment', 'sports']
@@ -118,13 +118,13 @@ export default {
       this.updateScatterPlot("community_size", "lexical_change", "all")
     });
     
-    this.svg.append('rect')
-      .attr('class', 'zoom-panel')
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", this.width)
-        .attr("height", this.height)
-      .style("opacity", 0.2);
+    // this.svg.append('rect')
+    //   .attr('class', 'zoom-panel')
+    //     .attr("x", 0)
+    //     .attr("y", 0)
+    //     .attr("width", this.width)
+    //     .attr("height", this.height)
+    //   .style("opacity", 0.2);
   },
 
   methods: {

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h2>
-      Ranking Communities
-    </h2>
    <b-form-group  label="Sort the communities by:">
       <b-form-radio-group
         id="btn-radios-3"

@@ -1,0 +1,60 @@
+<template>
+  <div id="tutorial">
+    <div id="text-block" v-scrollanimation>
+      <hr>
+      <p>
+        What is Semantic Change? According to wikipedia, Semantic Change is a form of language change regarding the evolution of word usage. For example, if you take the word "Gay", that word's usage has drastically changed over the past century. Originally in the 1940s, "Gay" meant happy and joyful. But today, the word "Gay" is associated with the LGBTQIA+ community. Another example is the phrase "What's up?". The original meaning of that in English would've meant "what is located above me?", but today it's used as a casual way of starting conversation.
+      </p>
+      <span v-scrollanimation>╲╱</span>
+    </div> 
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Tutorial",
+
+  data() {
+      return {
+      }
+  }
+}
+</script>
+
+<style scoped>
+#tutorial {
+  background: #303030;
+  min-height: 60vh;
+}
+
+p {
+  padding: 5em;
+}
+
+#tutorial {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#text-block {
+  min-width: 250px;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.before-enter {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 2s ease-out;
+}
+
+.enter {
+  opacity: 1;
+  transform: translateY(0px);
+}
+</style>

@@ -54,7 +54,7 @@ export default {
 
     this.color = d3.scaleLinear()
       .domain([0, 5])
-      .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+      .range(["rgb(6,103,162)", "#7bbbe3"])
       .interpolate(d3.interpolateHcl)
 
     const that = this;
@@ -63,7 +63,6 @@ export default {
       .attr("width", this.width)
       .attr("height", this.height)
       .attr("viewBox", `-${that.width / 2} -${that.height / 2} ${that.width} ${that.height}`)
-      .style("background", that.color(0))
       .style("cursor", "pointer")
       .on("click", (event) => that.zoom(event, that.root));
 
@@ -155,9 +154,9 @@ export default {
         .selectAll("circle")
         .data(that.root.descendants().slice(1))
         .join("circle")
-          .attr("fill", d => d.children ? that.color(d.depth) : "white")
+          .attr("fill", d => d.children ? that.color(d.depth) : "none")
           .attr("pointer-events", d => !d.children ? "none" : null)
-          .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
+          .on("mouseover", function() { d3.select(this).attr("stroke", "#ffffff"); })
           .on("mouseout", function() { d3.select(this).attr("stroke", null); })
           .on("click", (event, d) => {
             that.focus !== d && (that.zoom(event, d), event.stopPropagation());

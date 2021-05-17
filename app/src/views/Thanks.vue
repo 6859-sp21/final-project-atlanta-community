@@ -6,7 +6,8 @@
       </h1>
     </div>
     <div id="thanks-content">
-      <div id="thanks-text-block" v-scrollanimation>
+      <div class="thanks-text-block" v-scrollanimation>
+        <b-link href="/final-project-atlanta-community/#/">back to our project page</b-link>
         <b-link href="https://github.com/6859-sp21/final-project-atlanta-community">go to our github page</b-link>
       </div> 
       <div id="thanks-image-block" v-scrollanimation>
@@ -48,10 +49,6 @@ export default {
 
 <style scoped>
 #thanks {
-  background-image: url('../assets/map.png');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
   min-height: 100vh;
 }
 
@@ -62,9 +59,9 @@ export default {
   padding: 3em;
 }
 
-#thanks-text-block {
+.thanks-text-block {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 3em;

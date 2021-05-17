@@ -1,22 +1,29 @@
 <template>
   <div class="page">
-    <div id="left">
-      <Ranking/>
-      <transition name="move">
-      <Twitters v-if="showingTwitters" :followingList="followingList"/>
-      </transition>
-      <transition name="move">
-      <div v-if="showingHint2" id="hint-2">
-        <h4>
-          Check a community to see the top follows 👉
-        </h4>
+    <div class="title">
+    <h2>
+      Community Grouping
+    </h2>
+    </div>
+    <div class="content">
+      <div class="left">
+        <Ranking/>
+        <transition name="move">
+        <Twitters v-if="showingTwitters" :followingList="followingList"/>
+        </transition>
+        <transition name="move">
+        <div v-if="showingHint2" id="hint-2">
+          <h4>
+            Check a community to see the top follows 👉
+          </h4>
+        </div>
+        </transition>
+        </div>
+      <div class="right" ref="right">
+        <CircleGraph/>
       </div>
-      </transition>
     </div>
-
-    <div id="right" ref="right">
-      <CircleGraph/>
-    </div>
+    <span v-scrollanimation>╲╱</span>
   </div>
 </template>
 
@@ -93,21 +100,36 @@ export default {
 
 <style scoped>
 .page {
-  height: 100vh;
-  border: 1px #000000;
+  background: #212121;
+  height: 110vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  width: 80%;
+  padding-bottom: 1em;
+}
+
+
+.content {
+  height: 80%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-#left {
+.left {
   height: 100%;
   width: 30%;
-  padding: 5em;
+  padding-right: 1em;
 }
 
-#right {
+.right {
   height: 100%;
   width: 70%;
   display: flex;

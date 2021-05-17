@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="viz-page">
+    <Cover/>
     <Intro/>
+    <Tutorial/>
 
     <CirclePacking v-scrollanimation/>
-    <Spacing/>
 
     <BarChart v-scrollanimation/>
-    <Spacing/>
 
     <ScatterChart v-scrollanimation/>
     <Thanks/>
@@ -14,19 +14,21 @@
 </template>
 
 <script>
+import Cover from './Cover.vue';
 import Intro from './Intro.vue';
+import Tutorial from './Tutorial.vue';
 import BarChart from './BarChart.vue';
 import ScatterChart from './ScatterChart';
-import Spacing from '../components/Spacing';
 import Thanks from './Thanks';
 import CirclePacking from './CirclePacking';
 
 export default {
   components: { 
+    Cover,
     Intro,
+    Tutorial,
     BarChart,
     ScatterChart,
-    Spacing,
     Thanks,
     CirclePacking
   },
@@ -41,10 +43,6 @@ export default {
 }
 </script>
 <style scoped>
-#chart-1 {
-  height: 100vh;
-  background: none;
-}
 
 .before-enter {
   opacity: 0;
@@ -57,4 +55,8 @@ export default {
   transform: translateY(0px);
 }
 
+.viz-page {
+  background: #171717;
+  color: #FFFFFF;
+}
 </style>

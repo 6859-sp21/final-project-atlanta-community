@@ -158,7 +158,7 @@ export default {
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'black')
+      .attr("fill", 'White')
       .text('');
     
     //7. Drawing our y-axis
@@ -180,7 +180,7 @@ export default {
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'black')
+      .attr("fill", 'White')
       .text('cluster name');  
 
     this.reorder("community_size");
@@ -237,7 +237,7 @@ export default {
         .attr('y', d => that.y(d.cluster_name))
         .attr('width', d => that.x(d.value))
         .attr('height', that.y.bandwidth())
-        .attr('fill', "Lightblue")
+        .attr('fill', "#1da1f2")
 
       // Update old ones, already have x / width from before
       bars
@@ -246,7 +246,7 @@ export default {
         .attr('y', d => that.y(d.cluster_name))
         .attr('width', d => that.x(d.value))
         .attr('height', that.y.bandwidth())
-        .attr('fill', "Lightblue")
+        .attr('fill', "#1da1f2")
 
       // Remove old ones
       bars.exit().remove();
@@ -263,7 +263,7 @@ export default {
         .attr('y', d => that.y(d.cluster_name))
         .attr('width', d => that.x2(d.value) - that.margin2.left)
         .attr('height', that.y.bandwidth())
-        .attr('fill', "Black")
+        .attr('fill', "#1da1f2")
 
       // Update old ones, already have x / width from before
       bars2
@@ -272,7 +272,7 @@ export default {
         .attr('y', d => that.y(d.cluster_name))
         .attr('width', d => that.x2(d.value) - that.margin2.left)
         .attr('height', that.y.bandwidth())
-        .attr('fill', "Black")
+        .attr('fill', "#1da1f2")
 
       // Remove old ones
       bars2.exit().remove();
