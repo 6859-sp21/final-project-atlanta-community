@@ -2,7 +2,7 @@
   <div class="page">
     <div class="title">
       <h2>
-        Community Grouping
+        Ranking communities
       </h2>
     </div>
     <div class="content">
