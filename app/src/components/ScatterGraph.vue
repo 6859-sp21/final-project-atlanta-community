@@ -61,14 +61,6 @@ export default {
       .attr("width", this.width)
       .attr("height", this.height)
 
-    // this.svg.append('rect')
-    //   .attr('class', 'zoom-panel')
-    //     .attr("x", this.margin.left)
-    //     .attr("y", this.margin.top)
-    //     .attr("width", this.width - this.margin.left - this.margin.right)
-    //     .attr("height", this.height - this.margin.top - this.margin.bottom)
-    //   .style("opacity", 1);
-
     // color scaler
     const categories = ['atlanta', 'society', 'entertainment', 'sports']
     const colors_list = ["#FFBF00", "#FF7F50", "#6495ED", "#808000"]

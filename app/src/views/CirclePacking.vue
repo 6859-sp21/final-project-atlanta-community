@@ -1,9 +1,9 @@
 <template>
   <div class="page">
     <div class="title">
-    <h2>
-      Community Grouping
-    </h2>
+      <h2>
+        Community Grouping
+      </h2>
     </div>
     <div class="content">
       <div class="left">

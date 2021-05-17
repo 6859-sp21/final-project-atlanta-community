@@ -12,7 +12,7 @@ import { eventBus } from "../main";
 // https://bl.ocks.org/feifang/664c0f16adfcb4dea31b923f74e897a0
 
 export default {
-  name: "CircleGraph",
+  name: "Trash",
 
   data() {
     return {
@@ -149,9 +149,6 @@ export default {
         .sum(d => d["community_size"])
         .sort((a, b) => b.value - a.value)
 
-      this.node = this.svg.append("g");
-      this.label = this.svg.append("g");
-
       this.update("community_size");
     });
   },
@@ -173,14 +170,14 @@ export default {
 
       const that = this;
 
-      const nodes = this.node
+      this.node = this.svg
         .selectAll("circle")
         .data(that.root.descendants().slice(1))
 
       const v = [that.root.x, that.root.y, that.root.r * 2];
       const k = this.width / v[2];
 
-      nodes.enter()
+      this.node.enter()
         .append("circle")
           .attr("fill", d => d.children ? that.color(d.depth) : "none")
           .attr("pointer-events", d => !d.children ? "none" : null)
@@ -190,28 +187,29 @@ export default {
             that.focus !== d && (that.zoom(event, d), event.stopPropagation());
           })
           .transition()
+          .delay(function(d,i){return(i*3)})
           .duration(2000)
           .attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`)
           .attr("r", d => d.r * k);
 
-      nodes
+      this.node
         .transition()
+        .delay(function(d,i){return(i*3)})
         .duration(2000)
         .attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`)
         .attr("r", d => d.r * k);
 
-      nodes
+      this.node
         .exit()
         .remove();
         
-      const labels = this.label
+      this.label = this.svg
         .selectAll(".circle-label")
         .data(that.root.descendants())
       
-      labels.enter()
+      this.label.enter()
         .append("text")
           .attr("class", "circle-label")
-          .attr('text-anchor', 'middle')
           .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
           .style("display", d => d.parent === that.root ? "inline" : "none")
           .text(d => {
@@ -226,11 +224,13 @@ export default {
             window.open('https://twitter.com/'+ d.data.name);
           })
           .transition()
+          .delay(function(d,i){return(i*3)})
           .duration(2000)
           .attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`)
 
-      labels
+      this.label
         .transition()
+        .delay(function(d,i){return(i*3)})
         .duration(500)
         .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
         .style("display", d => d.parent === that.root ? "inline" : "none")
@@ -240,15 +240,13 @@ export default {
           }
           return d.data.name;
         })
+        .attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`)
 
-      labels
+      this.label
         .exit()
         .remove();
-            
-      setTimeout(() => {
-        this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);  
-      }, 4000);
-      // this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);
+
+      this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);
     },
 
     zoomTo(v) {
@@ -256,9 +254,9 @@ export default {
 
       this.view = v;
 
-      this.label.selectAll(".circle-label").attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-      this.node.selectAll("circle").attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-      this.node.selectAll("circle").attr("r", d => d.r * k);
+      this.label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+      this.node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+      this.node.attr("r", d => d.r * k);
     },
 
     zoom(event, d) {
@@ -279,7 +277,6 @@ export default {
           });
 
       this.label
-        .selectAll(".circle-label")
         .filter(function(d) { return d.parent === that.focus || this.style.display === "inline"; })
         .transition(transition)
           .style("fill-opacity", d => d.parent === that.focus ? 1 : 0)
