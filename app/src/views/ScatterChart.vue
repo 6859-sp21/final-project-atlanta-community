@@ -2,7 +2,7 @@
   <div class="page">
     <div class="title" v-scrollanimation>
       <h2>
-        Investigate how language variation relates to social factors
+        Language variation & social factors
       </h2>
     </div>
     <div class="content" v-scrollanimation>
