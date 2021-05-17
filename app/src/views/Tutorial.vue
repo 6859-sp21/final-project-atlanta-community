@@ -3,7 +3,7 @@
     <div id="text-block" v-scrollanimation>
       <hr>
       <p>
-        What is Semantic Change? According to wikipedia, Semantic Change is a form of language change regarding the evolution of word usage.
+        What is Semantic Change? According to wikipedia, Semantic Change is a form of language change regarding the evolution of word usage.<br><br>
         
         <b-img class="screenshot" :src="require('../assets/Image5.png')"></b-img>
       </p>
