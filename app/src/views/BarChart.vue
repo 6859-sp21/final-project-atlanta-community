@@ -52,7 +52,9 @@ export default {
 <style scoped>
 .page {
   background: #212121;
-  height: 100vh;
+  height: 110vh;
+  padding-top: 4em;
+  padding-bottom: 4em;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -51,11 +51,11 @@ export default {
     this.margin2 = {top: 20, right: 5, bottom: 50, left: 50};
     this.width2 = 75;
 
-    this.width = this.$refs.chart1.clientWidth - this.margin2.left - this.width2 - this.margin2.right;
+    this.width = this.$refs.chart1.clientWidth;
     this.height = this.$refs.chart1.clientHeight;
 
     this.x = d3.scaleLinear()
-            .range([this.margin.left, this.width - this.margin.right])
+            .range([this.margin.left, this.width - this.margin.right - this.width2])
             .nice();
 
     this.y = d3.scaleBand()
@@ -75,13 +75,21 @@ export default {
       .attr("width", this.width)
       .attr("height", this.height)
 
-    // this.svg.append('rect')
-    //   .attr('class', 'zoom-panel')
-    //     .attr("x", this.margin.left + this.width2)
-    //     .attr("y", this.margin.top)
-    //     .attr("width", this.width - this.margin.left - this.margin.right)
-    //     .attr("height", this.height - this.margin.top - this.margin.bottom)
-    //   .style("opacity", 0.5);
+    this.svg.append('rect')
+      .attr('class', 'zoom-panel')
+        .attr("x", this.margin.left )
+        .attr("y", this.margin.top)
+        .attr("width", this.width - this.margin.left - this.margin.right)
+        .attr("height", this.height - this.margin.top - this.margin.bottom)
+      .style("opacity", 0.5);
+
+    this.svg.append("clipPath")
+    .attr("id", 'my-clip-path')
+    .append("rect")
+      .attr("x", this.margin.left)
+      .attr("y", this.margin.top)
+      .attr("width", this.width - this.margin.left - this.margin.right)
+      .attr("height", this.height - this.margin.top - this.margin.bottom)
 
     // this.svg.append('rect')
     //   .attr('class', 'zoom-panel')
@@ -136,7 +144,7 @@ export default {
       if (!selection) {
         that.brushArea        
           .call(that.brush)
-          .call(that.brush.move, [that.margin.top, that.height - that.margin.bottom]);
+          .call(that.brush.move, [this.margin.top, (this.height - this.margin.bottom) / 4]);
       }
     }
 
@@ -213,29 +221,32 @@ export default {
 
   methods: {
     updateBars(data) {
+      const that = this;
+
       // First update the y-axis domain to match data
       this.x.domain([0, d3.max(data, d => d.value)]);
       this.xAxis.transition().duration(1000).call(d3.axisBottom(this.x))
 
-      this.y.domain(data.map(d => d.cluster_name));
+      // this.y.domain(data.map(d => d.cluster_name));
       this.yAxis.transition().duration(1000).call(d3.axisLeft(this.y));
 
       this.x2.domain([0, d3.max(data, d => d.value)]);
       this.y2.domain(data.map(d => d.cluster_name));
+
 
       const bars = this.focus
           .selectAll(".bar")
           .data(data)
       
       // Add bars for new data
-      const that = this;
       bars.enter()
         .append("rect")
+        .attr('clip-path','url(#my-clip-path)')
         .attr("class", "bar")
         .attr("id", d => d.cluster_name)
         .attr('x', that.margin.left)
         .attr('y', d => that.y(d.cluster_name))
-        .attr('width', d => that.x(d.value))
+        .attr('width', d => that.x(d.value) - this.margin.left)
         .attr('height', that.y.bandwidth())
         .attr('fill', "#1da1f2")
 
@@ -244,7 +255,7 @@ export default {
         .transition().duration(250)
         .attr('x', that.margin.left)
         .attr('y', d => that.y(d.cluster_name))
-        .attr('width', d => that.x(d.value))
+        .attr('width', d => that.x(d.value)  - this.margin.left)
         .attr('height', that.y.bandwidth())
         .attr('fill', "#1da1f2")
 
@@ -260,18 +271,18 @@ export default {
         .append("rect")
         .attr("class", "bar2")
         .attr('x', that.margin2.left)
-        .attr('y', d => that.y(d.cluster_name))
+        .attr('y', d => that.y2(d.cluster_name))
         .attr('width', d => that.x2(d.value) - that.margin2.left)
-        .attr('height', that.y.bandwidth())
+        .attr('height', that.y2.bandwidth())
         .attr('fill', "#1da1f2")
 
       // Update old ones, already have x / width from before
       bars2
         .transition().duration(250)
         .attr('x', that.margin2.left)
-        .attr('y', d => that.y(d.cluster_name))
+        .attr('y', d => that.y2(d.cluster_name))
         .attr('width', d => that.x2(d.value) - that.margin2.left)
-        .attr('height', that.y.bandwidth())
+        .attr('height', that.y2.bandwidth())
         .attr('fill', "#1da1f2")
 
       // Remove old ones
@@ -279,7 +290,7 @@ export default {
 
       this.brushArea        
         .call(that.brush)
-        .call(that.brush.move, [this.margin.top, this.height - this.margin.bottom]);
+        .call(that.brush.move, [this.margin.top, (this.height - this.margin.bottom) / 4]);
     },
 
     reorder(selected) {

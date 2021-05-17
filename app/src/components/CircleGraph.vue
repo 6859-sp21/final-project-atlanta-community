@@ -68,7 +68,6 @@ export default {
 
     this.node = this.svg.append("g");
     this.label = this.svg.append("g")
-      .style("font", "10px sans-serif")
       .attr("pointer-events", "none")
       .attr("text-anchor", "middle");
     
@@ -211,6 +210,7 @@ export default {
         .append("text")
           .attr("class", "circle-label")
           .attr('text-anchor', 'middle')
+          .style("font", d => d.children ? "15px sans-serif" : "10px sans-serif")
           .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
           .style("display", d => d.parent === that.root ? "inline" : "none")
           .text(d => {
@@ -245,7 +245,7 @@ export default {
             
       setTimeout(() => {
         this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);  
-      }, 4000);
+      }, 2000);
       // this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);
     },
 
