@@ -17,3 +17,8 @@ We also changed some aethetics in the final version, and stuck with our decision
 All 4 team members contributed equally to the project in different ways. The initial dataset was provided by Hang, and he also did the scatterplot part of the visualization. The initial twitter research nightmare and the initial first bar graph for the MVP was done by Amanda. She also did the initial categorization of each cluster for the MVP, did the introductory paragraph at the beginning in the final version, and was responsible for addressing the piece of feedback about users being confused what "lexical change" meant. Diego also made some changes to the categorization of the clusters. Finally, Yuebin had the idea and implemented the circle graph, and the second bar chart, and did a lot of the heavy lifting on the aesthetics of the website, often taking other people's initial implementation and making it look prettier. 
 
 When it came to discussing design decisions, recording our MVP presentation, discussing feedback from our peer reviews, creating the teaser video, writing the paper, or other major components of the project, all 4 team members contributed equally to these big scale decisions/deliverables that had to be made/completed.
+
+## Installation Instructions
+1. $cd into root/app
+2. run $chmod +x ./deploy.sh to make the deployment script executable
+3. run $./deploy.sh to deploy to Github Pages
