@@ -7,6 +7,7 @@
 
 <script>
 import * as d3 from "d3";
+
 import { eventBus } from "../main";
 // https://bl.ocks.org/feifang/664c0f16adfcb4dea31b923f74e897a0
 
@@ -26,6 +27,7 @@ export default {
       storedData: null,
       node: null,
       parents: null,
+      followings: null,
       items: [
         {
           text: 'All',
@@ -70,12 +72,14 @@ export default {
       .style("font", "10px sans-serif")
       .attr("pointer-events", "none")
       .attr("text-anchor", "middle");
+
     
     d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
       const groupMap = new Map();
       const categoryMap = new Map();
 
       this.parents = new Map();
+      this.followings = new Map();
       
       data.forEach(d => {
         const followings = [];
@@ -94,24 +98,24 @@ export default {
           groupMap.set(d.cluster_group, 
           [{name: d.cluster_name, 
             children: followings,
-            community_size: parseFloat(d.community_size),
-            lexical_change: parseFloat(d.lexical_change),
-            ideology_lexical_change: parseFloat(d.ideology_lexical_change),
-            male_ratio: parseFloat(d.male_ratio),
-            friends_count_mean: parseFloat(d.friends_count_mean),
-            follower_count_mean: parseFloat(d.follower_count_mean),
-            tweet_count_mean: parseFloat(d.tweet_count_mean),
+            // community_size: parseFloat(d.community_size),
+            // lexical_change: parseFloat(d.lexical_change),
+            // ideology_lexical_change: parseFloat(d.ideology_lexical_change),
+            // male_ratio: parseFloat(d.male_ratio),
+            // friends_count_mean: parseFloat(d.friends_count_mean),
+            // follower_count_mean: parseFloat(d.follower_count_mean),
+            // tweet_count_mean: parseFloat(d.tweet_count_mean),
             }])
         } else {
           groupMap.get(d.cluster_group).push({name: d.cluster_name, 
             children: followings,
-            community_size: parseFloat(d.community_size),
-            lexical_change: parseFloat(d.lexical_change),
-            ideology_lexical_change: parseFloat(d.ideology_lexical_change),
-            male_ratio: parseFloat(d.male_ratio),
-            friends_count_mean: parseFloat(d.friends_count_mean),
-            follower_count_mean: parseFloat(d.follower_count_mean),
-            tweet_count_mean: parseFloat(d.tweet_count_mean),
+            // community_size: parseFloat(d.community_size),
+            // lexical_change: parseFloat(d.lexical_change),
+            // ideology_lexical_change: parseFloat(d.ideology_lexical_change),
+            // male_ratio: parseFloat(d.male_ratio),
+            // friends_count_mean: parseFloat(d.friends_count_mean),
+            // follower_count_mean: parseFloat(d.follower_count_mean),
+            // tweet_count_mean: parseFloat(d.tweet_count_mean),
             });
         }
         if (!categoryMap.get(d.category)) {
@@ -124,6 +128,7 @@ export default {
         this.parents.set(d.cluster_name, d.cluster_group);
         this.parents.set(d.cluster_group, d.category);
         this.parents.set(d.category, "All");
+        this.followings.set(d.cluster_name, d.top_follows.split(","));
       });
 
       // community_size	lexical_change	ideology_lexical_change	male_ratio	friends_count_mean	
@@ -156,24 +161,31 @@ export default {
           .on("mouseout", function() { d3.select(this).attr("stroke", null); })
           .on("click", (event, d) => {
             that.focus !== d && (that.zoom(event, d), event.stopPropagation());
-            if (d.children) {
-              eventBus.$emit('show-checkbox', data);
-            } if (!d.children) {
-              eventBus.$emit('select-community', d.data.name);
-            }
+            // if (!d.children) {
+            //   that.updateWorldcloud(d.data.name);
+            // }
           });
 
     
       this.label = this.svg.append("g")
-        .style("font", "10px sans-serif")
-        .attr("pointer-events", "none")
+        .style("font", "15px sans-serif")
         .attr("text-anchor", "middle")
-      .selectAll("text")
-      .data(that.root.descendants())
-      .join("text")
-        .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
-        .style("display", d => d.parent === that.root ? "inline" : "none")
-        .text(d => d.data.name);
+        .selectAll("text")
+        .data(that.root.descendants())
+        .join("text")
+          .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
+          .style("display", d => d.parent === that.root ? "inline" : "none")
+          .text(d => {
+            if (!d.children) {
+              return '@' + d.data.name;
+            }
+            return d.data.name;
+          })
+          .attr("pointer-events", d => d.children ? "none" : null)
+          .on("click", (event, d)  => {
+            console.log(d.data.name);
+            window.open('https://twitter.com/'+ d.data.name);
+          });
 
       this.update("community_size");
     });
@@ -249,7 +261,7 @@ export default {
         e = this.parents.get(e);
       }
       this.items = ancestors;
-    }
+    },
   }
 }
 </script>

@@ -1,165 +1,294 @@
 <template>
-  <div id="chart" ref="chart">
-    <TooltipOne :data="tipData" :visible="tipVisible"/>
-    <div id="svg-container" ref="svg-container"/>
+  <div id="chart-1" ref="chart1">
+    <div id="svg-container-1" ref="svg-container"/>
   </div>
 </template>
 
 <script>
 import * as d3 from "d3";
-import TooltipOne from "../components/TooltipOne.vue";
 import { eventBus } from "../main";
 
 export default {
   name: "BarGraph",
 
-  components: {
-    TooltipOne
-  },
-
   props: ['clusters'],
 
   data() {
     return {
-      tipData: {
-        category: "dddd",
-        alc: "www",
-      },
-      tipVisible: false,
       margin: null,
+      margin2: null,
       width: null,
+      width2: null,
       height: null,
       x: null,
       y: null,
-      color: null,
-      svg: null
+      x2: null,
+      y2: null,
+      svg: null,
+      xAxis: null,
+      yAxis: null,
+      xScale: null,
+      yScale: null,
+      brush: null,
+      brushArea: null,
+      content: null,
+      focus: null
     }
   },
 
+  created: function() {
+    eventBus.$on("select-ranking", this.reorder);
+  },
+
+  
+  beforeDestroy: function() {
+    eventBus.$off("select-ranking", this.reorder);
+  },
+
   mounted() {
-    this.margin = {top: 20, right: 20, bottom: 70, left: 40};
+    this.margin = {top: 20, right: 10, bottom: 20, left: 120};
+    this.margin2 = {top: 20, right: 5, bottom: 20, left: 5};
+    this.width2 = 30;
 
-    this.width = this.$refs.chart.clientWidth - this.margin.left - this.margin.right;
-    this.height = this.$refs.chart.clientHeight - this.margin.top - this.margin.bottom;
+    this.width = this.$refs.chart1.clientWidth - this.margin.left - this.margin.right;
+    this.height = this.$refs.chart1.clientHeight - this.margin.top - this.margin.bottom;
 
-    this.x = d3.scaleBand()
-        .padding(0.85)
-        .rangeRound([0, this.width]);
+    this.x = d3.scaleLinear()
+            .range([this.margin.left, this.width - this.margin.right])
+            .nice();
 
-    this.y = d3.scaleLinear() 
-        .range([this.height, 0]); 
+    this.y = d3.scaleBand()
+            .range([this.height - this.margin.bottom, this.margin.top])
+            .padding(0.1);
+    
+    this.x2 = d3.scaleLinear()
+            .range([this.margin2.left, this.width2 - this.margin2.right])
+            .nice();
 
-    this.color = d3.schemeCategory10;
+    this.y2 = d3.scaleBand()
+            .range([this.height - this.margin.bottom, this.margin.top])
+            .padding(0.1);
 
-    this.svg = d3.select("#chart").append("svg")
-        .attr("width", this.width + this.margin.left + this.margin.right)
-        .attr("height", this.height + this.margin.top + this.margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+    this.svg = d3.select("#chart-1")
+      .append("svg")
+      .attr("width", this.width + this.margin.left + this.margin.right)
+      .attr("height", this.height + this.margin.top + this.margin.bottom)
 
-    this.showBarGraph();
+    this.content = this.svg
+      .append("g")
+      .attr("transform", "translate(" + this.margin2.left + "," + this.margin.top + ")");
+
+    this.focus = this.svg
+      .append("g")
+      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+
+    const that = this
+
+    // https://observablehq.com/@d3/focus-context
+    // https://bl.ocks.org/SevenChan07/495cd567e0ede0deeb14bb3599dce685
+    this.brush = d3.brushY()
+    .extent([[0, this.margin.top], [this.width2, this.height - this.margin.bottom]])
+    .on("brush", brushed);
+
+    function brushed(event) {
+      const selection = event.selection;
+      if (selection) {
+        // get bounds of selection
+        const  nD = [];
+        that.y2.domain().forEach((d)=>{
+          var pos = that.y2(d) + that.y2.bandwidth()/2;
+          if (pos > selection[0] && pos < selection[1]){
+            nD.push(d);
+          }
+        }); 
+
+        that.y.domain(nD);
+        that.svg.selectAll(".bar")
+          .attr('y', d => that.y(d.cluster_name))
+          .attr('height', that.y.bandwidth())
+        that.yAxis.call(that.yScale, that.y);
+      }
+    }
+
+    this.brushArea = this.content.append("g")
+        .attr("class", "brush")
+
+    // Clippath for zooming
+    this.focus.append("clipPath")
+      .attr("id", 'my-clip-path')
+      .append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", this.chartWidth)
+        .attr("height", this.chartHeight)
+    
+    this.svg.append('rect')
+      .attr('class', 'zoom-panel')
+        .attr("x", this.margin.left)
+        .attr("y", this.margin.top)
+        .attr("width", this.width)
+        .attr("height", this.height - this.margin.top - this.margin.bottom)
+      .style("opacity", 0);
+
+    //6. Drawing our x-axis
+    this.xScale = function(g) {
+      g.attr('transform', `translate(15, ${that.height - that.margin.bottom})`)
+      .call(d3.axisBottom(that.x))
+      .call(g => g.select(".domain").remove())
+    }
+  
+    this.xAxis = this.focus.append('g')
+                    .attr("class", "x-axis")
+                    .call(this.xScale)
+
+    this.focus.append('text')
+      .attr('x', (this.width + this.margin.left) / 2)
+      .attr('y', this.height - 5)
+      .attr('text-anchor', 'middle')
+      .attr('font-family', 'Helvetica Neue, Arial')
+      .attr('font-weight', 700)
+      .attr('font-size', 20)
+      .attr("fill", 'black')
+      .text('');
+
+    //7. Drawing our y-axis
+    this.yScale = function(g, y) {
+      g.attr('transform', `translate(${that.margin.left + 15}, 0)`)
+      .call(d3.axisLeft(y).ticks(that.width / 80).tickSizeOuter(0))
+    }
+
+    this.yAxis = this.focus.append('g')
+      .attr("class", "y-axis")
+      .attr('clip-path','url(#my-clip-path)')
+      .call(this.yScale, this.y)
+
+    this.focus.append('text')
+      .attr('transform', "rotate(-90)")
+      .attr('x', -((this.height - this.margin.bottom) / 2) - 50)
+      .attr('y', 15)
+      .attr('text-anchor', 'middle')
+      .attr('font-family', 'Helvetica Neue, Arial')
+      .attr('font-weight', 700)
+      .attr('font-size', 20)
+      .attr("fill", 'black')
+      .text('');  
+
+    this.reorder("community_size");
+
+    // const zoom = d3.zoom()
+    //   .scaleExtent([1, 32])
+    //   .extent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
+    //   .translateExtent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
+    //   .on("zoom", zoomed);
+    
+    // function zoomed(event) {
+    //   that.y.range([that.height - that.margin.bottom, that.margin.top].map(d => event.transform.applyY(d)));
+    //   that.svg.selectAll(".bar")
+    //     .attr('y', d => that.y(d.cluster_name))
+    //     .attr('height', that.y.bandwidth())
+    //   that.yAxis.call(that.yScale, that.y);
+    // }
+
+    // this.focus.call(zoom);
+  },
+
+  computed: {
+    chartHeight () {
+      return this.$refs.chart1.clientHeight
+    },
+    chartWidth () {
+      return this.$refs.chart1.clientWidth
+    }
   },
 
   methods: {
-    showBarGraph(){
-      d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/category_avg.csv").then((data) => {
-        data.forEach(function(d) {
-            d.alc = +d.avg_lexical_change;
-        });
-        console.log("data", data);
-          
-        this.x.domain(data.map(function(d) { return d.category; }));
-        this.y.domain([0, 0.05 + d3.max(data, function(d) { return d.alc; })]);
+    updateBars(data) {
+      // First update the y-axis domain to match data
+      this.x.domain([0, d3.max(data, d => d.value)]);
+      this.xAxis.transition().duration(1000).call(d3.axisBottom(this.x))
 
-        this.svg.append("g")
-          .attr("class", "axis axis--x")
-          .attr("transform", "translate(0," + this.height + ")")
-          .call(d3.axisBottom(this.x))
-          .selectAll("text")
-          .attr("y", 23)
-          .attr("x", 9)
-          .attr("dy", "-2em")
-          .attr("transform", "rotate(90)")
-          .style("text-anchor", "start");
+      this.y.domain(data.map(d => d.cluster_name));
+      this.yAxis.transition().duration(1000).call(d3.axisLeft(this.y));
 
-        this.svg.append("g")
-          .attr("class", "axis axis--y")
-          .call(d3.axisLeft(this.y))
-          .append("text")
-          //.attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", "0em")
-          .attr("text-anchor", "end")
-          .text("Average Lexical Change");
+      this.x2.domain([0, d3.max(data, d => d.value)]);
+      this.y2.domain(data.map(d => d.cluster_name));
 
-        const bars = this.svg.selectAll(".bar").data(data)
-        const that = this;
+      const bars = this.focus
+          .selectAll(".bar")
+          .data(data)
+      
+      // Add bars for new data
+      const that = this;
+      bars.enter()
+        .append("rect")
+        .attr('clip-path','url(#my-clip-path)')
+        .attr("class", "bar")
+        .attr("id", d => d.cluster_name)
+        .attr('x', that.margin.left + 15)
+        .attr('y', d => that.y(d.cluster_name))
+        .attr('width', d => that.x(d.value))
+        .attr('height', that.y.bandwidth())
+        .attr('fill', "Lightblue")
 
-        bars.enter()
-          .append("rect")
-          .attr("class", "bar")
-          .attr("x", function(d) { return that.x(d.category); })
-          .attr("y", function(d) { return that.y(d.alc); })
-          .attr("width", 20)
-          .attr("height", function(d) { return that.height - that.y(d.alc); })
-          .style("fill", "#ccc")
-          .on("click", function(event, d) {
-            console.log(event);
-            const data = that.clusters.filter(e => e.category == d.category)
-            that.showCheckbox({"category" : d.category, "options" : data})
-            console.log(data);
-          })
-          .on("mouseover", function(event, d) {
-            console.log("over");
-            that.tipData.category = d.category;
-            that.tipData.alc = d.alc;
-            d3.selectAll("#tooltip-1")
-              .style("left", (event.clientX) + "px") 
-              .style("top", (event.clientY - 100) + "px")
-              .transition()
-              .duration(500)
-              .style("opacity", "1")
-              // .style("height", "auto")
-              // .style("width", "auto");
-          })
-          .on("mouseout", function() {
-            console.log("out");
-             d3.selectAll("#tooltip-1")
-              .transition()
-              .duration(500)
-              .style("opacity", "0")
-              // .style("height", "0px")
-              // .style("width", "0px");
-          })
+      // Update old ones, already have x / width from before
+      bars
+        .transition().duration(250)
+        .attr('x', that.margin.left + 15)
+        .attr('y', d => that.y(d.cluster_name))
+        .attr('width', d => that.x(d.value))
+        .attr('height', that.y.bandwidth())
+        .attr('fill', "Lightblue")
 
+      // Remove old ones
+      bars.exit().remove();
 
-        var sum = d3.sum(data, function(d) { return d.alc; }); 
-        var average = sum/data.length;
+      const bars2 = this.content
+        .selectAll(".bar2")
+        .data(data)
 
-        this.svg.append("path")
-          .attr("class", "mean")
-          .attr('d', d3.line()([[0, that.y(average)], [that.width, that.y(average)]]))
-          .attr('stroke', 'black')
+      // Add bars for new data
+      bars2.enter()
+        .append("rect")
+        .attr("class", "bar2")
+        .attr('x', that.margin2.left)
+        .attr('y', d => that.y(d.cluster_name))
+        .attr('width', d => that.x2(d.value) - that.margin2.left)
+        .attr('height', that.y.bandwidth())
+        .attr('fill', "Black")
 
-        this.svg.append("text")
-            .attr("transform", "translate(" + (this.width+3) + "," + this.y(average) + ")")
-            .attr("dy", "1em")
-            .attr("text-anchor", "end")
-            .style("fill", "red")
-            .html("Average = $" + average);
-        })
+      // Update old ones, already have x / width from before
+      bars2
+        .transition().duration(250)
+        .attr('x', that.margin2.left)
+        .attr('y', d => that.y(d.cluster_name))
+        .attr('width', d => that.x2(d.value) - that.margin2.left)
+        .attr('height', that.y.bandwidth())
+        .attr('fill', "Black")
+
+      // Remove old ones
+      bars2.exit().remove();
+
+      this.brushArea        
+        .call(that.brush)
+        .call(that.brush.move, [this.margin.top, this.height - this.margin.bottom]);
     },
 
-    showCheckbox(data) {
-      eventBus.$emit('show-checkbox', data);
+    reorder(selected) {
+      d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
+        data.forEach(d => d.value = parseFloat(d[selected]));
+        data.sort((a, b) => a.value - b.value);
+        data.forEach((d, i) => d.Rank = i + 1);
+        selected = [];
+        this.updateBars(data);
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-#chart {
-  height: 50%;
+#chart-1 {
+  height: 90%;
   width: 90%;
 }
 </style>
