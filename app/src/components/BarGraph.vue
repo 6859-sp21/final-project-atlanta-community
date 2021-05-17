@@ -143,8 +143,7 @@ export default {
     function brushended({selection}) {
       if (!selection) {
         that.brushArea        
-          .call(that.brush)
-          .call(that.brush.move, [this.margin.top, (this.height - this.margin.bottom) / 4]);
+          .call(that.brush.move, [that.margin.top, (that.height - that.margin.bottom) / 4]);
       }
     }
 
@@ -172,7 +171,7 @@ export default {
     //7. Drawing our y-axis
     this.yScale = function(g, y) {
       g.attr('transform', `translate(${that.margin.left}, 0)`)
-      .call(d3.axisLeft(y).ticks(that.width / 80).tickSizeOuter(0))
+      .call(d3.axisLeft(y).ticks(that.width / 40).tickSizeOuter(0))
     }
 
     this.yAxis = this.focus.append('g')
@@ -314,4 +313,6 @@ export default {
   height: 100%;
   width: 100%;
 }
+
+.x-axis { font-size: 20;}
 </style>
