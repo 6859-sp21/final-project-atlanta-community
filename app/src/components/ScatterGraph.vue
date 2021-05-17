@@ -107,7 +107,7 @@ export default {
     d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
       this.storedData = data;
       console.log(this.storedData);
-      this.updateScatterPlot("community_size", "lexical_change", "all")
+      this.updateScatterPlot("community_size", "semantic_change", "all")
     });
     
     // this.svg.append('rect')
