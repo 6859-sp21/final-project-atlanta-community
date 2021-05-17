@@ -1,25 +1,15 @@
 <template>
   <div class="page">
-    <div class="title">
-      <h2>
-        Community Grouping
-      </h2>
-    </div>
     <div class="content">
-      <div class="left">
+      <div class="title">
+        <h2>
+          Community Grouping
+        </h2>
+      </div>
+      <div class="top">
         <Ranking/>
-        <transition name="move">
-        <Twitters v-if="showingTwitters" :followingList="followingList"/>
-        </transition>
-        <transition name="move">
-        <div v-if="showingHint2" id="hint-2">
-          <h4>
-            Check a community to see the top follows 👉
-          </h4>
-        </div>
-        </transition>
-        </div>
-      <div class="right" ref="right">
+      </div>
+      <div class="bottom" ref="bottom">
         <CircleGraph/>
       </div>
     </div>
@@ -30,7 +20,6 @@
 <script>
 import CircleGraph from "../components/CircleGraph.vue";
 import Ranking from "../components/Ranking.vue";
-import Twitters from "../components/Twitters.vue";
 import * as d3 from "d3";
 import { eventBus } from "../main";
 
@@ -40,7 +29,6 @@ export default {
   components: {
     CircleGraph,
     Ranking,
-    Twitters
   },
 
   data() {
@@ -105,7 +93,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .title {
@@ -113,25 +101,23 @@ export default {
   padding-bottom: 1em;
 }
 
-
 .content {
-  height: 80%;
+  height: 90%;
   width: 80%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
-.left {
-  height: 100%;
-  width: 30%;
+.top {
+  width: 100%;
   padding-right: 1em;
 }
 
-.right {
-  height: 100%;
-  width: 70%;
+.bottom {
+  height: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

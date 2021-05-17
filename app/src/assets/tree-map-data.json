@@ -1,0 +1,49 @@
+{
+ "name": "flare",
+   "children": [
+    {
+     "name": "atlanta",
+     "children": [
+      {"name": "Real Estate", "value": 410},
+      {"name": "Thing to do in Atlanta", "value": 792},
+      {"name": "Traffic", "value": 658},
+      {"name": "University", "value": 476}
+     ]
+    },
+    {
+     "name": "Entertainment",
+     "children": [
+      {"name": "arts", "value": 345},
+      {"name": "beauty", "value": 432},
+      {"name": "lifestyle", "value": 709},
+      {"name": "movies", "value": 450},
+      {"name": "music", "value": 386},
+      {"name": "news", "value": 328},
+      {"name": "random", "value": 768},
+      {"name": "social media", "value": 1083},
+      {"name": "TV", "value": 424}
+     ]
+    },
+    {
+     "name": "Society",
+     "children": [
+      {"name": "business", "value": 798},
+      {"name": "education", "value": 633},
+      {"name": "health", "value": 485},
+      {"name": "politics", "value": 729},
+      {"name": "religion", "value": 1542},
+      {"name": "social justice", "value": 554}
+     ]
+    },
+    {
+     "name": "Sports",
+     "children": [
+      {"name": "Basketball", "value": 734},
+      {"name": "Football", "value": 323},
+      {"name": "Martial Arts", "value": 391},
+      {"name": "Miscellaneous", "value": 432},
+      {"name": "Soccer", "value": 632}
+     ]
+    }
+   ]
+}

@@ -47,7 +47,7 @@ export default {
   },
 
   mounted() {
-    this.margin = {top: 20, right: 10, bottom: 50, left: 120};
+    this.margin = {top: 20, right: 10, bottom: 50, left: 300};
     this.margin2 = {top: 20, right: 5, bottom: 50, left: 50};
     this.width2 = 75;
 
@@ -298,7 +298,7 @@ export default {
 
 <style scoped>
 #chart-1 {
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 </style>

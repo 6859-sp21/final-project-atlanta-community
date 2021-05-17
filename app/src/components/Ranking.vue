@@ -1,22 +1,11 @@
 <template>
-  <div>
-   <b-form-group  label="Sort the communities by:">
-      <b-form-radio-group
-        id="btn-radios-3"
-        v-model="selected"
-        :options="options"
-        name="radio-btn-stacked"
-        buttons
-        stacked
-        class="button-radio"
-        button-variant="outline-secondary"
-        @change="selectRanking(selected)"
-      ></b-form-radio-group>
-    </b-form-group>
-    <h4>
-      Zoom in/out and move
-      👉
-    </h4>
+  <div id="ranking-group">
+    <div id="selection-text">
+    <span>Sort the communities by:</span>
+    </div>
+    <div id="selection">
+    <b-form-select @change="selectRanking(selected)" v-model="selected" :options="options"></b-form-select>
+    </div>
   </div>
 </template>
 
@@ -68,5 +57,25 @@ export default {
 h2 {
   font-weight: bold;
   padding-bottom: 1em;
+}
+
+#ranking-group {
+  display: flex;
+  flex-direction: row;
+}
+
+#selection-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 0.2em;
+}
+
+#selection {
+  width: 15em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1em;
 }
 </style>

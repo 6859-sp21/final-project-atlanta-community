@@ -1,16 +1,15 @@
 <template>
   <div class="page">
-    <div class="title">
-      <h2>
-        Ranking communities
-      </h2>
-    </div>
     <div class="content">
-      <div class="left">
-          <Ranking/>
+      <div class="title">
+        <h2>
+          Ranking communities
+        </h2>
       </div>
-
-      <div class="right" ref="right">
+      <div class="top">
+        <Ranking/>
+      </div>
+      <div class="bottom" ref="bottom">
         <BarGraph/>
       </div>
     </div>
@@ -53,11 +52,11 @@ export default {
 <style scoped>
 .page {
   background: #212121;
-  height: 110vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around
 }
 
 .title {
@@ -69,20 +68,19 @@ export default {
   height: 80%;
   width: 80%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
-.left {
-  height: 100%;
-  width: 30%;
-  padding: 5em;
+.top {
+  width: 100%;
+  padding-right: 1em;
 }
 
-.right {
+.bottom {
   height: 100%;
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
