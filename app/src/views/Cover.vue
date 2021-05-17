@@ -58,7 +58,7 @@ h2 {
   margin: 30px;
 }
 
-h3 {
+h5 {
   text-align: left;
   margin: 30px;
 }
