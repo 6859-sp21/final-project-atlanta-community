@@ -8,6 +8,9 @@
         <h2  v-scrollanimation>
           {{title2}}
         </h2>
+        <h3 v-scrollanimation>
+          {{title3}}
+        </h3>
       </div >
       <span v-scrollanimation>╲╱</span>
     </div>
@@ -23,7 +26,8 @@ export default {
   data() {
       return {
         title1: "Exploring patterns of language variation on social media",
-        title2: "A case study in Atlanta online communities"
+        title2: "A case study in Atlanta online communities",
+        title3: "Warning: there might be some explicit word usage on this website that is not appropriate for all ages"
       }
   }
 }
