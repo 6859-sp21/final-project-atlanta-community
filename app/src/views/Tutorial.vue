@@ -62,7 +62,7 @@ p {
 
 .screenshot {
    padding: 5em;
-   max-width: 75%;
+   max-width: 70%;
    height: auto;
 }
 </style>
