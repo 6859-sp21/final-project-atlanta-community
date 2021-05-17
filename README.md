@@ -3,6 +3,20 @@
 ## Our Team
 Hang Jiang, Amanda Horne, Yuebin Dong, Diego Lestani
 
+## Getting started
+
+### Run Locally
+1. Clone the clone the repository to local
+2. The datasets are in folder `root/data`
+3. `cd` into folder `root/app` to view or modify the web application
+4. run `npm install` to install all dependices
+5. run `npm serve` to preview locally at http://localhost:8080/final-project-atlanta-community/
+
+### Deploy to Github
+1. `cd` into folder `root/app`
+2. run `chmod +x ./deploy.sh` to make the deployment script executable
+3. run `./deploy.sh` to deploy to Github Pages
+
 ## Research/Development Process
 In the beginning of our project, there was a lot of work on taking the initial dataset from Hang's research in the Media lab and modifying it so that it was more organized and easily usable for our visualization. This included taking all of the clusters and assigning them to a category, and also reformatting the data so that it could be incorporated into our code.
 
