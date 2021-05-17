@@ -32,7 +32,3 @@ All 4 team members contributed equally to the project in different ways. The ini
 
 When it came to discussing design decisions, recording our MVP presentation, discussing feedback from our peer reviews, creating the teaser video, writing the paper, or other major components of the project, all 4 team members contributed equally to these big scale decisions/deliverables that had to be made/completed.
 
-## Installation Instructions
-1. $cd into root/app
-2. run $chmod +x ./deploy.sh to make the deployment script executable
-3. run $./deploy.sh to deploy to Github Pages
