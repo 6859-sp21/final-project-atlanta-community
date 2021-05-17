@@ -47,10 +47,10 @@ export default {
 
   mounted() {
     this.width = this.$refs.chart2.clientWidth;
-    this.height = this.$refs.chart2.clientHeight;
+    this.height = this.$refs.chart2.clientHeight - 20;
 
-    this.width = Math.min(this.width, this.height);
-    this.height = this.width;
+    // this.width = Math.min(this.width, this.height);
+    // this.height = this.width;
 
     this.color = d3.scaleLinear()
       .domain([0, 5])
@@ -71,7 +71,6 @@ export default {
       .style("font", "10px sans-serif")
       .attr("pointer-events", "none")
       .attr("text-anchor", "middle");
-
     
     d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
       const groupMap = new Map();
@@ -159,7 +158,7 @@ export default {
   methods: {
     pack(selected) {
       const p = d3.pack()
-              .size([this.width, this.height])
+              .size([Math.min(this.width, this.height), Math.min(this.width, this.height)])
               .padding(3)
       return p(this.root
                 .sum(d => d[selected])
@@ -178,7 +177,7 @@ export default {
         .data(that.root.descendants().slice(1))
 
       const v = [that.root.x, that.root.y, that.root.r * 2];
-      const k = this.width / v[2];
+      const k = Math.min(this.width, this.height) / v[2];
 
       nodes.enter()
         .append("circle")
@@ -251,7 +250,7 @@ export default {
     },
 
     zoomTo(v) {
-      const k = this.width / v[2];
+      const k = Math.min(this.width, this.height) / v[2];
 
       this.view = v;
 
@@ -267,7 +266,7 @@ export default {
 
       const transition = this.svg.transition()
           .duration(event.altKey ? 7500 : 750)
-          .tween("zoom", d => {
+          .tween("zoom", () => {
             const i = d3.interpolateZoom(that.view, [that.focus.x, that.focus.y, that.focus.r * 2]);
             return t => that.zoomTo(i(t));
           });
@@ -297,8 +296,8 @@ export default {
 
 <style scoped>
 #chart-2 {
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 
 ul.breadcrumb-custom {

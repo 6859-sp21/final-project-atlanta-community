@@ -12,7 +12,7 @@ import { eventBus } from "../main";
 // https://bl.ocks.org/feifang/664c0f16adfcb4dea31b923f74e897a0
 
 export default {
-  name: "Trash",
+  name: "CircleGraph",
 
   data() {
     return {

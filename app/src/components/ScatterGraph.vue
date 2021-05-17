@@ -207,7 +207,7 @@ export default {
 
 <style scoped>
 #chart-3 {
-  height: 70%;
+  height: 90%;
   width: 90%;
 }
 </style>

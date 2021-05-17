@@ -89,7 +89,7 @@ export default {
 <style scoped>
 .page {
   background: #212121;
-  height: 110vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
