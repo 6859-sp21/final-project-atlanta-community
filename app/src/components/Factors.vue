@@ -24,14 +24,8 @@ export default {
       categories: [
         "all",
         "atlanta",
-        "beauty",
-        "education",
+        "society",
         "entertainment",
-        "health",
-        "other",
-        "politics",
-        "religion",
-        "social_justice",
         "sports"
       ],
       factors: [

@@ -29,6 +29,7 @@ export default {
       xText: "",
       yText: "",
       storedData: null,
+      r: null,
     }
   },
 
@@ -42,10 +43,13 @@ export default {
   },
 
   mounted() {
-    this.margin = {top: 20, right: 10, bottom: 50, left: 70};
+    this.margin = {top: 20, right: 20, bottom: 50, left: 70};
 
     this.width = this.$refs.chart3.clientWidth;
     this.height = this.$refs.chart3.clientHeight;
+
+    this.r = d3.scaleLinear()
+      .range([2, 20]);
 
     this.x = d3.scaleLinear()
         .range([this.margin.left, this.width -this.margin.right]);
@@ -56,6 +60,22 @@ export default {
     this.svg = d3.select("#chart-3").append("svg")
       .attr("width", this.width)
       .attr("height", this.height)
+
+    this.svg.append('rect')
+      .attr('class', 'zoom-panel')
+        .attr("x", this.margin.left)
+        .attr("y", this.margin.top)
+        .attr("width", this.width - this.margin.left - this.margin.right)
+        .attr("height", this.height - this.margin.top - this.margin.bottom)
+      .style("opacity", 1);
+
+    // color scaler
+    const categories = ['atlanta', 'society', 'entertainment', 'sports']
+    const colors_list = ["#FFBF00", "#FF7F50", "#6495ED", "#808000"]
+    // const colors_list = ["#FFBF00", "#FF7F50", "#000000", "#808000", "#00FF00", "#6495ED", "#000080", "#800080", "#808080", "#FF0000"]
+    this.color = d3.scaleOrdinal()
+      .domain(categories)
+      .range(colors_list)
 
     const that = this
 
@@ -129,6 +149,7 @@ export default {
           .data(data.filter(function(d,i){return i<1500}))
 
       console.log("Here");
+      this.r.domain([0, d3.max(data, (d) => parseFloat(d['community_size']))])
       
       // Add bars for new data
       dots.enter()
@@ -136,8 +157,10 @@ export default {
         .attr("class", 'dot')
         .attr("r", 5)
         .style("fill", "#e25609")
-        .style("opacity", 0.3)
+        .style("opacity", 0)
         .style("stroke", "white")
+        .attr("cx", that.margin.left)
+        .attr("cy", that.height - that.margin.bottom)
         .on("mouseover", function(event, d) {
           console.log("over");
           console.log(event);
@@ -154,6 +177,10 @@ export default {
         .duration(2000)
         .attr("cx", function (d) { return that.x(d[factor1]); } )
         .attr("cy", function (d) { return that.y(d[factor2]); } )
+        .attr("r", function (d) { return that.r(d["community_size"]); })
+        .style("fill", function(d){ return that.color(d['category']) })
+        .attr("stroke", function(d){ return that.color(d['category']) })
+        .style("opacity", 0.8)
       
       //https://stackoverflow.com/questions/22645162/d3-when-i-add-a-transition-my-mouseover-stops-working-why
 
@@ -165,10 +192,21 @@ export default {
         .duration(2000)
         .attr("cx", function (d) { return that.x(d[factor1]); } )
         .attr("cy", function (d) { return that.y(d[factor2]); } )
+        .attr("r", function (d) { return that.r(d["community_size"]); })
+        .style("fill", function(d){ return that.color(d['category']) })
+        .attr("stroke", function(d){ return that.color(d['category']) })
       
       console.log("Here");
       // Remove old ones
-      dots.exit().remove();
+      dots
+        .exit()
+        .transition()
+        .delay(function(d,i){return(i*3)})
+        .duration(2000)
+        .attr("cx", that.margin.left)
+        .attr("cy", that.height - that.margin.bottom)
+        .style("opacity", 0)
+        .remove();
       console.log("Here");
     },
   }
