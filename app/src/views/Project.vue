@@ -23,6 +23,7 @@
           <h2>A case study in Atlanta online communities</h2>
           <p>Team: Yuebin Dong, Jiang Hang, Amanda Horne, Diego Lestani
           </p>
+          <p> Warning: there may be some explicit word usage not appropriate for all ages on this website</p>
           <b-button class="button-blue" href="/final-project-atlanta-community/#/viz" variant="primary">Go to Our App</b-button>
           <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community" variant="primary">Go to Our Github</b-button>
           <div class="screenshots">
