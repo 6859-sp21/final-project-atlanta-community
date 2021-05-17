@@ -222,7 +222,6 @@ export default {
           })
           .attr("pointer-events", d => d.children ? "none" : null)
           .on("click", (event, d)  => {
-            console.log(d.data.name);
             window.open('https://twitter.com/'+ d.data.name);
           })
           .transition()
@@ -263,17 +262,12 @@ export default {
 
     zoom(event, d) {
       this.focus = d;
-      console.log("------------------");
-      console.log("zooming");
-      console.log(d.data.name);
 
       const that = this;
 
       const transition = this.svg.transition()
           .duration(event.altKey ? 7500 : 750)
           .tween("zoom", d => {
-            console.log("zooming");
-            console.log(d);
             const i = d3.interpolateZoom(that.view, [that.focus.x, that.focus.y, that.focus.r * 2]);
             return t => that.zoomTo(i(t));
           });
