@@ -1,15 +1,15 @@
 <template>
   <div class="page">
     <div class="content">
-      <div class="title">
+      <div class="title" v-scrollanimation>
         <h2>
           Ranking communities
         </h2>
       </div>
-      <div class="top">
+      <div class="top" v-scrollanimation>
         <Ranking/>
       </div>
-      <div class="bottom" ref="bottom">
+      <div class="bottom" ref="bottom" v-scrollanimation>
         <BarGraph/>
       </div>
     </div>
@@ -87,5 +87,16 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.before-enter {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 2s ease-out;
+}
+
+.enter {
+  opacity: 1;
+  transform: translateY(0px);
 }
 </style>

@@ -1,15 +1,15 @@
 <template>
   <div class="page">
     <div class="content">
-      <div class="title">
+      <div class="title" v-scrollanimation>
         <h2>
           Community Grouping
         </h2>
       </div>
-      <div class="top">
+      <div class="top" v-scrollanimation>
         <Ranking/>
       </div>
-      <div class="bottom" ref="bottom">
+      <div class="bottom" ref="bottom" v-scrollanimation>
         <CircleGraph/>
       </div>
     </div>
@@ -137,26 +137,14 @@ export default {
   top: 66%;
 }
 
-.fade-enter-active {
-  opacity: 1;
-  transition: all 1s ease-out;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0
-}
-
-.move-enter-active {
-  opacity: 1;
-  transform: translateX(0px);
-  transition: all 1s ease-out;
-}
-
-.move-enter,
-.move-leave-active {
+.before-enter {
   opacity: 0;
-  transform: translateX(100px);
-  transition: all 1s ease-out;
+  transform: translateY(100px);
+  transition: all 2s ease-out;
+}
+
+.enter {
+  opacity: 1;
+  transform: translateY(0px);
 }
 </style>

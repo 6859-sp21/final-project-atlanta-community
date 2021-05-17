@@ -1,11 +1,11 @@
 <template>
   <div class="page">
-    <div class="title">
+    <div class="title" v-scrollanimation>
       <h2>
         Investigate how language variation relates to social factors
       </h2>
     </div>
-    <div class="content">
+    <div class="content" v-scrollanimation>
       <div class="left">
           <Factors/>
           <transition name="fade">
@@ -138,5 +138,16 @@ h2 {
 .fade-enter,
 .fade-leave-active {
   opacity: 0
+}
+
+.before-enter {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 2s ease-out;
+}
+
+.enter {
+  opacity: 1;
+  transform: translateY(0px);
 }
 </style>

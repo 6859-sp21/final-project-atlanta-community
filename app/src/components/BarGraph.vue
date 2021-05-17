@@ -75,13 +75,13 @@ export default {
       .attr("width", this.width)
       .attr("height", this.height)
 
-    this.svg.append('rect')
-      .attr('class', 'zoom-panel')
-        .attr("x", this.margin.left )
-        .attr("y", this.margin.top)
-        .attr("width", this.width - this.margin.left - this.margin.right)
-        .attr("height", this.height - this.margin.top - this.margin.bottom)
-      .style("opacity", 0.5);
+    // this.svg.append('rect')
+    //   .attr('class', 'zoom-panel')
+    //     .attr("x", this.margin.left )
+    //     .attr("y", this.margin.top)
+    //     .attr("width", this.width - this.margin.left - this.margin.right)
+    //     .attr("height", this.height - this.margin.top - this.margin.bottom)
+    //   .style("opacity", 0.5);
 
     this.svg.append("clipPath")
     .attr("id", 'my-clip-path')
@@ -225,10 +225,10 @@ export default {
 
       // First update the y-axis domain to match data
       this.x.domain([0, d3.max(data, d => d.value)]);
-      this.xAxis.transition().duration(1000).call(d3.axisBottom(this.x))
+      this.xAxis.transition().duration(250).call(d3.axisBottom(this.x))
 
-      // this.y.domain(data.map(d => d.cluster_name));
-      this.yAxis.transition().duration(1000).call(d3.axisLeft(this.y));
+      this.y.domain(data.map(d => d.cluster_name));
+      this.yAxis.transition().duration(250).call(d3.axisLeft(this.y));
 
       this.x2.domain([0, d3.max(data, d => d.value)]);
       this.y2.domain(data.map(d => d.cluster_name));
@@ -288,18 +288,20 @@ export default {
       // Remove old ones
       bars2.exit().remove();
 
-      this.brushArea        
-        .call(that.brush)
-        .call(that.brush.move, [this.margin.top, (this.height - this.margin.bottom) / 4]);
+      setTimeout(() => {
+        that.brushArea        
+          .call(that.brush)
+          .call(that.brush.move, [this.margin.top, (this.height - this.margin.bottom) / 4]);
+      }, 300);
     },
 
     reorder(selected) {
       d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
         this.xText.text(selected);
+        console.log(data);
         data.forEach(d => d.value = parseFloat(d[selected]));
         data.sort((a, b) => a.value - b.value);
         data.forEach((d, i) => d.Rank = i + 1);
-        selected = [];
         this.updateBars(data);
       })
     }

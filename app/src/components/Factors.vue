@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       factor1: "community_size",
-      factor2: "lexical_change",
+      factor2: "semantic_change",
       category: "all",
       categories: [
         "all",
@@ -30,8 +30,8 @@ export default {
       ],
       factors: [
         'community_size', 
-        'lexical_change', 
-        'ideology_lexical_change', 
+        'semantic_change', 
+        'ideology_semantic_change', 
         'male_ratio',
         'friends_count_mean', 
         'friends_count_median',

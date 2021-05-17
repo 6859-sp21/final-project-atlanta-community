@@ -83,8 +83,8 @@ export default {
         d.top_follows.split(",").forEach(f =>{
           followings.push({name: f, 
                           community_size: parseFloat(d.community_size) / 25,
-                          lexical_change: parseFloat(d.lexical_change) / 25,
-                          ideology_lexical_change: parseFloat(d.ideology_lexical_change)  / 25,
+                          semantic_change: parseFloat(d.semantic_change) / 25,
+                          ideology_semantic_change: parseFloat(d.ideology_semantic_change)  / 25,
                           male_ratio: parseFloat(d.male_ratio)  / 25,
                           friends_count_mean: parseFloat(d.friends_count_mean)  / 25,
                           follower_count_mean: parseFloat(d.follower_count_mean)  / 25,
@@ -96,8 +96,8 @@ export default {
           [{name: d.cluster_name, 
             children: followings,
             // community_size: parseFloat(d.community_size),
-            // lexical_change: parseFloat(d.lexical_change),
-            // ideology_lexical_change: parseFloat(d.ideology_lexical_change),
+            // semantic_change: parseFloat(d.semantic_change),
+            // ideology_semantic_change: parseFloat(d.ideology_semantic_change),
             // male_ratio: parseFloat(d.male_ratio),
             // friends_count_mean: parseFloat(d.friends_count_mean),
             // follower_count_mean: parseFloat(d.follower_count_mean),
@@ -107,8 +107,8 @@ export default {
           groupMap.get(d.cluster_group).push({name: d.cluster_name, 
             children: followings,
             // community_size: parseFloat(d.community_size),
-            // lexical_change: parseFloat(d.lexical_change),
-            // ideology_lexical_change: parseFloat(d.ideology_lexical_change),
+            // semantic_change: parseFloat(d.semantic_change),
+            // ideology_semantic_change: parseFloat(d.ideology_semantic_change),
             // male_ratio: parseFloat(d.male_ratio),
             // friends_count_mean: parseFloat(d.friends_count_mean),
             // follower_count_mean: parseFloat(d.follower_count_mean),
@@ -128,7 +128,7 @@ export default {
         this.followings.set(d.cluster_name, d.top_follows.split(","));
       });
 
-      // community_size	lexical_change	ideology_lexical_change	male_ratio	friends_count_mean	
+      // community_size	semantic_change	ideology_semantic_change	male_ratio	friends_count_mean	
       // friends_count_median	follower_count_mean	follower_count_median	tweet_count_mean	tweet_count_median	
       // tweet_count_rank	gender	age	is_org	betweenness	closeness	cluster_id	category	cluster_group	cluster_name	topic_words	top_follows
       this.parents.set("All", null);

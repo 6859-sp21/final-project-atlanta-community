@@ -22,8 +22,8 @@ export default {
         { text: 'average friends count', value: 'friends_count_mean' },
         { text: 'average follower count', value: 'follower_count_mean' },
         { text: 'average tweet count', value: 'tweet_count_mean' },
-        { text: 'semantic change', value: 'lexical_change' },
-        { text: 'ideology semantic change', value: 'ideology_lexical_change' },
+        { text: 'semantic change', value: 'semantic_change' },
+        { text: 'ideology semantic change', value: 'ideology_semantic_change' },
         { text: 'male ratio', value: 'male_ratio' },
       ]
     }

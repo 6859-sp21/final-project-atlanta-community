@@ -4,11 +4,11 @@
     <Intro/>
     <Tutorial/>
 
-    <CirclePacking v-scrollanimation/>
+    <CirclePacking/>
 
-    <BarChart v-scrollanimation/>
+    <BarChart/>
 
-    <ScatterChart v-scrollanimation/>
+    <ScatterChart/>
     <Thanks/>
   </div>
 </template>
