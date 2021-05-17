@@ -1,5 +1,6 @@
 <template>
   <div id="tooltip-3">
+    <div>Top words of <b>{{ clusterName }}</b> community</div>
     <vue-word-cloud
       id="wordcloud"
       :rotation="rotate"
