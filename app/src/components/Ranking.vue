@@ -27,11 +27,11 @@ export default {
         { text: 'user activity in favoriting', value: 'favorite_count_mean' },
         { text: 'semantic change', value: 'semantic_change' },
         { text: 'ideological semantic change', value: 'ideology_semantic_change' },
-        {text: 'organization status', value: 'is_org'},
-        {text: 'age', value: 'age'},
-        {text: 'gender (female ratio)', value: 'gender'},
-        {text: 'betweenness', value: 'betweenness'},
-        {text: 'closeness', value: 'closeness'},
+        { text: 'organization status', value: 'is_org'},
+        { text: 'age', value: 'age'},
+        { text: 'gender (female ratio)', value: 'gender'},
+        { text: 'betweenness', value: 'betweenness'},
+        { text: 'closeness', value: 'closeness'},
       ]
     }
   },

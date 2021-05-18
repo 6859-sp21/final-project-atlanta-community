@@ -30,6 +30,25 @@ export default {
       yText: "",
       storedData: null,
       r: null,
+      columns: {
+        'community_size': 'community size',
+        'semantic_change': 'semantic change',
+        'ideology_semantic_change': 'ideological semantic change',
+        'is_org': 'organization status',
+        'age': 'age',
+        'gender': 'female ratio',
+        'betweenness': 'betweenness',
+        'closeness': 'closeness',
+        'friends_count_median': 'median friends count',
+        'friends_count_mean': 'mean friends count',
+        'follower_count_median': 'median follower count',
+        'follower_count_mean': 'mean follower count',
+        'tweet_count_mean': 'mean tweet count',
+        'tweet_count_median': 'median tweet count',
+        'tweet_count_rank': 'tweet count rank',
+        'favorite_count_median': 'median favoriting count',
+        'favorite_count_mean': 'mean favoriting count',
+      }
     }
   },
 
@@ -153,11 +172,11 @@ export default {
 
       this.x.domain([0, d3.max(data, (d) => parseFloat(d[factor1]))])
       this.xAxis.transition().duration(1000).call(d3.axisBottom(this.x))
-      this.xText.text(factor1);
+      this.xText.text(this.columns[factor1]);
 
       this.y.domain([0, d3.max(data, (d) => parseFloat(d[factor2]))])
       this.yAxis.transition().duration(1000).call(d3.axisLeft(this.y));
-      this.yText.text(factor2);
+      this.yText.text(this.columns[factor2]);
 
       const dots = this.svg
           .selectAll(".dot")

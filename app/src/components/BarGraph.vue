@@ -1,5 +1,6 @@
 <template>
   <div id="chart-1" ref="chart1">
+    <div id="bar-tooltip"></div>
     <div id="svg-container-1" ref="svg-container"/>
   </div>
 </template>
@@ -34,6 +35,22 @@ export default {
       content: null,
       focus: null,
       xText: "",
+      tooltip: null,
+      selection: "",
+      columns: {
+        'community_size': 'community size',
+        'friends_count_median': 'number of friends',
+        'follower_count_mean': 'number of followers',
+        'tweet_count_mean': 'user activity in tweeting',
+        'favorite_count_mean': 'user activity in favoriting',
+        'semantic_change': 'semantic change',
+        'ideology_semantic_change': 'ideological semantic change',
+        'is_org': 'organization status',
+        'age': 'age',
+        'gender': 'female ratio',
+        'betweenness': 'betweenness',
+        'closeness': 'closeness',
+      }
     }
   },
 
@@ -47,8 +64,8 @@ export default {
   },
 
   mounted() {
-    this.margin = {top: 20, right: 10, bottom: 50, left: 300};
-    this.margin2 = {top: 20, right: 5, bottom: 50, left: 50};
+    this.margin = {top: 30, right: 10, bottom: 50, left: 300};
+    this.margin2 = {top: 30, right: 5, bottom: 50, left: 50};
     this.width2 = 75;
 
     this.width = this.$refs.chart1.clientWidth;
@@ -90,6 +107,10 @@ export default {
       .attr("y", this.margin.top)
       .attr("width", this.width - this.margin.left - this.margin.right)
       .attr("height", this.height - this.margin.top - this.margin.bottom)
+
+    this.tooltip = d3.selectAll("#bar-tooltip")
+      .style("left", this.margin.left + this.width2+ "px")
+      .attr("font-weight", "normal")
 
     // this.svg.append('rect')
     //   .attr('class', 'zoom-panel')
@@ -136,6 +157,12 @@ export default {
         that.svg.selectAll(".bar")
           .attr('y', d => that.y(d.cluster_name))
           .attr('height', that.y.bandwidth())
+          .style("opacity", d => {
+            if (nD.includes(d.cluster_name)) {
+              return 1;
+            }
+            return 0;
+          });
         that.yAxis.call(that.yScale, that.y);
       }
     }
@@ -191,22 +218,6 @@ export default {
       .text('cluster name');  
 
     this.reorder("community_size");
-
-    // const zoom = d3.zoom()
-    //   .scaleExtent([1, 32])
-    //   .extent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
-    //   .translateExtent([[that.margin.left, 0], [that.width - that.margin.right, that.height - that.margin.bottom]])
-    //   .on("zoom", zoomed);
-    
-    // function zoomed(event) {
-    //   that.y.range([that.height - that.margin.bottom, that.margin.top].map(d => event.transform.applyY(d)));
-    //   that.svg.selectAll(".bar")
-    //     .attr('y', d => that.y(d.cluster_name))
-    //     .attr('height', that.y.bandwidth())
-    //   that.yAxis.call(that.yScale, that.y);
-    // }
-
-    // this.focus.call(zoom);
   },
 
   computed: {
@@ -248,6 +259,26 @@ export default {
         .attr('width', d => that.x(d.value) - this.margin.left)
         .attr('height', that.y.bandwidth())
         .attr('fill', "#1da1f2")
+        .on("mouseover", function(event, d) { 
+          that.tooltip
+            .style("opacity", 0)
+            .transition()
+            .duration(500)
+            .style("opacity", 1)
+          that.tooltip.html("The " + that.columns[that.selection] + " of <b>" + d.cluster_name + "</b> is " + d.value);
+        })
+        .on("mouseout", function() { 
+          that.tooltip
+            .style("opacity", 0)
+            .transition()
+            .duration(500)
+            .style("opacity", 1)
+          if (that.selection == "age") {
+            that.tooltip.html("Hover on a bar to see " + that.columns[that.selection] + " <i>(four age groups <=18, 19-29, 30-39, >=40 are scaled into 0-3)</i>");
+          } else {
+            that.tooltip.html("Hover on a bar to see " + that.columns[that.selection]);
+          }
+        })
 
       // Update old ones, already have x / width from before
       bars
@@ -291,17 +322,29 @@ export default {
         that.brushArea        
           .call(that.brush)
           .call(that.brush.move, [this.margin.top, (this.height - this.margin.bottom) / 4]);
-      }, 300);
+      }, 500);
     },
 
     reorder(selected) {
       d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
-        this.xText.text(selected);
-        console.log(data);
+        this.xText.text(this.columns[selected]);
+
         data.forEach(d => d.value = parseFloat(d[selected]));
         data.sort((a, b) => a.value - b.value);
         data.forEach((d, i) => d.Rank = i + 1);
         this.updateBars(data);
+
+        this.selection = selected;
+        this.tooltip
+          .style("opacity", 0)
+          .transition()
+          .duration(500)
+          .style("opacity", 1)
+        if (this.selection == "age") {
+          this.tooltip.html("Hover on a bar to see " + this.columns[this.selection] + " <i>(four age groups <=18, 19-29, 30-39, >=40 are scaled into 0-3)</i>");
+        } else {
+          this.tooltip.html("Hover on a bar to see " + this.columns[this.selection]);
+        }
       })
     }
   }
@@ -315,4 +358,8 @@ export default {
 }
 
 .x-axis { font-size: 20;}
+
+#bar-tooltip {
+  position: absolute;
+}
 </style>

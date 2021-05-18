@@ -136,7 +136,7 @@ export default {
       this.storedData = {name: "All", children: categories};
       this.root =  d3.hierarchy(this.storedData)
         .sum(d => d["community_size"])
-        .sort((a, b) => b.value - a.value)
+        .sort((a, b) => b["value"] - a["value"])
 
       this.node = this.svg.append("g");
       this.label = this.svg.append("g");
@@ -152,7 +152,8 @@ export default {
               .padding(3)
       return p(this.root
                 .sum(d => d[selected])
-                .sort((a, b) => b.value - a.value))
+                .sort((a, b) => b["value"] - a["value"])
+              )
     },
 
     update(selected) {
@@ -219,7 +220,7 @@ export default {
           .transition()
           .duration(2000)
           .attr("transform", d => {
-            if (d.children) {
+            if (d.children && d.children[0].children) {
               return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`;
             }
             return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k}) rotate(-45)`;
@@ -255,7 +256,7 @@ export default {
       this.label
         .selectAll(".circle-label")
         .attr("transform", d => {
-          if (d.children) {
+          if (d.children && d.children[0].children) {
             return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`;
           }
           return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k}) rotate(-45)`;
