@@ -1,7 +1,9 @@
-# Atlanta Community
+# 6.859 Final Project: Exploring patterns of language variation on social media: A case study in Atlanta online communities
 
 ## Our Team
 Hang Jiang, Amanda Horne, Yuebin Dong, Diego Lestani
+
+website: [https://6859-sp21.github.io/final-project-atlanta-community/](https://6859-sp21.github.io/final-project-atlanta-community/)
 
 ## Getting started
 
