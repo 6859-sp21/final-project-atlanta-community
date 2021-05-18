@@ -1,6 +1,6 @@
 <template>
   <div id="tooltip-3">
-    <div>Top words of <b>{{ clusterName }}</b> community</div>
+    <h5>Top words of <b>{{ clusterName }}</b> community</h5>
     <vue-word-cloud
       id="wordcloud"
       :rotation="rotate"
@@ -49,5 +49,9 @@ export default {
 #tooltip-3 {
   width: 100%;
   height: 50%;
+}
+
+h5 {
+  color: #1DA1F2;
 }
 </style>

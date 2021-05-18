@@ -72,6 +72,7 @@ p {
 
 h2 {
   font-weight: bold;
+  color: #1DA1F2;
 }
 
 #arrow {
