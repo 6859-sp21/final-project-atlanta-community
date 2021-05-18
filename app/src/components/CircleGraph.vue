@@ -231,8 +231,8 @@ export default {
       labels
         .transition()
         .duration(500)
-        .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
-        .style("display", d => d.parent === that.root ? "inline" : "none")
+        // .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
+        // .style("display", d => d.parent === that.root ? "inline" : "none")
         .text(d => {
           if (!d.children) {
             return '@' + d.data.name;

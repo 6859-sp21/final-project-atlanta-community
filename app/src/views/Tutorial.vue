@@ -24,8 +24,7 @@ export default {
 
   methods: {
     scroll() {  
-      console.log(document.getElementById("intro"));
-      document.getElementById("intro-circle").scrollIntoView({
+      document.getElementById("definitions").scrollIntoView({
         behavior: "smooth"
       });
     }

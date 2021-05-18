@@ -3,6 +3,7 @@
     <Cover/>
     <Intro/>
     <Tutorial/>
+    <Definitions/>
     <CircleIntro/>
     <CirclePacking/>
     <BarIntro/>
@@ -17,6 +18,7 @@
 import Cover from './Cover.vue';
 import Intro from './Intro.vue';
 import Tutorial from './Tutorial.vue';
+import Definitions from './Definitions.vue';
 import CircleIntro from './CircleIntro.vue';
 import BarChart from './BarChart.vue';
 import ScatterChart from './ScatterChart';
@@ -30,6 +32,7 @@ export default {
     Cover,
     Intro,
     Tutorial,
+    Definitions,
     CircleIntro,
     BarChart,
     ScatterChart,
@@ -65,7 +68,6 @@ export default {
   /* background: #212121;
   color: #FFFFFF; */
   background: white;
-
 }
 
 </style>
