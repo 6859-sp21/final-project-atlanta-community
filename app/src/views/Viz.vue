@@ -62,8 +62,10 @@ export default {
 }
 
 .viz-page {
-  background: #212121;
-  color: #FFFFFF;
+  /* background: #212121;
+  color: #FFFFFF; */
+  background: white;
+
 }
 
 </style>

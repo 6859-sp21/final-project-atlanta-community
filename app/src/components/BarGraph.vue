@@ -165,7 +165,7 @@ export default {
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'White')
+      .attr("fill", 'black')
       .text('');
     
     //7. Drawing our y-axis
@@ -187,7 +187,7 @@ export default {
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'White')
+      .attr("fill", 'black')
       .text('cluster name');  
 
     this.reorder("community_size");

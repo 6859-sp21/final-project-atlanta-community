@@ -57,7 +57,8 @@ export default {
 
 <style scoped>
 .page {
-  background: #212121;
+  /* background: #212121; */
+  background: white;
   height: 100vh;
   margin-top: 4em;
   margin-bottom: 4em;
@@ -111,8 +112,8 @@ h2 {
 }
 
 #arrow {
-    font-weight: 1000;
-    opacity: 0.5;
-    cursor: pointer;
+  font-weight: 1000;
+  opacity: 0.5;
+  cursor: pointer;
 }
 </style>

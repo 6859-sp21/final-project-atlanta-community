@@ -85,4 +85,8 @@ h2 {
   align-items: center;
   padding: 1em;
 }
+
+span {
+  font-weight: bold;
+}
 </style>

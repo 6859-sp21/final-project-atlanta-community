@@ -202,7 +202,7 @@ export default {
           .attr("class", "circle-label")
           .attr('text-anchor', 'middle')
           .style("fill", d => !d.children ? "white" : "black")
-          .style("font", d => d.children ? "15px sans-serif" : "12px sans-serif")
+          .style("font", d => d.children ? "15px" : "12px")
           .attr("font-weight",d => d.children ? "800" : "600")
           .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
           .style("display", d => d.parent === that.root ? "inline" : "none")
@@ -218,7 +218,12 @@ export default {
           })
           .transition()
           .duration(2000)
-          .attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`)
+          .attr("transform", d => {
+            if (d.children) {
+              return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`;
+            }
+            return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k}) rotate(-45)`;
+          })
 
       labels
         .transition()
@@ -247,7 +252,15 @@ export default {
 
       this.view = v;
 
-      this.label.selectAll(".circle-label").attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+      this.label
+        .selectAll(".circle-label")
+        .attr("transform", d => {
+          if (d.children) {
+            return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`;
+          }
+          return `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k}) rotate(-45)`;
+        })
+
       this.node.selectAll("circle").attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
       this.node.selectAll("circle").attr("r", d => d.r * k);
     },
