@@ -43,7 +43,7 @@ export default {
 
   data() {
     return {
-      text: 'Welcome to Novid'
+      text: 'Welcome to Novid',
     }
   }
 }
