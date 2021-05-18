@@ -7,7 +7,10 @@
       Our main goal is that the user can understand the semantic change in social media across Atlanta’s communities and have a guide for current local trends online. Examples of potential users  are journalists, politicians and society as a whole.
       </p>
       <span @click="scroll()" id="arrow">╲╱</span>
-    </div> 
+    </div>
+    <div class="text-image">
+      <b-img v-scrollanimation class="screenshot" :src="require('../assets/atlanta.png')"></b-img>
+    </div>
   </div>
 </template>
 
@@ -46,6 +49,20 @@ p {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+}
+
+.text-image {
+  width: 25%;
+  padding: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.screenshot {
+  width: 90%;
+  height: auto;
 }
 
 #text-block {

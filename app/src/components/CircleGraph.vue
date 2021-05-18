@@ -201,7 +201,9 @@ export default {
         .append("text")
           .attr("class", "circle-label")
           .attr('text-anchor', 'middle')
-          .style("font", d => d.children ? "15px sans-serif" : "10px sans-serif")
+          .style("fill", d => !d.children ? "white" : "black")
+          .style("font", d => d.children ? "15px sans-serif" : "12px sans-serif")
+          .attr("font-weight",d => d.children ? "800" : "600")
           .style("fill-opacity", d => d.parent === that.root ? 1 : 0)
           .style("display", d => d.parent === that.root ? "inline" : "none")
           .text(d => {

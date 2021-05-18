@@ -14,8 +14,6 @@
       </div >
       <span @click="scroll()" id="arrow" v-scrollanimation >╲╱</span>
     </div>
-    <div id="cover-image">
-    </div>
   </div>
 </template>
 
@@ -25,7 +23,7 @@ export default {
 
   data() {
       return {
-        title1: "Exploring patterns of language variation on social media",
+        title1: "Exploring Patterns of Language Variation on Social Media",
         title2: "A case study in Atlanta online communities",
         title3: "Warning: there might be some explicit word usage on this website that is not appropriate for all ages"
       }
@@ -45,11 +43,16 @@ export default {
 #cover {
   min-height: 110vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: row;  
   background: #171717;
+  background-image: url('../assets/cover.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right; 
 }
 
 #title {
+  max-width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;

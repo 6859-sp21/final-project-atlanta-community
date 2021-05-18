@@ -1,10 +1,12 @@
 <template>
   <div id="tutorial">
+    <div class="text-image">
+      <b-img v-scrollanimation class="screenshot" :src="require('../assets/semantic_change.png')"></b-img>
+    </div>
     <div id="text-block">
       <hr>
       <p  v-scrollanimation>
         What is Semantic Change? According to wikipedia, Semantic Change is a form of language change regarding the evolution of word usage.<br>
-      <b-img  v-scrollanimation class="screenshot" :src="require('../assets/semantic_change.png')"></b-img>
       </p>
       <span @click="scroll()" id="arrow">╲╱</span>
     </div> 
@@ -48,6 +50,20 @@ p {
   align-items: center;
 }
 
+.text-image {
+  width: 25%;
+  padding: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.screenshot {
+  width: 90%;
+  height: auto;
+}
+
 #text-block {
   min-width: 250px;
   width: 70%;
@@ -66,12 +82,6 @@ p {
 .enter {
   opacity: 1;
   transform: translateY(0px);
-}
-
-.screenshot {
-   padding-top: 2em;
-   max-width: 70%;
-   height: auto;
 }
 
 #arrow {
