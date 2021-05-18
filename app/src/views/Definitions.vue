@@ -22,14 +22,14 @@ export default {
   data() {
       return {
         items: [
-          { name: "Age", text: "we encode four age groups <=18, 19-29, 30-39, >=40 into 0-3 and use the average age of community mem- bers to represent the community-level age." },
-          { name: "Gender Diversity", text: "we measure the gender diversity with the female ratio in each community." },
-          { name: "Organization Status", text: "we represent organization status with the proportion of organizational accounts in each com- munity." },
-          { name: "Community Size", text: "community size as the number of unique users in a Twitter community" },
+          { name: "Age", text: "we encode four age groups <=18, 19-29, 30-39, >=40 into 0-3 and use the average age of community members to represent the community-level age" },
+          { name: "Gender Diversity", text: "we measure the gender diversity with the female ratio in each community" },
+          { name: "Organization Status", text: "we represent organization status with the proportion of organizational accounts in each community" },
+          { name: "Community Size", text: "community size is the number of unique users in a Twitter community" },
           { name: "Social Status", text: "we measure social status by the median number of friends per user in a Twitter community" },
-          { name: "User Tweet/Favorite Activity", text: "user tweet activity is the average number of tweets per user in the community, whereas user favorite ac- tivity is measured by the average number of favorites given out per user in a community." },
-          { name: "Closeness", text: "we represent closeness of a community with the average closeness score per user. This closeness score of a user measures its average inverse dis- tance to all other users." },
-          { name: "Betweenness", text: "we represent betweenness of a community with the average betweenness score per user. It represents the degree to which nodes stand between each other." },
+          { name: "User Tweet/Favorite Activity", text: "user tweet activity is the average number of tweets per user in the community, whereas user favorite activity is measured by the average number of favorites given out per user in a community" },
+          { name: "Closeness", text: "we represent closeness of a community with the average closeness score per user. This closeness score of a user measures its average inverse distance to all other users" },
+          { name: "Betweenness", text: "we represent betweenness of a community with the average betweenness score per user. It represents the degree to which nodes stand between each other" },
         ]
       }
   },
