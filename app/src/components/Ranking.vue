@@ -19,12 +19,17 @@ export default {
       selected: 'community_size',
       options: [
         { text: 'community size', value: 'community_size' },
-        { text: 'average friends count', value: 'friends_count_mean' },
-        { text: 'average follower count', value: 'follower_count_mean' },
-        { text: 'average tweet count', value: 'tweet_count_mean' },
+        { text: 'number of friends', value: 'friends_count_median' },
+        { text: 'number of followers', value: 'follower_count_mean' },
+        { text: 'user activity in tweeting', value: 'tweet_count_mean' },
+        { text: 'user activity in favoriting', value: 'favorite_count_mean' },
         { text: 'semantic change', value: 'semantic_change' },
-        { text: 'ideology semantic change', value: 'ideology_semantic_change' },
-        { text: 'male ratio', value: 'male_ratio' },
+        { text: 'ideological semantic change', value: 'ideology_semantic_change' },
+        {text: 'organization status', value: 'is_org'},
+        {text: 'age', value: 'age'},
+        {text: 'gender (female ratio)', value: 'gender'},
+        {text: 'betweenness', value: 'betweenness'},
+        {text: 'closeness', value: 'closeness'},
       ]
     }
   },
