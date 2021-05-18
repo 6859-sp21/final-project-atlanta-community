@@ -137,6 +137,7 @@ li {
 
 #carousel-1 {
   height: 100vh;
+  overflow: auto;
 }
 
 #page-1 {
