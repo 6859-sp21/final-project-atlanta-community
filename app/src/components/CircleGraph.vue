@@ -136,7 +136,7 @@ export default {
       this.storedData = {name: "All", children: categories};
       this.root =  d3.hierarchy(this.storedData)
         .sum(d => d["community_size"])
-        .sort((a, b) => b["value"] - a["value"])
+        .sort((a, b) => b["community_size"] - a["community_size"])
 
       this.node = this.svg.append("g");
       this.label = this.svg.append("g");
@@ -152,14 +152,16 @@ export default {
               .padding(3)
       return p(this.root
                 .sum(d => d[selected])
-                .sort((a, b) => b["value"] - a["value"])
+                .sort((a, b) => b["community_size"] - a["community_size"])
               )
     },
 
     update(selected) {
       // https://bl.ocks.org/HarryStevens/4fba7a62b0ff302ef49768198d4c54c6
       this.root = this.pack(selected);
-      this.focus = this.root;
+      if (!this.focus) {
+        this.focus = this.root;
+      }
 
       const that = this;
 
@@ -167,7 +169,7 @@ export default {
         .selectAll("circle")
         .data(that.root.descendants().slice(1))
 
-      const v = [that.root.x, that.root.y, that.root.r * 2];
+      const v = [this.focus.x, this.focus.y, this.focus.r * 2];
       const k = Math.min(this.width, this.height) / v[2];
 
       nodes.enter()
@@ -243,7 +245,7 @@ export default {
         .remove();
             
       setTimeout(() => {
-        this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);  
+        this.zoomTo([that.focus.x, that.focus.y, that.focus.r * 2]);  
       }, 2000);
       // this.zoomTo([that.root.x, that.root.y, that.root.r * 2]);
     },
