@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" id="page-circle">
     <div class="content">
       <div class="title" v-scrollanimation>
         <h2>
@@ -13,7 +13,7 @@
         <CircleGraph/>
       </div>
     </div>
-    <span v-scrollanimation>╲╱</span>
+    <span  @click="scroll()" id="arrow">╲╱</span>
   </div>
 </template>
 
@@ -65,6 +65,12 @@ export default {
   },
 
   methods: {
+    scroll() {  
+      document.getElementById("intro-bar").scrollIntoView({
+        behavior: "smooth"
+      });
+    },
+
     showCheckbox(data) {
       this.options = data.options;
       this.category = data.category;
@@ -89,9 +95,9 @@ export default {
 <style scoped>
 .page {
   background: #212121;
-  height: 110vh;
-  padding-top: 4em;
-  padding-bottom: 4em;
+  height: 100vh;
+  margin-top: 4em;
+  margin-bottom: 4em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,5 +152,16 @@ export default {
 .enter {
   opacity: 1;
   transform: translateY(0px);
+}
+
+h2 {
+  font-weight: bold;
+}
+
+
+#arrow {
+    font-weight: 1000;
+    opacity: 0.5;
+    cursor: pointer;
 }
 </style>

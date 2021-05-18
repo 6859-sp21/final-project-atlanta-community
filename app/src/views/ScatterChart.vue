@@ -1,8 +1,8 @@
 <template>
-  <div class="page">
+  <div class="page" id="page-scatter">
     <div class="title" v-scrollanimation>
       <h2>
-        Language variation & social factors
+        Language Variation & Social Factors
       </h2>
     </div>
     <div class="content" v-scrollanimation>
@@ -23,7 +23,7 @@
         <ScatterGraph/>
       </div>
     </div>
-    <span v-scrollanimation>╲╱</span>
+    <span id="arrow" @click="scroll()">╲╱</span>
   </div>
 </template>
 
@@ -81,6 +81,12 @@ export default {
       //   .transition()
       //   .duration(500)
       //   .style("opacity", "0");
+    },
+
+    scroll() {  
+      document.getElementById("thanks").scrollIntoView({
+        behavior: "smooth"
+      });
     }
   }
 }
@@ -89,9 +95,9 @@ export default {
 <style scoped>
 .page {
   background: #212121;
-  height: 110vh;
-  padding-top: 4em;
-  padding-bottom: 4em;
+  height: 100vh;
+  margin-top: 4em;
+  margin-bottom: 4em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,5 +155,11 @@ h2 {
 .enter {
   opacity: 1;
   transform: translateY(0px);
+}
+
+#arrow {
+    font-weight: 1000;
+    opacity: 0.5;
+    cursor: pointer;
 }
 </style>

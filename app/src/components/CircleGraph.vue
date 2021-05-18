@@ -85,9 +85,14 @@ export default {
                           community_size: parseFloat(d.community_size) / 25,
                           semantic_change: parseFloat(d.semantic_change) / 25,
                           ideology_semantic_change: parseFloat(d.ideology_semantic_change)  / 25,
-                          male_ratio: parseFloat(d.male_ratio)  / 25,
-                          friends_count_mean: parseFloat(d.friends_count_mean)  / 25,
+                          friends_count_median: parseFloat(d.friends_count_median)  / 25,
                           follower_count_mean: parseFloat(d.follower_count_mean)  / 25,
+                          favorite_count_mean: parseFloat(d.favorite_count_mean)  / 25,
+                          is_org: parseFloat(d.is_org)  / 25,
+                          age: parseFloat(d.age)  / 25,
+                          gender: parseFloat(d.gender)  / 25,
+                          betweenness: parseFloat(d.betweenness)  / 25,
+                          closeness: parseFloat(d.closeness)  / 25,
                           tweet_count_mean: parseFloat(d.tweet_count_mean)  / 25,
           });
         });
@@ -95,24 +100,10 @@ export default {
           groupMap.set(d.cluster_group, 
           [{name: d.cluster_name, 
             children: followings,
-            // community_size: parseFloat(d.community_size),
-            // semantic_change: parseFloat(d.semantic_change),
-            // ideology_semantic_change: parseFloat(d.ideology_semantic_change),
-            // male_ratio: parseFloat(d.male_ratio),
-            // friends_count_mean: parseFloat(d.friends_count_mean),
-            // follower_count_mean: parseFloat(d.follower_count_mean),
-            // tweet_count_mean: parseFloat(d.tweet_count_mean),
             }])
         } else {
           groupMap.get(d.cluster_group).push({name: d.cluster_name, 
             children: followings,
-            // community_size: parseFloat(d.community_size),
-            // semantic_change: parseFloat(d.semantic_change),
-            // ideology_semantic_change: parseFloat(d.ideology_semantic_change),
-            // male_ratio: parseFloat(d.male_ratio),
-            // friends_count_mean: parseFloat(d.friends_count_mean),
-            // follower_count_mean: parseFloat(d.follower_count_mean),
-            // tweet_count_mean: parseFloat(d.tweet_count_mean),
             });
         }
         if (!categoryMap.get(d.category)) {

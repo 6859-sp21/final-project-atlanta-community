@@ -1,9 +1,9 @@
 <template>
-  <div class="page">
-    <div class="content">
+  <div class="page" id="page-barchart">
+    <div class="content" id="content-barchart">
       <div class="title" v-scrollanimation>
         <h2>
-          Ranking communities
+          Ranking Communities
         </h2>
       </div>
       <div class="top" v-scrollanimation>
@@ -13,7 +13,7 @@
         <BarGraph/>
       </div>
     </div>
-    <span v-scrollanimation>╲╱</span>
+    <span id="arrow" @click="scroll()">╲╱</span>
   </div>
 </template>
 
@@ -45,6 +45,11 @@ export default {
   },
 
   methods: {
+    scroll() {  
+      document.getElementById("intro-scatter").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
   }
 }
 </script>
@@ -52,9 +57,9 @@ export default {
 <style scoped>
 .page {
   background: #212121;
-  height: 110vh;
-  padding-top: 4em;
-  padding-bottom: 4em;
+  height: 100vh;
+  margin-top: 4em;
+  margin-bottom: 4em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,7 +72,7 @@ export default {
 }
 
 .content {
-  height: 80%;
+  height: 90%;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -98,5 +103,15 @@ export default {
 .enter {
   opacity: 1;
   transform: translateY(0px);
+}
+
+h2 {
+  font-weight: bold;
+}
+
+#arrow {
+    font-weight: 1000;
+    opacity: 0.5;
+    cursor: pointer;
 }
 </style>

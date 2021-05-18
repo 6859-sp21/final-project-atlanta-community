@@ -30,9 +30,11 @@
           <span style="margin: 0.5em">Share on twitter</span>
           </ShareNetwork>
         </b-button>
-        <b-img>
-        </b-img>
       </div>
+    </div>
+    <div id="back-to-top">
+      <span @click="scroll()" id="arrow">TOP</span>
+      <span @click="scroll()" id="arrow">╱╲</span>
     </div>
   </div>
 </template>
@@ -45,6 +47,14 @@ export default {
       return {
         title1: "Thanks for exploring",
       }
+  },
+
+  methods: {
+    scroll() {  
+      document.getElementById("cover").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
   }
 }
 </script>
@@ -52,13 +62,19 @@ export default {
 <style scoped>
 #thanks {
   min-height: 100vh;
+  background: #171717;
 }
-
 
 #thanks-content {
   display: flex;
   flex-direction: column;
   padding: 3em;
+}
+
+#back-to-top {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .thanks-text-block {
@@ -105,5 +121,10 @@ h2 {
 .enter {
   opacity: 1;
   transform: translateY(0px);
+}
+
+#arrow {
+    opacity: 0.5;
+    cursor: pointer;
 }
 </style>

@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div id="page">
     <b-carousel
       id="carousel-1"
       v-model="slide"
       :interval="0"
       controls
       indicators
-      background="#ababab"
+      background="#212121"
       img-width="1024"
       img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
@@ -27,9 +26,7 @@
           <b-button class="button-blue" href="/final-project-atlanta-community/#/viz" variant="primary">Go to Our App</b-button>
           <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community" variant="primary">Go to Our Github</b-button>
           <div class="screenshots">
-            <b-img class="screenshot" :src="require('../assets/Image1.png')"></b-img>
-            <b-img class="screenshot" :src="require('../assets/Image2.png')"></b-img>
-            <b-img class="screenshot" :src="require('../assets/Image3.png')"></b-img>
+            <b-img class="screenshot" :src="require('../assets/project.png')"></b-img>
           </div>
         </div>
       </b-carousel-slide>
@@ -45,7 +42,7 @@
           Our main goal is that the user can understand the semantic change in social media across Atlanta’s communities and have a guide for current local trends online. Examples of potential users  are journalists, politicians and society as a whole.
           </p>
           <b-button class="button-blue" href="" variant="primary">Go to the Full Paper</b-button>
-          <b-button class="button-blue" href="" variant="primary">Go to the Full Dataset</b-button>
+          <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community/tree/main/data" variant="primary">Go to the Full Dataset</b-button>
         </div>
       </b-carousel-slide>
 
@@ -71,6 +68,10 @@
         img-blank>
         <div class="content">
         <h1>Instructions</h1>
+        <h5>Requirement</h5>
+        <ol>
+          <li>npm / Node.js</li>
+        </ol>
         <h5>Run Locally</h5>
         <ol>
           <li>Clone the clone the repository to local</li>
@@ -121,14 +122,17 @@ h2 {
 
 h5 {
   text-align: left;
+  color: #b4b4b4;
 }
 
 p {
   text-align: left;
+  color: #b4b4b4;
 }
 
-ol {
+li {
   text-align: left;
+  color: #b4b4b4;
 }
 
 #carousel-1 {
@@ -136,7 +140,7 @@ ol {
 }
 
 #page-1 {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .content {
@@ -152,21 +156,20 @@ ol {
 }
 
 .screenshot {
-  width: 30%;
-  max-width: 300px;
+  max-width: 100%;
   height: auto;
 }
 
 #page-2 {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #page-3 {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #page-4 {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .carousel-caption {

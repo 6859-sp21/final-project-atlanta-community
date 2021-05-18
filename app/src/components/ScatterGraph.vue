@@ -71,6 +71,29 @@ export default {
 
     const that = this
 
+    // Legend
+    this.svg.selectAll("mydots")
+      .data(categories)
+      .enter()
+      .append("circle")
+      .attr("class", "mydots")
+      .attr("cx", that.width - that.margin.right - 100)
+      .attr("cy", function(d,i){ return that.margin.top + i*25})
+      .attr("r", 7)
+      .style("fill", function(d){ return that.color(d)})
+
+    this.svg.selectAll("mylabels")
+        .data(categories)
+        .enter()
+        .append("text")
+        .attr("class", "mylabels")
+        .attr("x", that.width - that.margin.right - 82)
+        .attr("y", function(d,i){ return that.margin.top + i*25 + 5})
+        .style("fill", function(d){ return that.color(d)})
+        .text(function(d){ return d})
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle")
+
     //6. Drawing our x-axis
     this.xAxis = this.svg.append('g')
                     .attr("class", "x-axis")

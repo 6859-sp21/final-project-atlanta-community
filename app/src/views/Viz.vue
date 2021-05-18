@@ -3,11 +3,11 @@
     <Cover/>
     <Intro/>
     <Tutorial/>
-
+    <CircleIntro/>
     <CirclePacking/>
-
+    <BarIntro/>
     <BarChart/>
-
+    <ScatterIntro/>
     <ScatterChart/>
     <Thanks/>
   </div>
@@ -17,20 +17,26 @@
 import Cover from './Cover.vue';
 import Intro from './Intro.vue';
 import Tutorial from './Tutorial.vue';
+import CircleIntro from './CircleIntro.vue';
 import BarChart from './BarChart.vue';
 import ScatterChart from './ScatterChart';
 import Thanks from './Thanks';
 import CirclePacking from './CirclePacking';
+import BarIntro from './BarIntro.vue';
+import ScatterIntro from './ScatterIntro.vue';
 
 export default {
   components: { 
     Cover,
     Intro,
     Tutorial,
+    CircleIntro,
     BarChart,
     ScatterChart,
     Thanks,
-    CirclePacking
+    CirclePacking,
+    BarIntro,
+    ScatterIntro
   },
 
   name: "Viz",
@@ -56,7 +62,8 @@ export default {
 }
 
 .viz-page {
-  background: #171717;
+  background: #212121;
   color: #FFFFFF;
 }
+
 </style>

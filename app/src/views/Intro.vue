@@ -1,12 +1,12 @@
 <template>
   <div id="intro">
-    <div id="text-block" v-scrollanimation>
+    <div id="text-block">
       <hr>
-      <p>
+      <p  v-scrollanimation>
       Our team will explore how different communities in Atlanta perceive language in different ways. To do this, we’ll be using a dataset of 149 local communities with information about their online behavior on Twitter.  Information at the twitter account level allowed us to create summary statistics at the community level such as  community size,  average number of followers, friends and tweets and understand what are the top follows and topic words in each community. Following a specific methodology, deviations from the normal language can be measured and these deviations are called semantic change. 
       Our main goal is that the user can understand the semantic change in social media across Atlanta’s communities and have a guide for current local trends online. Examples of potential users  are journalists, politicians and society as a whole.
       </p>
-      <span v-scrollanimation>╲╱</span>
+      <span @click="scroll()" id="arrow">╲╱</span>
     </div> 
   </div>
 </template>
@@ -18,6 +18,15 @@ export default {
   data() {
       return {
       }
+  },
+
+  methods: {
+    scroll() {  
+      console.log(document.getElementById("intro"));
+      document.getElementById("tutorial").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
   }
 }
 </script>
@@ -57,5 +66,11 @@ p {
 .enter {
   opacity: 1;
   transform: translateY(0px);
+}
+
+#arrow {
+    font-weight: 1000;
+    opacity: 0.5;
+    cursor: pointer;
 }
 </style>
