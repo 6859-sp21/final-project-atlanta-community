@@ -126,7 +126,7 @@ export default {
       .attr('y', 40)
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'black')
+      .attr("fill", 'white')
       .text('');
 
     //7. Drawing our y-axis
@@ -143,7 +143,7 @@ export default {
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'black')
+      .attr("fill", 'white')
       .text('');  
 
     d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
@@ -192,7 +192,7 @@ export default {
         .attr("r", 5)
         .style("fill", "#e25609")
         .style("opacity", 0)
-        .style("stroke", "black")
+        .style("stroke", "white")
         .attr("cx", that.margin.left)
         .attr("cy", that.height - that.margin.bottom)
         .on("mouseover", function(event, d) {

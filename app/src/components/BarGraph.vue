@@ -192,7 +192,7 @@ export default {
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'black')
+      .attr("fill", 'white')
       .text('');
     
     //7. Drawing our y-axis
@@ -214,7 +214,7 @@ export default {
       .attr('font-family', 'Helvetica Neue, Arial')
       .attr('font-weight', 700)
       .attr('font-size', 20)
-      .attr("fill", 'black')
+      .attr("fill", 'white')
       .text('cluster name');  
 
     this.reorder("community_size");
@@ -260,6 +260,7 @@ export default {
         .attr('height', that.y.bandwidth())
         .attr('fill', "#1da1f2")
         .on("mouseover", function(event, d) { 
+          d3.select(this).style("fill", "#7bbbe3");
           that.tooltip
             .style("opacity", 0)
             .transition()
@@ -268,6 +269,7 @@ export default {
           that.tooltip.html("The " + that.columns[that.selection] + " of <b>" + d.cluster_name + "</b> is " + d.value);
         })
         .on("mouseout", function() { 
+          d3.select(this).style("fill", "#1da1f2");
           that.tooltip
             .style("opacity", 0)
             .transition()

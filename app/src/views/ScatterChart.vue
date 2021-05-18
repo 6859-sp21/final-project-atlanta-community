@@ -94,7 +94,7 @@ export default {
 
 <style scoped>
 .page {
-  /* background: #212121; */
+  background: #212121;
   height: 100vh;
   margin-top: 4em;
   margin-bottom: 4em;

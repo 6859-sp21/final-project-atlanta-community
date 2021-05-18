@@ -6,7 +6,7 @@
       :rotation="rotate"
       :spacing="spacing"
       :words="topicWords"
-      color="black"
+      color="white"
       font-family="Roboto"
     />
   </div>

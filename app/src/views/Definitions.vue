@@ -1,7 +1,7 @@
 <template>
   <div id="definitions">
     <div id="text-block">
-      <h5 v-scrollanimation>Here are some key definitions of variable in this visualization:</h5>
+      <h5 v-scrollanimation>Here are some key definitions of variable in this visualization</h5>
       <hr>
       <ul v-scrollanimation>
         <li v-for="item in items" :key="item.name">
