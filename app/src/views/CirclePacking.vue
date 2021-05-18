@@ -7,7 +7,7 @@
         </h2>
       </div>
       <div class="top" v-scrollanimation>
-        <Ranking/>
+        <Ranking :dropdownTitile="dropdownTitile"/>
       </div>
       <div class="bottom" ref="bottom" v-scrollanimation>
         <CircleGraph/>
@@ -20,8 +20,6 @@
 <script>
 import CircleGraph from "../components/CircleGraph.vue";
 import Ranking from "../components/Ranking.vue";
-import * as d3 from "d3";
-import { eventBus } from "../main";
 
 export default {
   name: "CirclePacking",
@@ -33,35 +31,18 @@ export default {
 
   data() {
     return {
-      title: "Exploring patterns of language variation on social media",
-      clusters: [],
-      options: [],
-      followingList: [],
-      category: "",
-      showingCheckbox: false,
-      showingTwitters: false,
-      showingHint2: false,
+      dropdownTitile: "Resize the communitiy circles by:"
     }
   },
 
   created: function() {
-    eventBus.$on("show-checkbox", this.showCheckbox);
-    eventBus.$on("select-community", this.showTwitters);
   },
 
   
   beforeDestroy: function() {
-    eventBus.$off("show-checkbox", this.showCheckbox);
-    eventBus.$off("select-community", this.showTwitters);
   },
 
   mounted() {
-    d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
-      const that = this;
-      data.forEach(function(d) {
-        that.clusters.push({ text: d.cluster_name, value: d.cluster_name, category: d.category });
-      });
-    })
   },
 
   methods: {
@@ -70,24 +51,6 @@ export default {
         behavior: "smooth"
       });
     },
-
-    showCheckbox(data) {
-      this.options = data.options;
-      this.category = data.category;
-      this.showingCheckbox = true;
-      this.showingHint2 = true;
-      this.followingList = [];
-    },
-
-    showTwitters(community) {
-      d3.csv("https://raw.githubusercontent.com/6859-sp21/final-project-atlanta-community/main/data/filtered_data_category.csv").then((data) => {
-         const selectedData = data.find(d => d.cluster_name == community);
-         this.followingList = selectedData.top_follows.split(",");
-      })
-      console.log(this.followingList);
-      this.showingTwitters = true;
-      this.showingHint2 = false;
-    }
   }
 }
 </script>

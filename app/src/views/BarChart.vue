@@ -7,7 +7,7 @@
         </h2>
       </div>
       <div class="top" v-scrollanimation>
-        <Ranking/>
+        <Ranking :dropdownTitile="dropdownTitile"/>
       </div>
       <div class="bottom" ref="bottom" v-scrollanimation>
         <BarGraph/>
@@ -31,6 +31,7 @@ export default {
 
   data() {
     return {
+      dropdownTitile: "Sort the communities by:"
     }
   },
 

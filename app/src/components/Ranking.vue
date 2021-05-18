@@ -1,7 +1,7 @@
 <template>
   <div id="ranking-group">
     <div id="selection-text">
-    <span>Sort the communities by:</span>
+    <span>{{ dropdownTitile }}</span>
     </div>
     <div id="selection">
     <b-form-select @change="selectRanking(selected)" v-model="selected" :options="options"></b-form-select>
@@ -14,6 +14,8 @@ import { eventBus } from "../main";
 
 export default {
   name: "Ranking",
+
+  props: ['dropdownTitile'],
   data() {
     return {
       selected: 'community_size',
@@ -77,7 +79,7 @@ h2 {
 }
 
 #selection {
-  width: 15em;
+  width: 18em;
   display: flex;
   flex-direction: row;
   align-items: center;
