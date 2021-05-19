@@ -20,7 +20,7 @@
         <div class="content">
           <h1>Exploring patterns of language variation on social media</h1>
           <h2>A case study in Atlanta online communities</h2>
-          <p>Team: Yuebin Dong, Jiang Hang, Diego Lestani, Amanda Horne
+          <p>Team: Yuebin Dong, Hang Jiang, Diego Lestani, Amanda Horne
           </p>
           <p> Warning: there may be some explicit word usage not appropriate for all ages on this website</p>
           <b-button class="button-blue" href="/final-project-atlanta-community/#/viz" variant="primary">Go to Our App</b-button>
@@ -75,7 +75,10 @@
         <h5>Run Locally</h5>
         <ol>
           <li>Clone the clone the repository to local</li>
+          <li>The source code is in folder <code>root/app</code></li>
           <li>The datasets are in folder <code>root/data</code></li>
+          <li>The built production is in folder <code>root/docs</code></li>
+          <li>The paper and video are in folder <code>root/final</code></li>
           <li><code>$cd</code> into folder <code>root/app</code> to view or modify the web application</li>
           <li>run <code>$npm install</code> to install all dependices</li>
           <li>run <code>$npm serve</code> to preview locally at <code>http://localhost:8080/final-project-atlanta-community/</code></li>
