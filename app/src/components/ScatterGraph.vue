@@ -88,7 +88,7 @@ export default {
       .domain(categories)
       .range(colors_list)
 
-    const that = this
+    const that = this;
 
     // Legend
     this.svg.selectAll("mydots")
@@ -249,7 +249,7 @@ export default {
 
 <style scoped>
 #chart-3 {
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 </style>

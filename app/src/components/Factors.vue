@@ -1,5 +1,6 @@
 <template>
   <div>
+    <span id="bubble-hint">Note: bubble size represents the community size</span>
     <b-form-group id="input-group-1" label="Choose two factors:" label-for="m-2">
       <b-form-select @change="selectFactors" v-model="factor1" :options="factors"></b-form-select>
       <b-form-select @change="selectFactors" v-model="factor2" :options="factors"></b-form-select>
@@ -63,5 +64,9 @@ div {
   display: flex;
   flex-direction: column;
   overflow: auto;
+}
+
+#bubble-hint {
+  padding-bottom: 1em;
 }
 </style>

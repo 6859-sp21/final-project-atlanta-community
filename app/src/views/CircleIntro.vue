@@ -10,7 +10,7 @@
       </p>
     <p>
      You can explore these hierarchies and grouping by clicking each layer of circles. When you arrive in the community bubble on the third layer, you can click it and see the top Twitter accounts that are followed by members in that community. If you click on any of those accounts, it will open up in a separate page.
-The size of the bubbles represent a feature of each community which can be selected from the drop -down menu at the left of the chart (community size, average friends count, etc). You can have a general first impression to understand which are Atlanta’s online communities and how they differ on one of these dimensions. For example, one quick takeaway of this graph is that the largest communities in terms of size are not necessarily the ones with the largest follower count. 
+The size of the bubbles represent a feature of each community which can be selected from the drop-down menu at the left of the chart (community size, average friends count, etc). You can have a general first impression to understand which are Atlanta’s online communities and how they differ on one of these dimensions. For example, one quick takeaway of this graph is that the largest communities in terms of size are not necessarily the ones with the largest follower count. 
 
     </p>
     </div> 

@@ -129,16 +129,17 @@ export default {
   width: 70%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
+
 h2 {
   font-weight: bold;
 }
 
 .fade-enter-active {
   opacity: 1;
-  transition: all 1s ease-out;
+  transition: all 0.5s ease-out;
 }
 
 .fade-enter,
