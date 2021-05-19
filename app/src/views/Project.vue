@@ -41,7 +41,7 @@
           Our team will explore how different communities in Atlanta perceive language in different ways. To do this, we’ll be using a dataset of 149 local communities with information about their online behavior on Twitter.  Information at the twitter account level allowed us to create summary statistics at the community level such as  community size,  average number of followers, friends and tweets and understand what are the top follows and topic words in each community. Following a specific methodology, deviations from the normal language can be measured and these deviations are called semantic change. 
           Our main goal is that the user can understand the semantic change in social media across Atlanta’s communities and have a guide for current local trends online. Examples of potential users  are journalists, politicians and society as a whole.
           </p>
-          <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community/blob/main/Final_Project_6_859_Atlanta_Language_Change.pdf" variant="primary">Go to the Full Paper</b-button>
+          <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community/blob/main/final/FinalPaper.pdf" variant="primary">Go to the Full Paper</b-button>
           <b-button class="button-blue" href="https://github.com/6859-sp21/final-project-atlanta-community/tree/main/data" variant="primary">Go to the Full Dataset</b-button>
         </div>
       </b-carousel-slide>
