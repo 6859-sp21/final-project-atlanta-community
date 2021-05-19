@@ -110,7 +110,7 @@ export default {
 }
 
 .content {
-  height: 80%;
+  height: 85%;
   width: 80%;
   display: flex;
   flex-direction: row;

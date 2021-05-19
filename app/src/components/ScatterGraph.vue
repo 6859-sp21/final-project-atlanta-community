@@ -62,7 +62,7 @@ export default {
   },
 
   mounted() {
-    this.margin = {top: 20, right: 20, bottom: 50, left: 70};
+    this.margin = {top: 20, right: 20, bottom: 60, left: 70};
 
     this.width = this.$refs.chart3.clientWidth;
     this.height = this.$refs.chart3.clientHeight;
