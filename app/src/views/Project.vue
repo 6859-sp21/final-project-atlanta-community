@@ -75,17 +75,17 @@
         <h5>Run Locally</h5>
         <ol>
           <li>Clone the clone the repository to local</li>
-          <li>The source code is in folder <code>root/app</code></li>
-          <li>The datasets are in folder <code>root/data</code></li>
-          <li>The built production is in folder <code>root/docs</code></li>
-          <li>The paper and video are in folder <code>root/final</code></li>
-          <li><code>$cd</code> into folder <code>root/app</code> to view or modify the web application</li>
+          <li>The source code is in the folder <code>root/app</code></li>
+          <li>The datasets are in the folder <code>root/data</code></li>
+          <li>The built production is in the folder <code>root/docs</code></li>
+          <li>The paper and video are in the folder <code>root/final</code></li>
+          <li><code>$cd</code> into the folder <code>root/app</code> to view or modify the web application</li>
           <li>run <code>$npm install</code> to install all dependices</li>
           <li>run <code>$npm serve</code> to preview locally at <code>http://localhost:8080/final-project-atlanta-community/</code></li>
         </ol> 
         <h5>Deploy to Github</h5>
         <ol>
-          <li><code>$cd</code> into folder <code>root/app</code></li>
+          <li><code>$cd</code> into the folder <code>root/app</code></li>
           <li>run <code>$chmod +x ./deploy.sh</code> to make the deployment script executable</li>
           <li>run <code>$./deploy.sh</code> to deploy to Github Pages</li>
         </ol> 

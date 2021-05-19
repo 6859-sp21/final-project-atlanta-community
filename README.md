@@ -1,24 +1,30 @@
 # 6.859 Final Project: Exploring patterns of language variation on social media: A case study in Atlanta online communities
 
 ## Our Team
-Yuebin Dong, Jiang Hang, Amanda Horne, Diego Lestani
+Yuebin Dong, Hang Jiang, Amanda Horne, Diego Lestani
 
 website: [https://6859-sp21.github.io/final-project-atlanta-community/](https://6859-sp21.github.io/final-project-atlanta-community/)
 
 ## Getting started
+### Files
+1. app: source code of the project page and the visualization app
+2. data: dataset for this project
+3. docs: built production of the project page and the visualization app
+4. final: paper and video
+5. images: editable files of icons and images on the visualization app
+6. sections: archived iterations of visualizations
 
 ### Requirement
 1. npm / Node.js
 
 ### Run Locally
 1. Clone the clone the repository to local
-2. The datasets are in folder `root/data`
-3. `cd` into folder `root/app` to view or modify the web application
-4. run `npm install` to install all dependices
-5. run `npm serve` to preview locally at http://localhost:8080/final-project-atlanta-community/
+2. `cd` into the folder `root/app` to view or modify the web application
+3. run `npm install` to install all dependices
+4. run `npm serve` to preview locally at http://localhost:8080/final-project-atlanta-community/
 
 ### Deploy to Github
-1. `cd` into folder `root/app`
+1. `cd` into the folder `root/app`
 2. run `chmod +x ./deploy.sh` to make the deployment script executable
 3. run `./deploy.sh` to deploy to Github Pages
 
@@ -37,6 +43,6 @@ Finally, we added a project page showing our key deliverables and improved the l
 - Yuebin: He fixed the bugs in the initial first bar chart, then added clusters selection and top following Twitter links ranking for it in the MVP. The second zoomable bar chart and the overall scrolling page were also done by him. For the final version, he generated the idea of and implemented the first zoomable circle packing graph as well as the second brush-zoom bar chart. He also designed and implemented the slideshow project page and the scrollytelling application page split into sections according to our narrative. Then he integrated the scatter chart, some images, and text paragraphs from teammates into it and adjusted the visual encoding accordingly. Finally, he edited the README and wrote the future work section of the paper.
 - Hang: he provided the initial dataset, developed the scatterplot visualization, and wrote the acknowlegement page of the website. He was in class to present the MVP and answer questions. He also wrote the introduction, related works, discussion, and appendix sections for the final paper. He worked with Yuebin in recording the video and he edited the 1 min video.
 - Amanda: She developed the initial fixed Twitter timeline (which took so many hours to debug and get working) and the initial first bar graph for the MVP. She was in class to present the MVP and answer questions. She also did the initial categorization of each cluster on the dataset, was in charge of explaining what semantic change was based on peer feedback for the final version, and wrote the README. She also wrote the method section of the paper.
-- Diego worked on structuring the original database and editing the original categories for the clusters. Second, thinking of visual encodings along the way, he advocated on the bubble visual encoding (packed circle and encodings for the scatterplot) when it came to the idea. Third, he did write-ups for the website and the results section of the final paper. 
+- Diego worked on structuring the original database and editing the original categories and groups for the clusters. Second, he drafted some visualizations such as a bubble chart and a treemap. Third, thinking of visual encodings along the way, he advocated the bubble visual encoding (packed circle and encodings for the scatterplot) when it came to the idea. Finally, he did write-ups for the website and the results section of the final paper.
 
 All team members contributed equally to key design decisions that were made, idea generation in the beginning and idea generation for the final version based on peer feedback.

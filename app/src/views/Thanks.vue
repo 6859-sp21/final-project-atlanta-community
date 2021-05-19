@@ -8,7 +8,7 @@
     <div id="thanks-content">
       <div class="thanks-text-block" v-scrollanimation>
         <p>This visualization is based on a research project in <a href="https://www.ccc.mit.edu/">MIT Center for Constructive Communication</a>, <a href="https://www.media.mit.edu/">MIT Media Lab</a></p>
-        <p>Developed by Yuebin Dong, Jiang Hang, Diego Lestani, Amanda Horne</p>
+        <p>Developed by Yuebin Dong, Hang Jiang, Diego Lestani, Amanda Horne</p>
         <b-link href="/final-project-atlanta-community/#/">Project Page</b-link>
         <b-link href="https://github.com/6859-sp21/final-project-atlanta-community">Github</b-link>
       </div> 
