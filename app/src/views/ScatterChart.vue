@@ -68,19 +68,11 @@ export default {
       this.clusterName = newClusterName;
       this.topicWords = newTopicWords.split(",").map(x => {return {text: x, value: 1}});
       this.showingHint = false;
-      // d3.selectAll("#tooltip-3")
-      //   .transition()
-      //   .duration(500)
-      //   .style("opacity", "1");
     },
 
     hideTooltip() {
       this.showingHint = true;
       console.log("hide");
-      // d3.selectAll("#tooltip-3")
-      //   .transition()
-      //   .duration(500)
-      //   .style("opacity", "0");
     },
 
     scroll() {  
