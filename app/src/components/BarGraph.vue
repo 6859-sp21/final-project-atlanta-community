@@ -316,6 +316,7 @@ export default {
         .attr('width', d => that.x2(d.value) - that.margin2.left)
         .attr('height', that.y2.bandwidth())
         .attr('fill', "#1da1f2")
+        .style("opacity", 1)
 
       // Remove old ones
       bars2.exit().remove();
@@ -324,7 +325,7 @@ export default {
         that.brushArea        
           .call(that.brush)
           .call(that.brush.move, [this.margin.top, (this.height - this.margin.bottom) / 4]);
-      }, 500);
+      }, 800);
     },
 
     reorder(selected) {
